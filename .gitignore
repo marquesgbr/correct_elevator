@@ -1,0 +1,9 @@
+# Atelier B (CLEARSY) project metadata, locks and generated artifacts.
+# Only the .mch/.ref/.imp sources are versioned; everything below is produced
+# locally by opening/checking the project in the Atelier B GUI.
+abstract_machines/.project
+abstract_machines/.lib
+abstract_machines/.usedby_*
+abstract_machines/AtelierB
+abstract_machines/bdp/
+abstract_machines/lang/
