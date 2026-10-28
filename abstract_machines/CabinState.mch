@@ -19,7 +19,10 @@ INVARIANT
     curr_floor <= MAX_FLOOR &
     curr_floor >= MIN_FLOOR &
     
-    curr_state : CABIN_STATES
+    curr_state : CABIN_STATES &
+    
+    (curr_floor = MAX_FLOOR => curr_state /= moving_up) &
+    (curr_floor = MIN_FLOOR => curr_state /= moving_down)
 
 INITIALISATION
     curr_floor := MIN_FLOOR ||
@@ -31,6 +34,7 @@ OPERATIONS
         direction : MOVEMENT_DIRECTIONS &
         (direction /= stop => curr_state = rest) &
         (direction = up => curr_floor < MAX_FLOOR) &
+        (curr_floor = MAX_FLOOR => direction /= up) &
         
         (direction = down => curr_floor > MIN_FLOOR)
         
