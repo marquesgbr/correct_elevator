@@ -1,11 +1,7 @@
 MACHINE
     CabinCapacity
-
-CONSTANTS
-    MAX_CAPACITY
-
-PROPERTIES
-    MAX_CAPACITY : NAT
+    
+SEES ElevatorContext
 
 VARIABLES
     curr_weight,
