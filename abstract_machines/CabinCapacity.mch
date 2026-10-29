@@ -1,9 +1,3 @@
-/*
- * CabinCapacity
- * Author: tomclima
- * Creation date: 10/27/26
- */
-
 MACHINE
     CabinCapacity
 
@@ -11,13 +5,11 @@ CONSTANTS
     MAX_CAPACITY
 
 PROPERTIES
-    MAX_CAPACITY : NAT &
-    MAX_CAPACITY > 0 &
-    MAX_CAPACITY = 450
+    MAX_CAPACITY : NAT
 
 VARIABLES
-    exceeds_capacity,
-    curr_weight
+    curr_weight,
+    exceeds_capacity
 
 INVARIANT
     curr_weight : NAT &
@@ -29,29 +21,56 @@ INITIALISATION
     exceeds_capacity := FALSE
 
 OPERATIONS
+
+    /* ---------------------------------------------------------
+       State Update Operations (Adicionar / Remover Peso)
+       --------------------------------------------------------- */
+       
     add_weight(ww) =
-    PRE
-        ww : NAT &
-        exceeds_capacity = FALSE &
-        curr_weight <= MAX_CAPACITY &
-        /*Precondition to help the prover*/
-        curr_weight + ww : NAT
-    THEN
-        curr_weight := curr_weight + ww ||
-        IF curr_weight + ww > MAX_CAPACITY THEN
-            exceeds_capacity := TRUE
-        END
-    END;
+        PRE 
+            ww : NAT &
+            /*Pre condition to help prover*/
+            ww + curr_weight : NAT
+        THEN
+            curr_weight := curr_weight + ww ||
+            IF curr_weight + ww > MAX_CAPACITY THEN
+                exceeds_capacity := TRUE
+            ELSE
+                exceeds_capacity := FALSE
+            END
+        END;
 
     remove_weight(ww) =
-    PRE
-        ww : NAT &
-        curr_weight >= ww
-    THEN
-        curr_weight := curr_weight - ww ||
-        IF curr_weight - ww <= MAX_CAPACITY THEN
-            exceeds_capacity := FALSE
+        PRE 
+            ww : NAT &
+            ww <= curr_weight
+        THEN
+            curr_weight := curr_weight - ww ||
+            IF curr_weight - ww > MAX_CAPACITY THEN
+                exceeds_capacity := TRUE
+            ELSE
+                exceeds_capacity := FALSE
+            END
+        END;
+
+    /* ---------------------------------------------------------
+       Query Operations (Consultas)
+       --------------------------------------------------------- */
+
+
+    res <-- is_overweight =
+        BEGIN
+            res := exceeds_capacity
+        END;
+
+
+    res <-- can_move =
+        BEGIN
+            IF exceeds_capacity = FALSE THEN
+                res := TRUE
+            ELSE
+                res := FALSE
+            END
         END
-    END
 
 END
