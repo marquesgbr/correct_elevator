@@ -64,7 +64,41 @@ OPERATIONS
                 curr_state := rest
             END
         END    
-    END
-        
+    END;
+
+    /* ---------------------------------------------------------
+       Query operations
+       --------------------------------------------------------- */
+
+    res <-- get_current_floor =
+        BEGIN
+            res := curr_floor
+        END;
+
+    res <-- get_movement_state =
+        BEGIN
+            res := curr_state
+        END;
+
+    res <-- get_direction =
+        BEGIN
+            IF curr_state = moving_up THEN
+                res := up
+            ELSIF curr_state = moving_down THEN
+                res := down
+            ELSE
+                res := stop
+            END
+        END;
+
+    res <-- is_moving =
+        BEGIN
+            res := bool(curr_state /= rest)
+        END;
+
+    res <-- is_stopped =
+        BEGIN
+            res := bool(curr_state = rest)
+        END
 
 END
