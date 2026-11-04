@@ -10,7 +10,7 @@ INCLUDES
     ElevatorPanels
 
 SETS 
-    DOOR_STATES = {door_open, door_closed, door_maintenance}
+    DOOR_STATES = {door_open, door_closed}
 
 VARIABLES
     door_state
@@ -67,24 +67,6 @@ OPERATIONS
             door_state := door_closed
         END;
 
-    /* ---------------------------------------------------------
-       Maintenance state
-       --------------------------------------------------------- */
-
-    enter_door_maintenance =
-        PRE
-            curr_state = rest &
-            door_state = door_closed
-        THEN
-            door_state := door_maintenance
-        END;
-
-    exit_door_maintenance =
-        PRE
-            door_state = door_maintenance
-        THEN
-            door_state := door_closed
-        END;
 
     /* ---------------------------------------------------------
        Query operations
@@ -103,11 +85,7 @@ OPERATIONS
     res <-- is_door_closed =
         BEGIN
             res := bool(door_state = door_closed)
-        END;
-
-    res <-- is_door_in_maintenance =
-        BEGIN
-            res := bool(door_state = door_maintenance)
         END
+
 
 END
