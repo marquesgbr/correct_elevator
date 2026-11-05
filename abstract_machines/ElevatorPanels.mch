@@ -6,7 +6,10 @@ SEES
 
 SETS
     /* Shared panel states used by request, door and display machines. */
-    PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down};
+    /* panel_dir_broken_elevator is a panel display state: it tells the
+       user that the elevator is stopped/broken (HLR-007), without being
+       confused with an inactive button LED. */
+    PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down, panel_dir_broken_elevator};
     BUTTON_DIR_OPTIONS = {button_dir_up, button_dir_down};
     BUTTON_DOOR_OPTIONS = {button_door_close, button_door_open};
     BUTTON_LED_STATES = {button_led_active, button_led_inactive, button_led_blinking};
@@ -289,6 +292,18 @@ OPERATIONS
             panel_curr_direction := ddir
         END;
 
+    /* HLR-007: show/clear the stopped-or-broken elevator symbol. The
+       two-minute door-open condition is handled by ElevatorTimers. */
+    show_panel_broken =
+        BEGIN
+            panel_curr_direction := panel_dir_broken_elevator
+        END;
+
+    clear_panel_broken =
+        BEGIN
+            panel_curr_direction := panel_dir_inactive
+        END;
+
     res <-- get_panel_floor =
         BEGIN
             res := panel_curr_floor
@@ -297,6 +312,11 @@ OPERATIONS
     res <-- get_panel_direction =
         BEGIN
             res := panel_curr_direction
+        END;
+
+    res <-- is_panel_broken =
+        BEGIN
+            res := bool(panel_curr_direction = panel_dir_broken_elevator)
         END;
 
     /* Read-only queries used by request processing and control logic. */
