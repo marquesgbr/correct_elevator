@@ -5,13 +5,18 @@ SEES
     ElevatorContext
 
 SETS
-    PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down};
+    /* Shared panel states used by request, door and display machines. */
+    /* panel_dir_broken_elevator is a panel display state: it tells the
+       user that the elevator is stopped/broken (HLR-007), without being
+       confused with an inactive button LED. */
+    PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down, panel_dir_broken_elevator};
     BUTTON_DIR_OPTIONS = {button_dir_up, button_dir_down};
     BUTTON_DOOR_OPTIONS = {button_door_close, button_door_open};
     BUTTON_LED_STATES = {button_led_active, button_led_inactive, button_led_blinking};
     BUTTON_PRESS_STATES = {button_press, button_released}
 
 CONSTANTS
+    /* Shared floor domains and valid external direction-button positions. */
     FLOORS,
     BUTTONS_IN_FLOORS
 
@@ -20,26 +25,43 @@ PROPERTIES
     BUTTONS_IN_FLOORS = FLOORS * BUTTON_DIR_OPTIONS
 
 VARIABLES
+    /* Function-valued state: each button is indexed by floor and/or type. */
     button_dir_led,
     button_dir_press,
+
     button_floor_led,
     button_floor_press,
+    
     button_door_led,
     button_door_press,
+
     panel_curr_floor,
-    panel_curr_direction
+    panel_curr_direction,
+
+    pending_floor_blink_off,
+    pending_floor_blink_on,
+    pending_dir_blink_off
 
 INVARIANT
     button_dir_led : BUTTONS_IN_FLOORS --> BUTTON_LED_STATES &
     button_dir_press : BUTTONS_IN_FLOORS --> BUTTON_PRESS_STATES &
+
     button_floor_led : FLOORS --> BUTTON_LED_STATES &
     button_floor_press : FLOORS --> BUTTON_PRESS_STATES &
+
     button_door_led : BUTTON_DOOR_OPTIONS --> BUTTON_LED_STATES &
     button_door_press : BUTTON_DOOR_OPTIONS --> BUTTON_PRESS_STATES &
+
     panel_curr_floor : FLOORS \/ {-1} &
-    panel_curr_direction : PANEL_DIR_STATES
+    panel_curr_direction : PANEL_DIR_STATES &
+
+    pending_floor_blink_off <: FLOORS &
+    pending_floor_blink_on <: FLOORS &
+    pending_floor_blink_off /\ pending_floor_blink_on = {} &
+    pending_dir_blink_off <: BUTTONS_IN_FLOORS
 
 INITIALISATION
+    /* All controls start released and all LEDs start inactive. */
     button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
     button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
     button_floor_led := FLOORS * {button_led_inactive} ||
@@ -47,10 +69,15 @@ INITIALISATION
     button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
     button_door_press := BUTTON_DOOR_OPTIONS * {button_released} ||
     panel_curr_floor := MIN_FLOOR ||
-    panel_curr_direction := panel_dir_inactive
+    panel_curr_direction := panel_dir_inactive ||
+    pending_floor_blink_off := {} ||
+    pending_floor_blink_on := {} ||
+    pending_dir_blink_off := {}
 
 OPERATIONS
 
+    /* Button input. ElevatorControl calls these for physical button events;
+       request registration is handled by ElevatorRequests. */
     press_dir_button(ffloor, ddir) =
         PRE
             ffloor : FLOORS &
@@ -101,6 +128,8 @@ OPERATIONS
             button_door_press(dbutton) := button_released
         END;
 
+     /* LED control. ElevatorRequests uses these operations to keep panel
+         indications synchronized with active requests. */
     set_dir_led(ffloor, ddir, lstate) =
         PRE
             ffloor : FLOORS &
@@ -110,7 +139,8 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR) &
             lstate : BUTTON_LED_STATES
         THEN
-            button_dir_led(ffloor, ddir) := lstate
+            button_dir_led(ffloor, ddir) := lstate ||
+            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
         END;
 
     set_floor_led(ffloor, lstate) =
@@ -118,7 +148,9 @@ OPERATIONS
             ffloor : FLOORS &
             lstate : BUTTON_LED_STATES
         THEN
-            button_floor_led(ffloor) := lstate
+            button_floor_led(ffloor) := lstate ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
         END;
 
     set_door_led(dbutton, lstate) =
@@ -137,14 +169,17 @@ OPERATIONS
             (ddir = button_dir_up => ffloor < MAX_FLOOR) &
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
-            button_dir_led(ffloor, ddir) := button_led_blinking
+            button_dir_led(ffloor, ddir) := button_led_blinking ||
+            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
         END;
 
     blink_floor_led(ffloor) =
         PRE
             ffloor : FLOORS
         THEN
-            button_floor_led(ffloor) := button_led_blinking
+            button_floor_led(ffloor) := button_led_blinking ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
         END;
 
     blink_door_led(dbutton) =
@@ -154,14 +189,87 @@ OPERATIONS
             button_door_led(dbutton) := button_led_blinking
         END;
 
+     /* Bulk and exceptional LED operations. ElevatorMaintenance uses the
+         combined operations so blink-and-off is a single call. */
     all_leds_off =
         BEGIN
             button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
             button_floor_led := FLOORS * {button_led_inactive} ||
-            button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive}
+            button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
+            pending_floor_blink_off := {} ||
+            pending_floor_blink_on := {} ||
+            pending_dir_blink_off := {}
         END;
 
-    set_panel_floor(ffloor) =
+    clear_all_buttons =
+        BEGIN
+            button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+            button_floor_press := FLOORS * {button_released} ||
+            button_door_press := BUTTON_DOOR_OPTIONS * {button_released}
+        END;
+
+    blink_floor_led_twice_and_switch_off(ffloor) =
+        PRE
+            ffloor : FLOORS
+        THEN
+            button_floor_led(ffloor) := button_led_blinking ||
+            pending_floor_blink_off := pending_floor_blink_off \/ {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+        END;
+
+    blink_floor_led_twice_and_keep_on(ffloor) =
+        PRE
+            ffloor : FLOORS &
+            pending_floor_blink_off /\ pending_floor_blink_on = {}
+        THEN
+            button_floor_led(ffloor) := button_led_blinking ||
+            pending_floor_blink_on := pending_floor_blink_on \/ {ffloor} ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor}
+        END;
+
+    complete_floor_led_blink(ffloor) =
+        PRE
+            ffloor : pending_floor_blink_off
+        THEN
+            button_floor_led(ffloor) := button_led_inactive ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor}
+        END;
+
+    complete_floor_led_blink_and_keep_on(ffloor) =
+        PRE
+            ffloor : pending_floor_blink_on
+        THEN
+            button_floor_led(ffloor) := button_led_active ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+        END;
+
+    blink_dir_led_twice_and_switch_off(ffloor, ddir) =
+        PRE
+            ffloor : FLOORS &
+            ddir : BUTTON_DIR_OPTIONS &
+            (ffloor, ddir) : BUTTONS_IN_FLOORS &
+            (ddir = button_dir_up => ffloor < MAX_FLOOR) &
+            (ddir = button_dir_down => ffloor > MIN_FLOOR)
+        THEN
+            button_dir_led(ffloor, ddir) := button_led_blinking ||
+            pending_dir_blink_off := pending_dir_blink_off \/ ({ffloor} * {ddir})
+        END;
+
+    complete_dir_led_blink(ffloor, ddir) =
+        PRE
+            ffloor : FLOORS &
+            ddir : BUTTON_DIR_OPTIONS &
+            (ffloor, ddir) : pending_dir_blink_off &
+            (ddir = button_dir_up => ffloor < MAX_FLOOR) &
+            (ddir = button_dir_down => ffloor > MIN_FLOOR)
+        THEN
+            button_dir_led(ffloor, ddir) := button_led_inactive ||
+            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
+        END;
+
+     /* Display state. ElevatorIndicators and ElevatorControl use these to
+         mirror the cabin floor and direction on the panel display. */
+     set_panel_floor(ffloor) =
         PRE
             ffloor : FLOORS \/ {-1}
         THEN
@@ -184,6 +292,18 @@ OPERATIONS
             panel_curr_direction := ddir
         END;
 
+    /* HLR-007: show/clear the stopped-or-broken elevator symbol. The
+       two-minute door-open condition is handled by ElevatorTimers. */
+    show_panel_broken =
+        BEGIN
+            panel_curr_direction := panel_dir_broken_elevator
+        END;
+
+    clear_panel_broken =
+        BEGIN
+            panel_curr_direction := panel_dir_inactive
+        END;
+
     res <-- get_panel_floor =
         BEGIN
             res := panel_curr_floor
@@ -194,6 +314,12 @@ OPERATIONS
             res := panel_curr_direction
         END;
 
+    res <-- is_panel_broken =
+        BEGIN
+            res := bool(panel_curr_direction = panel_dir_broken_elevator)
+        END;
+
+    /* Read-only queries used by request processing and control logic. */
     res <-- is_dir_button_pressed(ffloor, ddir) =
         PRE
             ffloor : FLOORS &

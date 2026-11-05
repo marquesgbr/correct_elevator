@@ -18,6 +18,9 @@ PROMOTES
 	blink_floor_led_twice_and_switch_off,
 	blink_dir_led_twice_and_switch_off,
 	blink_floor_led_twice_and_keep_on,
+	complete_floor_led_blink,
+	complete_floor_led_blink_and_keep_on,
+	complete_dir_led_blink,
 	all_leds_off,
 	clear_all_buttons
 
