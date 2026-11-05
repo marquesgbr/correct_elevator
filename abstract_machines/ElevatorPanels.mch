@@ -5,6 +5,7 @@ SEES
     ElevatorContext
 
 SETS
+    /* Shared panel states used by request, door and display machines. */
     PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down};
     BUTTON_DIR_OPTIONS = {button_dir_up, button_dir_down};
     BUTTON_DOOR_OPTIONS = {button_door_close, button_door_open};
@@ -12,6 +13,7 @@ SETS
     BUTTON_PRESS_STATES = {button_press, button_released}
 
 CONSTANTS
+    /* Shared floor domains and valid external direction-button positions. */
     FLOORS,
     BUTTONS_IN_FLOORS
 
@@ -20,6 +22,7 @@ PROPERTIES
     BUTTONS_IN_FLOORS = FLOORS * BUTTON_DIR_OPTIONS
 
 VARIABLES
+    /* Function-valued state: each button is indexed by floor and/or type. */
     button_dir_led,
     button_dir_press,
     button_floor_led,
@@ -40,6 +43,7 @@ INVARIANT
     panel_curr_direction : PANEL_DIR_STATES
 
 INITIALISATION
+    /* All controls start released and all LEDs start inactive. */
     button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
     button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
     button_floor_led := FLOORS * {button_led_inactive} ||
@@ -51,6 +55,8 @@ INITIALISATION
 
 OPERATIONS
 
+    /* Button input. ElevatorControl calls these for physical button events;
+       request registration is handled by ElevatorRequests. */
     press_dir_button(ffloor, ddir) =
         PRE
             ffloor : FLOORS &
@@ -101,6 +107,8 @@ OPERATIONS
             button_door_press(dbutton) := button_released
         END;
 
+     /* LED control. ElevatorRequests uses these operations to keep panel
+         indications synchronized with active requests. */
     set_dir_led(ffloor, ddir, lstate) =
         PRE
             ffloor : FLOORS &
@@ -154,6 +162,8 @@ OPERATIONS
             button_door_led(dbutton) := button_led_blinking
         END;
 
+     /* Bulk and exceptional LED operations. ElevatorMaintenance uses the
+         combined operations so blink-and-off is a single call. */
     all_leds_off =
         BEGIN
             button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
@@ -161,7 +171,39 @@ OPERATIONS
             button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive}
         END;
 
-    set_panel_floor(ffloor) =
+    clear_all_buttons =
+        BEGIN
+            button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+            button_floor_press := FLOORS * {button_released} ||
+            button_door_press := BUTTON_DOOR_OPTIONS * {button_released}
+        END;
+
+    blink_floor_led_twice_and_switch_off(ffloor) =
+        PRE
+            ffloor : FLOORS
+        THEN
+            button_floor_led(ffloor) := button_led_inactive
+        END;
+
+    blink_floor_led_twice_and_keep_on(ffloor) =
+        PRE
+            ffloor : FLOORS
+        THEN
+            button_floor_led(ffloor) := button_led_active
+        END;
+
+    blink_dir_led_twice_and_switch_off(ffloor, ddir) =
+        PRE
+            ffloor : FLOORS &
+            ddir : BUTTON_DIR_OPTIONS &
+            (ffloor, ddir) : BUTTONS_IN_FLOORS
+        THEN
+            button_dir_led(ffloor, ddir) := button_led_inactive
+        END;
+
+     /* Display state. ElevatorIndicators and ElevatorControl use these to
+         mirror the cabin floor and direction on the panel display. */
+     set_panel_floor(ffloor) =
         PRE
             ffloor : FLOORS \/ {-1}
         THEN
@@ -194,6 +236,7 @@ OPERATIONS
             res := panel_curr_direction
         END;
 
+    /* Read-only queries used by request processing and control logic. */
     res <-- is_dir_button_pressed(ffloor, ddir) =
         PRE
             ffloor : FLOORS &
