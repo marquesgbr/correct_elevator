@@ -25,12 +25,16 @@ VARIABLES
     /* Function-valued state: each button is indexed by floor and/or type. */
     button_dir_led,
     button_dir_press,
+
     button_floor_led,
     button_floor_press,
+    
     button_door_led,
     button_door_press,
+
     panel_curr_floor,
     panel_curr_direction,
+
     pending_floor_blink_off,
     pending_floor_blink_on,
     pending_dir_blink_off
@@ -38,12 +42,16 @@ VARIABLES
 INVARIANT
     button_dir_led : BUTTONS_IN_FLOORS --> BUTTON_LED_STATES &
     button_dir_press : BUTTONS_IN_FLOORS --> BUTTON_PRESS_STATES &
+
     button_floor_led : FLOORS --> BUTTON_LED_STATES &
     button_floor_press : FLOORS --> BUTTON_PRESS_STATES &
+
     button_door_led : BUTTON_DOOR_OPTIONS --> BUTTON_LED_STATES &
     button_door_press : BUTTON_DOOR_OPTIONS --> BUTTON_PRESS_STATES &
+
     panel_curr_floor : FLOORS \/ {-1} &
     panel_curr_direction : PANEL_DIR_STATES &
+
     pending_floor_blink_off <: FLOORS &
     pending_floor_blink_on <: FLOORS &
     pending_floor_blink_off /\ pending_floor_blink_on = {} &
@@ -128,7 +136,8 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR) &
             lstate : BUTTON_LED_STATES
         THEN
-            button_dir_led(ffloor, ddir) := lstate
+            button_dir_led(ffloor, ddir) := lstate ||
+            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
         END;
 
     set_floor_led(ffloor, lstate) =
@@ -136,7 +145,9 @@ OPERATIONS
             ffloor : FLOORS &
             lstate : BUTTON_LED_STATES
         THEN
-            button_floor_led(ffloor) := lstate
+            button_floor_led(ffloor) := lstate ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
         END;
 
     set_door_led(dbutton, lstate) =
@@ -155,14 +166,17 @@ OPERATIONS
             (ddir = button_dir_up => ffloor < MAX_FLOOR) &
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
-            button_dir_led(ffloor, ddir) := button_led_blinking
+            button_dir_led(ffloor, ddir) := button_led_blinking ||
+            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
         END;
 
     blink_floor_led(ffloor) =
         PRE
             ffloor : FLOORS
         THEN
-            button_floor_led(ffloor) := button_led_blinking
+            button_floor_led(ffloor) := button_led_blinking ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
         END;
 
     blink_door_led(dbutton) =
@@ -202,7 +216,8 @@ OPERATIONS
 
     blink_floor_led_twice_and_keep_on(ffloor) =
         PRE
-            ffloor : FLOORS
+            ffloor : FLOORS &
+            pending_floor_blink_off /\ pending_floor_blink_on = {}
         THEN
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_on := pending_floor_blink_on \/ {ffloor} ||
