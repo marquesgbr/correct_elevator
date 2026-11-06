@@ -8,47 +8,37 @@ MACHINE
 INCLUDES 
     CabinState, ElevatorRequests
 
-
- 
 CONSTANTS
     NO_REQUEST
 PROPERTIES
     NO_REQUEST = -1 
-    
 
-    
 VARIABLES
-    all_requests,
-    valid_requests,
     curr_active_request,
     sweep_direction
 
 INVARIANT
-    all_requests = internal_requests \/ up_requests \/ down_requests \/ {NO_REQUEST} &
-    valid_requests = all_requests - {NO_REQUEST} &
     sweep_direction : MOVEMENT_DIRECTIONS - {stop} &
-    curr_active_request : all_requests
+    curr_active_request : (internal_requests \/ up_requests \/ down_requests) \/ {NO_REQUEST}
     
 INITIALISATION
     sweep_direction := up ||
-    curr_active_request := NO_REQUEST ||
-    all_requests := internal_requests \/ up_requests \/ down_requests \/ {NO_REQUEST} ||
-    valid_requests := all_requests - {NO_REQUEST}
+    curr_active_request := NO_REQUEST
     
 OPERATIONS
      select_next_request =
     PRE
-        valid_requests /= {} &
+        (internal_requests \/ up_requests \/ down_requests) /= {} &
         curr_active_request = NO_REQUEST
     THEN
         ANY
             requests_upwards,
             requests_downwards
         WHERE
-            requests_upwards <: valid_requests &
-            requests_upwards = {req | req : valid_requests & req >= curr_floor} &
-            requests_downwards <: valid_requests &
-            requests_downwards = {req | req : valid_requests & req >= curr_floor}
+            requests_upwards <: (internal_requests \/ up_requests \/ down_requests) &
+            requests_upwards = {req | req : (internal_requests \/ up_requests \/ down_requests) & req >= curr_floor} &
+            requests_downwards <: (internal_requests \/ up_requests \/ down_requests) &
+            requests_downwards = {req | req : (internal_requests \/ up_requests \/ down_requests) & req >= curr_floor}
         THEN
             IF sweep_direction = up  THEN
                 IF requests_upwards /= {} THEN
