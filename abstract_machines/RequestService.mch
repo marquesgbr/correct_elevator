@@ -12,6 +12,15 @@ SEES
 INCLUDES
     CabinState
 
+PROMOTES
+    change_direction,
+    move_cabin,
+    get_current_floor,
+    get_movement_state,
+    get_direction,
+    is_moving,
+    is_stopped
+
 CONSTANTS
     NO_REQUEST
 
