@@ -20,7 +20,8 @@ PROPERTIES
 
 VARIABLES
     curr_active_request,
-    sweep_direction
+    sweep_direction,
+    stop_at_next_floor_requested
 
 INVARIANT
     sweep_direction : MOVEMENT_DIRECTIONS - {stop} &
@@ -28,17 +29,24 @@ INVARIANT
     (
         curr_active_request /= NO_REQUEST =>
             curr_active_request : (internal_requests \/ up_requests \/ down_requests)
+    ) &
+    stop_at_next_floor_requested : BOOL &
+    (
+        stop_at_next_floor_requested = TRUE =>
+            curr_active_request = NO_REQUEST
     )
     
 INITIALISATION
     sweep_direction := up ||
-    curr_active_request := NO_REQUEST
+    curr_active_request := NO_REQUEST ||
+    stop_at_next_floor_requested := FALSE
     
 OPERATIONS
      select_next_request =
     PRE
         (internal_requests \/ up_requests \/ down_requests) /= {} &
-        curr_active_request = NO_REQUEST
+        curr_active_request = NO_REQUEST &
+        stop_at_next_floor_requested = FALSE
     THEN
         ANY
             requests_upwards,
