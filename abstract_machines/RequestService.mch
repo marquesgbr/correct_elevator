@@ -5,13 +5,18 @@
 MACHINE
     RequestService
 
+SEES
+    ElevatorContext
+
 INCLUDES 
     CabinState, ElevatorRequests
 
 CONSTANTS
     NO_REQUEST
 PROPERTIES
-    NO_REQUEST = -1 
+    NO_REQUEST : INTEGER &
+    NO_REQUEST = MIN_FLOOR - 1 &
+    NO_REQUEST < MIN_FLOOR
 
 VARIABLES
     curr_active_request,
@@ -19,7 +24,7 @@ VARIABLES
 
 INVARIANT
     sweep_direction : MOVEMENT_DIRECTIONS - {stop} &
-    curr_active_request : (internal_requests \/ up_requests \/ down_requests) \/ {NO_REQUEST}
+    curr_active_request : FLOORS \/ {NO_REQUEST}
     
 INITIALISATION
     sweep_direction := up ||
