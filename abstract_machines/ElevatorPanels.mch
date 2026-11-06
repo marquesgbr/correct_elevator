@@ -22,7 +22,9 @@ CONSTANTS
 
 PROPERTIES
     FLOORS = MIN_FLOOR .. MAX_FLOOR &
-    BUTTONS_IN_FLOORS = FLOORS * BUTTON_DIR_OPTIONS
+    FLOORS /= {} &
+    BUTTONS_IN_FLOORS = FLOORS * BUTTON_DIR_OPTIONS &
+    BUTTONS_IN_FLOORS /= {}
 
 VARIABLES
     /* Function-valued state: each button is indexed by floor and/or type. */
@@ -64,12 +66,16 @@ INITIALISATION
     /* All controls start released and all LEDs start inactive. */
     button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
     button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+
     button_floor_led := FLOORS * {button_led_inactive} ||
     button_floor_press := FLOORS * {button_released} ||
+
     button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
     button_door_press := BUTTON_DOOR_OPTIONS * {button_released} ||
+
     panel_curr_floor := MIN_FLOOR ||
     panel_curr_direction := panel_dir_inactive ||
+    
     pending_floor_blink_off := {} ||
     pending_floor_blink_on := {} ||
     pending_dir_blink_off := {}
@@ -140,7 +146,7 @@ OPERATIONS
             lstate : BUTTON_LED_STATES
         THEN
             button_dir_led(ffloor, ddir) := lstate ||
-            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
         END;
 
     set_floor_led(ffloor, lstate) =
@@ -170,7 +176,7 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_blinking ||
-            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
         END;
 
     blink_floor_led(ffloor) =
@@ -219,8 +225,7 @@ OPERATIONS
 
     blink_floor_led_twice_and_keep_on(ffloor) =
         PRE
-            ffloor : FLOORS &
-            pending_floor_blink_off /\ pending_floor_blink_on = {}
+            ffloor : FLOORS
         THEN
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_on := pending_floor_blink_on \/ {ffloor} ||
@@ -229,6 +234,7 @@ OPERATIONS
 
     complete_floor_led_blink(ffloor) =
         PRE
+            ffloor : FLOORS &
             ffloor : pending_floor_blink_off
         THEN
             button_floor_led(ffloor) := button_led_inactive ||
@@ -237,6 +243,7 @@ OPERATIONS
 
     complete_floor_led_blink_and_keep_on(ffloor) =
         PRE
+            ffloor : FLOORS &
             ffloor : pending_floor_blink_on
         THEN
             button_floor_led(ffloor) := button_led_active ||
@@ -252,24 +259,25 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_blinking ||
-            pending_dir_blink_off := pending_dir_blink_off \/ ({ffloor} * {ddir})
+            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir}
         END;
 
     complete_dir_led_blink(ffloor, ddir) =
         PRE
             ffloor : FLOORS &
             ddir : BUTTON_DIR_OPTIONS &
+            (ffloor, ddir) : BUTTONS_IN_FLOORS &
             (ffloor, ddir) : pending_dir_blink_off &
             (ddir = button_dir_up => ffloor < MAX_FLOOR) &
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_inactive ||
-            pending_dir_blink_off := pending_dir_blink_off - ({ffloor} * {ddir})
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
         END;
 
      /* Display state. ElevatorIndicators and ElevatorControl use these to
          mirror the cabin floor and direction on the panel display. */
-     set_panel_floor(ffloor) =
+    set_panel_floor(ffloor) =
         PRE
             ffloor : FLOORS \/ {-1}
         THEN

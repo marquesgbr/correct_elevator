@@ -7,22 +7,55 @@ INCLUDES
 	ElevatorPanels
 
 /* These panel operations are promoted through the request layer so
-	ElevatorMaintenance can update LEDs and clear panel state. ElevatorTimers
-	and ElevatorControl do not call panels directly. Request state remains
+	higher-level machines (ElevatorMaintenance and ElevatorControl mainly) can update LEDs, read/write button
+	and display states, and complete blink timers. Request state remains
 	owned by this machine. */
 PROMOTES
+	press_dir_button,
+	release_dir_button,
+
+	press_floor_button,
+	release_floor_button,
+
+	press_door_button,
+	release_door_button,
+
 	set_floor_led,
 	set_dir_led,
+	set_door_led,
+
 	blink_floor_led,
 	blink_dir_led,
+	blink_door_led,
 	blink_floor_led_twice_and_switch_off,
 	blink_dir_led_twice_and_switch_off,
 	blink_floor_led_twice_and_keep_on,
+
 	complete_floor_led_blink,
 	complete_floor_led_blink_and_keep_on,
 	complete_dir_led_blink,
+
 	all_leds_off,
-	clear_all_buttons
+	clear_all_buttons,
+
+	set_panel_floor,
+	set_panel_direction,
+	update_panel_display,
+	show_panel_broken,
+	clear_panel_broken,
+
+	get_panel_floor,
+	get_panel_direction,
+
+	is_panel_broken,
+	is_dir_button_pressed,
+	is_floor_button_pressed,
+	is_door_button_pressed,
+	
+	get_dir_led,
+	get_floor_led,
+	get_door_led,
+	are_all_leds_inactive
 
 VARIABLES
 	/* Active requests are kept separately by origin and direction. */
@@ -197,6 +230,22 @@ OPERATIONS
 			res := TRUE
 		ELSE
 			res := FALSE
+		END
+	END;
+
+	res <-- has_requests_in_direction(curr_fl, ddir) =
+	PRE
+		curr_fl : FLOORS &
+		ddir : BUTTON_DIR_OPTIONS
+	THEN
+		IF ddir = button_dir_up THEN
+			res := bool(
+ 				(internal_requests \/ up_requests) /\ ((curr_fl + 1)..MAX_FLOOR) /= {}
+ 			)
+		ELSE
+			res := bool(
+				(internal_requests \/ down_requests) /\ (MIN_FLOOR..(curr_fl - 1)) /= {}
+			)
 		END
 	END;
 
