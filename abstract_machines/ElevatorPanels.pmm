@@ -1,4 +1,0 @@
-﻿THEORY User_Pass IS
-Operation(Initialisation) & ff(0) & pp(rp.1 | 61);
-Operation(Operation_all_leds_off) & ff(0) & pp(rp.1 | 61)
-END 
