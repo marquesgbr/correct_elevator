@@ -6,11 +6,11 @@ MACHINE
     RequestService
 
 SEES
-    ElevatorContext
-
-INCLUDES
-    CabinState,
+    ElevatorContext,
     ElevatorRequests
+    
+INCLUDES
+    CabinState
 
 CONSTANTS
     NO_REQUEST
@@ -29,10 +29,7 @@ INVARIANT
     sweep_direction : MOVEMENT_DIRECTIONS - {stop} &
 
     curr_active_request : FLOORS \/ {NO_REQUEST} &
-    (
-        curr_active_request /= NO_REQUEST =>
-            curr_active_request : (internal_requests \/ up_requests \/ down_requests)
-    ) &
+
 
     stop_at_next_floor_requested : BOOL &
     (
