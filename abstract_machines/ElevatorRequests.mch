@@ -240,11 +240,11 @@ OPERATIONS
 	THEN
 		IF ddir = button_dir_up THEN
 			res := bool(
-				(internal_requests \/ up_requests \/ down_requests) /\ ((curr_fl + 1)..MAX_FLOOR) /= {}
-			)
+ 				(internal_requests \/ up_requests) /\ ((curr_fl + 1)..MAX_FLOOR) /= {}
+ 			)
 		ELSE
 			res := bool(
-				(internal_requests \/ up_requests \/ down_requests) /\ (MIN_FLOOR..(curr_fl - 1)) /= {}
+				(internal_requests \/ down_requests) /\ (MIN_FLOOR..(curr_fl - 1)) /= {}
 			)
 		END
 	END;
