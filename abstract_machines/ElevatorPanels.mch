@@ -39,6 +39,7 @@ VARIABLES
 
     panel_curr_floor,
     panel_curr_direction,
+    excess_weight_indicator,
 
     pending_floor_blink_off,
     pending_floor_blink_on,
@@ -56,6 +57,7 @@ INVARIANT
 
     panel_curr_floor : FLOORS \/ {-1} &
     panel_curr_direction : PANEL_DIR_STATES &
+    excess_weight_indicator : BOOL &
 
     pending_floor_blink_off <: FLOORS &
     pending_floor_blink_on <: FLOORS &
@@ -75,6 +77,7 @@ INITIALISATION
 
     panel_curr_floor := MIN_FLOOR ||
     panel_curr_direction := panel_dir_inactive ||
+    excess_weight_indicator := FALSE ||
     
     pending_floor_blink_off := {} ||
     pending_floor_blink_on := {} ||
@@ -275,8 +278,8 @@ OPERATIONS
             pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
         END;
 
-     /* Display state. ElevatorIndicators and ElevatorControl use these to
-         mirror the cabin floor and direction on the panel display. */
+     /* Display state. ElevatorControl uses these to mirror the cabin
+         floor/direction and the overweight condition on the panel display. */
     set_panel_floor(ffloor) =
         PRE
             ffloor : FLOORS \/ {-1}
@@ -312,6 +315,13 @@ OPERATIONS
             panel_curr_direction := panel_dir_inactive
         END;
 
+    change_excess_weight(on_off) =
+        PRE
+            on_off : BOOL
+        THEN
+            excess_weight_indicator := on_off
+        END;
+
     res <-- get_panel_floor =
         BEGIN
             res := panel_curr_floor
@@ -325,6 +335,11 @@ OPERATIONS
     res <-- is_panel_broken =
         BEGIN
             res := bool(panel_curr_direction = panel_dir_broken_elevator)
+        END;
+
+    res <-- is_excess_weight_on =
+        BEGIN
+            res := excess_weight_indicator
         END;
 
     /* Read-only queries used by request processing and control logic. */
