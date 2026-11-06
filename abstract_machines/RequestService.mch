@@ -24,7 +24,11 @@ VARIABLES
 
 INVARIANT
     sweep_direction : MOVEMENT_DIRECTIONS - {stop} &
-    curr_active_request : FLOORS \/ {NO_REQUEST}
+    curr_active_request : FLOORS \/ {NO_REQUEST} &
+    (
+        curr_active_request /= NO_REQUEST =>
+            curr_active_request : (internal_requests \/ up_requests \/ down_requests)
+    )
     
 INITIALISATION
     sweep_direction := up ||
@@ -40,10 +44,15 @@ OPERATIONS
             requests_upwards,
             requests_downwards
         WHERE
-            requests_upwards <: (internal_requests \/ up_requests \/ down_requests) &
+            requests_upwards <: FLOORS &
+            requests_upwards : FIN(FLOORS) &
             requests_upwards = {req | req : (internal_requests \/ up_requests \/ down_requests) & req >= curr_floor} &
-            requests_downwards <: (internal_requests \/ up_requests \/ down_requests) &
-            requests_downwards = {req | req : (internal_requests \/ up_requests \/ down_requests) & req >= curr_floor}
+
+            requests_downwards <: FLOORS &
+            requests_downwards : FIN(FLOORS) &
+            requests_downwards = {req | req : (internal_requests \/ up_requests \/ down_requests) & req <= curr_floor} &
+
+            requests_upwards \/ requests_downwards = (internal_requests \/ up_requests \/ down_requests)
         THEN
             IF sweep_direction = up  THEN
                 IF requests_upwards /= {} THEN
