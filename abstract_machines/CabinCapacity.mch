@@ -29,23 +29,18 @@ OPERATIONS
             ww + curr_weight : NAT
         THEN
             curr_weight := curr_weight + ww ||
-            IF curr_weight + ww > MAX_CAPACITY THEN
-                exceeds_capacity := TRUE
-            ELSE
-                exceeds_capacity := FALSE
-            END
+            exceeds_capacity := bool(curr_weight + ww > MAX_CAPACITY)
         END;
 
     remove_weight(ww) =
         PRE 
             ww : NAT &
-            ww <= curr_weight
+            ww <= curr_weight &
+            curr_weight - ww : NAT 
         THEN
-            curr_weight := curr_weight - ww ||
-            IF curr_weight - ww > MAX_CAPACITY THEN
-                exceeds_capacity := TRUE
-            ELSE
-                exceeds_capacity := FALSE
+            IF curr_weight - ww >= 0 THEN
+                curr_weight := curr_weight - ww ||
+                exceeds_capacity := bool(curr_weight - ww > MAX_CAPACITY)
             END
         END;
 
@@ -62,11 +57,7 @@ OPERATIONS
 
     res <-- can_move =
         BEGIN
-            IF exceeds_capacity = FALSE THEN
-                res := TRUE
-            ELSE
-                res := FALSE
-            END
+            res := bool(not(exceeds_capacity = TRUE))
         END
 
 END
