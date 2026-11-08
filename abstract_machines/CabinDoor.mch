@@ -5,7 +5,7 @@
 MACHINE
     CabinDoor
 
-INCLUDES 
+SEES
     CabinState,
     ElevatorPanels
 
