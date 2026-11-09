@@ -10,21 +10,9 @@ SETS
        user that the elevator is stopped/broken (HLR-007), without being
        confused with an inactive button LED. */
     PANEL_DIR_STATES = {panel_dir_inactive, panel_dir_up, panel_dir_down, panel_dir_broken_elevator};
-    BUTTON_DIR_OPTIONS = {button_dir_up, button_dir_down};
     BUTTON_DOOR_OPTIONS = {button_door_close, button_door_open};
     BUTTON_LED_STATES = {button_led_active, button_led_inactive, button_led_blinking};
     BUTTON_PRESS_STATES = {button_press, button_released}
-
-CONSTANTS
-    /* Shared floor domains and valid external direction-button positions. */
-    FLOORS,
-    BUTTONS_IN_FLOORS
-
-PROPERTIES
-    FLOORS = MIN_FLOOR .. MAX_FLOOR &
-    FLOORS /= {} &
-    BUTTONS_IN_FLOORS = FLOORS * BUTTON_DIR_OPTIONS &
-    BUTTONS_IN_FLOORS /= {}
 
 VARIABLES
     /* Function-valued state: each button is indexed by floor and/or type. */
@@ -40,6 +28,7 @@ VARIABLES
     panel_curr_floor,
     panel_curr_direction,
     excess_weight_indicator,
+    maintenance_indicator,
 
     pending_floor_blink_off,
     pending_floor_blink_on,
@@ -58,6 +47,7 @@ INVARIANT
     panel_curr_floor : FLOORS \/ {-1} &
     panel_curr_direction : PANEL_DIR_STATES &
     excess_weight_indicator : BOOL &
+    maintenance_indicator : BOOL &
 
     pending_floor_blink_off <: FLOORS &
     pending_floor_blink_on <: FLOORS &
@@ -78,6 +68,7 @@ INITIALISATION
     panel_curr_floor := MIN_FLOOR ||
     panel_curr_direction := panel_dir_inactive ||
     excess_weight_indicator := FALSE ||
+    maintenance_indicator := FALSE ||
     
     pending_floor_blink_off := {} ||
     pending_floor_blink_on := {} ||
@@ -320,6 +311,13 @@ OPERATIONS
             on_off : BOOL
         THEN
             excess_weight_indicator := on_off
+        END;
+
+    change_maintenance_indicator(on_off) =
+        PRE
+            on_off : BOOL
+        THEN
+            maintenance_indicator := on_off
         END;
 
     res <-- get_panel_floor =
