@@ -6,9 +6,8 @@ MACHINE
     ElevatorMaintenance
     
 SEES
-    ElevatorContext, CabinState, ElevatorRequests
+    ElevatorContext, CabinState
     
-
 
 VARIABLES
     key_inserted, 
@@ -24,7 +23,6 @@ INITIALISATION
 OPERATIONS
     insert_key =
     PRE
-        cabin_state = rest &
         key_inserted = FALSE &
         maintenance_mode = FALSE
     THEN
@@ -34,7 +32,6 @@ OPERATIONS
         
     remove_key =
     PRE
-        cabin_state = rest &
         key_inserted = TRUE &
         maintenance_mode = TRUE
     THEN
