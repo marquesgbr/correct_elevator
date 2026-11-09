@@ -43,6 +43,11 @@ INITIALISATION
     cabin_broken := FALSE
     
 OPERATIONS
+    
+
+    
+    
+    
     increase_button_dir_timer(ffloor, ddir) =
     PRE
         ffloor : FLOORS &
@@ -55,6 +60,25 @@ OPERATIONS
     THEN
         button_dir_timer(ffloor, ddir) := button_dir_timer(ffloor, ddir) + 1
     END;
+    
+    
+        update_button_dir_timers =
+    BEGIN
+        button_dir_timer := button_dir_timer <+ %bb.(bb : {
+                xx | xx : BUTTONS_IN_FLOORS &
+                button_dir_press(xx) = button_press &
+                button_dir_timer(xx) < BUTTON_HOLD_LIMIT
+            } | button_dir_timer(bb) + 1)
+    END;
+    
+    update_button_floor_timers = 
+    BEGIN
+        button_floor_timer := button_floor_timer <+ %bb.(bb :{
+                xx | xx : FLOORS  &
+                button_floor_press(xx) = button_press &
+                button_floor_timer(xx) < BUTTON_HOLD_LIMIT
+            } | button_floor_timer(bb) + 1 )
+        END;
     
     increase_button_floor_timer(ffloor) =
     PRE
@@ -111,6 +135,30 @@ OPERATIONS
         door_open_timer := 0
     END;
     
+    tick =
+    PRE
+        cabin_broken = FALSE &
+        maintenance_mode = FALSE
+    THEN
+        button_dir_timer :=
+            button_dir_timer <+
+            %bb.(bb : {xx | xx : BUTTONS_IN_FLOORS &
+                            button_dir_press(xx) = button_press &
+                            button_dir_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_dir_timer(bb) + 1) ||
+
+        button_floor_timer :=
+            button_floor_timer <+
+            %ff.(ff : {xx | xx : FLOORS &
+                            button_floor_press(xx) = button_press &
+                            button_floor_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_floor_timer(ff) + 1) ||
+
+        IF door_state = door_open & door_open_timer < DOOR_OPEN_LIMIT THEN
+            door_open_timer := door_open_timer + 1
+        END
+    END;
+
     set_cabin_broken = 
     PRE
         door_open_timer >= DOOR_OPEN_LIMIT &
