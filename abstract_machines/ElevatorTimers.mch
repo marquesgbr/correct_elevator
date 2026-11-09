@@ -10,7 +10,7 @@ MACHINE
     ElevatorTimers
     
 SEES
-    ElevatorPanels,
+    ElevatorContext,
     CabinDoor,
     ElevatorMaintenance
 
@@ -53,7 +53,6 @@ OPERATIONS
         ffloor : FLOORS &
         ddir : BUTTON_DIR_OPTIONS &
         (ffloor, ddir) : BUTTONS_IN_FLOORS &
-        button_dir_press(ffloor, ddir) = button_press &
         button_dir_timer(ffloor, ddir) < BUTTON_HOLD_LIMIT &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
@@ -62,28 +61,31 @@ OPERATIONS
     END;
     
     
-        update_button_dir_timers =
-    BEGIN
-        button_dir_timer := button_dir_timer <+ %bb.(bb : {
-                xx | xx : BUTTONS_IN_FLOORS &
-                button_dir_press(xx) = button_press &
-                button_dir_timer(xx) < BUTTON_HOLD_LIMIT
-            } | button_dir_timer(bb) + 1)
+    update_button_dir_timers(active_dir) =
+    PRE
+        active_dir <: BUTTONS_IN_FLOORS
+    THEN
+        button_dir_timer :=
+            button_dir_timer <+
+            %bb.(bb : {xx | xx : active_dir &
+                            button_dir_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_dir_timer(bb) + 1)
     END;
-    
-    update_button_floor_timers = 
-    BEGIN
-        button_floor_timer := button_floor_timer <+ %bb.(bb :{
-                xx | xx : FLOORS  &
-                button_floor_press(xx) = button_press &
-                button_floor_timer(xx) < BUTTON_HOLD_LIMIT
-            } | button_floor_timer(bb) + 1 )
-        END;
+
+    update_button_floor_timers(active_floor) =
+    PRE
+        active_floor <: FLOORS
+    THEN
+        button_floor_timer :=
+            button_floor_timer <+
+            %ff.(ff : {xx | xx : active_floor &
+                            button_floor_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_floor_timer(ff) + 1)
+    END;
     
     increase_button_floor_timer(ffloor) =
     PRE
-        ffloor : FLOORS  &
-        button_floor_press(ffloor) = button_press &
+        ffloor : FLOORS &
         button_floor_timer(ffloor) < BUTTON_HOLD_LIMIT &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
@@ -105,22 +107,14 @@ OPERATIONS
     PRE
         ffloor : FLOORS &
         ddir : BUTTON_DIR_OPTIONS &
-        (ffloor, ddir) : BUTTONS_IN_FLOORS &
-        (
-            button_dir_press(ffloor, ddir) = button_released or
-            button_dir_timer(ffloor, ddir) = BUTTON_HOLD_LIMIT
-        )
+        (ffloor, ddir) : BUTTONS_IN_FLOORS
     THEN
         button_dir_timer(ffloor, ddir) := 0
     END;
 
     reset_button_floor_timer(ffloor) =
     PRE
-        ffloor : FLOORS &
-        (
-            button_floor_press(ffloor) = button_released or
-            button_floor_timer(ffloor) = BUTTON_HOLD_LIMIT
-        )
+        ffloor : FLOORS
     THEN
         button_floor_timer(ffloor) := 0
     END;
@@ -135,22 +129,22 @@ OPERATIONS
         door_open_timer := 0
     END;
     
-    tick =
+    tick(active_dir, active_floor) =
     PRE
+        active_dir <: BUTTONS_IN_FLOORS &
+        active_floor <: FLOORS &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
     THEN
         button_dir_timer :=
             button_dir_timer <+
-            %bb.(bb : {xx | xx : BUTTONS_IN_FLOORS &
-                            button_dir_press(xx) = button_press &
+            %bb.(bb : {xx | xx : active_dir &
                             button_dir_timer(xx) < BUTTON_HOLD_LIMIT} |
                     button_dir_timer(bb) + 1) ||
 
         button_floor_timer :=
             button_floor_timer <+
-            %ff.(ff : {xx | xx : FLOORS &
-                            button_floor_press(xx) = button_press &
+            %ff.(ff : {xx | xx : active_floor &
                             button_floor_timer(xx) < BUTTON_HOLD_LIMIT} |
                     button_floor_timer(ff) + 1) ||
 
