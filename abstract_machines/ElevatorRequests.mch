@@ -24,6 +24,9 @@ PROMOTES
 	set_dir_led,
 	set_door_led,
 
+	change_excess_weight,
+	change_maintenance_indicator,
+
 	blink_floor_led,
 	blink_dir_led,
 	blink_door_led,
