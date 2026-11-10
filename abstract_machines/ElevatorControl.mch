@@ -29,7 +29,13 @@ PROPERTIES
         {moving_up |-> panel_dir_up} \/
         {moving_down |-> panel_dir_down}
 
+VARIABLES
+    door_state_changed
+
+
 INVARIANT
+    
+    door_state_changed : BOOL &
 
     /* HLR-001 / HLR-003 / HLR-007: displayed floor and direction. */
     panel_curr_floor = curr_floor &
@@ -94,7 +100,7 @@ ASSERTIONS
     )
 
 INITIALISATION
-    skip
+    door_state_changed := FALSE
 
 OPERATIONS
     /* Refresh the shared panel display from the cabin state. */
@@ -137,7 +143,8 @@ OPERATIONS
                         button_dir_press(bb) = button_press},
                 {ff | ff : FLOORS &
                         button_floor_press(ff) = button_press}
-            )
+            ) || 
+            door_state_changed := FALSE
         END;
 
     /* Two-phase internal request: record the press, then register. */
@@ -273,16 +280,21 @@ OPERATIONS
     open_door_automatically =
         PRE
             curr_state = rest &
-            door_state = door_closed
+            door_state = door_closed &
+            door_state_changed = FALSE
         THEN
-            open_automatically
+            open_automatically ||
+            door_state_changed := TRUE
         END;
 
     close_door_automatically =
         PRE
-            door_state = door_open
+            door_state = door_open &
+            door_state_changed = FALSE
         THEN
-            close_automatically
+            close_automatically ||
+            door_state_changed := TRUE
+            
         END;
 
     /* HLR-003: immediate door commands only while the cabin is stopped. */
@@ -290,18 +302,22 @@ OPERATIONS
         PRE
             curr_state = rest &
             door_state = door_closed &
-            button_door_press(button_door_open) = button_press
+            button_door_press(button_door_open) = button_press &
+            door_state_changed = FALSE
         THEN
-            open_immediately
+            open_immediately ||
+            door_state_changed := TRUE
         END;
 
     close_door_immediately =
         PRE
             curr_state = rest &
             door_state = door_open &
-            button_door_press(button_door_close) = button_press
+            button_door_press(button_door_close) = button_press &
+            door_state_changed = FALSE
         THEN
-            close_immediately
+            close_immediately ||
+            door_state_changed := TRUE
         END
 
 END
