@@ -4,42 +4,49 @@
  */
 MACHINE
     ElevatorMaintenance
-    
-SEES
-    ElevatorContext, CabinState, ElevatorRequests
-    
 
+SEES
+    ElevatorContext,
+    CabinState
 
 VARIABLES
-    key_inserted, 
+    key_inserted,
     maintenance_mode
-    
+
 INVARIANT
-    key_inserted : BOOL & maintenance_mode : BOOL &
-    key_inserted = maintenance_mode
+    key_inserted : BOOL &
+    maintenance_mode : BOOL &
+    (maintenance_mode = TRUE => key_inserted = TRUE)
+
 INITIALISATION
-    key_inserted := FALSE || 
+    key_inserted := FALSE ||
     maintenance_mode := FALSE
-    
+
 OPERATIONS
+
     insert_key =
     PRE
-        cabin_state = rest &
-        key_inserted = FALSE &
-        maintenance_mode = FALSE
+        key_inserted = FALSE
     THEN
-        key_inserted := TRUE ||
+        key_inserted := TRUE
+    END;
+
+    enter_maintenance =
+    PRE
+        key_inserted = TRUE &
+        maintenance_mode = FALSE &
+        curr_state = rest
+    THEN
         maintenance_mode := TRUE
-        END;
-        
+    END;
+
     remove_key =
     PRE
-        cabin_state = rest &
         key_inserted = TRUE &
-        maintenance_mode = TRUE
+        curr_state = rest
     THEN
         key_inserted := FALSE ||
-        maintenance_mode := FALSE 
-        END
+        maintenance_mode := FALSE
+    END
 
 END
