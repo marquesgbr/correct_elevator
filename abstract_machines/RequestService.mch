@@ -6,11 +6,11 @@ MACHINE
     RequestService
 
 SEES
-    ElevatorContext,
-    ElevatorRequests
-    
+    ElevatorContext
+
 INCLUDES
-    CabinState
+    CabinState,
+    ElevatorRequests
 
 PROMOTES
     change_direction,
@@ -19,7 +19,21 @@ PROMOTES
     get_movement_state,
     get_direction,
     is_moving,
-    is_stopped
+    is_stopped,
+
+    update_panel_display,
+    show_panel_broken,
+
+    press_floor_button,
+    release_floor_button,
+    press_dir_button,
+    release_dir_button,
+    press_door_button,
+    release_door_button,
+
+    register_internal_request,
+    register_up_request,
+    register_down_request
 
 CONSTANTS
     NO_REQUEST
@@ -118,6 +132,36 @@ OPERATIONS
         THEN
             change_direction(stop) ||
             stop_at_next_floor_requested := FALSE
+        END;
+
+    cancel_internal_hold(ffloor) =
+        PRE
+            ffloor : internal_requests &
+            card(internal_requests) > 1
+        THEN
+            cancel_internal_by_hold(ffloor)
+        END;
+
+    cancel_up_hold(ffloor) =
+        PRE
+            ffloor : up_requests
+        THEN
+            cancel_up_by_hold(ffloor)
+        END;
+
+    cancel_down_hold(ffloor) =
+        PRE
+            ffloor : down_requests
+        THEN
+            cancel_down_by_hold(ffloor)
+        END;
+
+    reject_last_internal_hold(ffloor) =
+        PRE
+            ffloor : internal_requests &
+            card(internal_requests) = 1
+        THEN
+            blink_last_internal_request(ffloor)
         END;
 
     res <-- get_active_request =
