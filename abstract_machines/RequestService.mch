@@ -10,7 +10,8 @@ SEES
 
 INCLUDES
     CabinState,
-    ElevatorRequests
+    ElevatorRequests,
+    CabinCapacity
 
 PROMOTES
     change_direction,
@@ -166,6 +167,30 @@ OPERATIONS
             serve_floor_requests(curr_active_request) ||
             curr_active_request := NO_REQUEST ||
             stop_at_next_floor_requested := FALSE
+        END;
+
+    /* HLR-009: weight updates are only allowed while the cabin is stopped.
+       The capacity flag and the internal excess-weight indicator are updated
+       in the same operation. */
+    add_cabin_weight(ww) =
+        PRE
+            ww : NAT &
+            ww + curr_weight : NAT &
+            curr_state = rest
+        THEN
+            add_weight(ww) ||
+            change_excess_weight(bool(curr_weight + ww > MAX_CAPACITY))
+        END;
+
+    remove_cabin_weight(ww) =
+        PRE
+            ww : NAT &
+            ww <= curr_weight &
+            curr_weight - ww : NAT &
+            curr_state = rest
+        THEN
+            remove_weight(ww) ||
+            change_excess_weight(bool(curr_weight - ww > MAX_CAPACITY))
         END;
 
     /* Lifecycle operation to be called after the active request has been

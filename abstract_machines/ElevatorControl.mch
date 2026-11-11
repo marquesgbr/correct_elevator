@@ -14,7 +14,6 @@ SEES
 
 INCLUDES
     RequestService,
-    CabinCapacity,
     CabinDoor,
     ElevatorMaintenance,
     ElevatorTimers
@@ -258,6 +257,27 @@ OPERATIONS
             door_state = door_closed
         THEN
             stop_at_next_floor
+        END;
+
+    /* HLR-009: weight changes update capacity and the excess-weight
+       indicator together. Weight is only allowed while stopped. */
+    add_passenger_weight(ww) =
+        PRE
+            ww : NAT &
+            ww + curr_weight : NAT &
+            curr_state = rest
+        THEN
+            add_cabin_weight(ww)
+        END;
+
+    remove_passenger_weight(ww) =
+        PRE
+            ww : NAT &
+            ww <= curr_weight &
+            curr_weight - ww : NAT &
+            curr_state = rest
+        THEN
+            remove_cabin_weight(ww)
         END;
 
     /* Two-phase internal request: record the press, then register. */
