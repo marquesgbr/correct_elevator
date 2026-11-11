@@ -30,12 +30,16 @@ PROPERTIES
         {moving_down |-> panel_dir_down}
 
 VARIABLES
-    door_state_changed
+    door_state_changed,
+    floor_button_processed
+    
 
 
 INVARIANT
     
     door_state_changed : BOOL &
+    floor_button_processed : {ff | ff : FLOORS & button_floor_press(ff) = button_press} --> BOOL &
+
 
     /* HLR-001 / HLR-003 / HLR-007: displayed floor and direction. */
     panel_curr_floor = curr_floor &
@@ -100,7 +104,9 @@ ASSERTIONS
     )
 
 INITIALISATION
-    door_state_changed := FALSE
+    door_state_changed := FALSE ||
+    floor_button_processed := {}
+    
 
 OPERATIONS
     /* Refresh the shared panel display from the cabin state. */
@@ -136,7 +142,10 @@ OPERATIONS
     advance_time =
         PRE
             cabin_broken = FALSE &
-            maintenance_mode = FALSE
+            maintenance_mode = FALSE &
+            (dom(floor_button_processed) = {} or 
+            ran(floor_button_processed) = {TRUE})
+            
         THEN
             tick(
                 {bb | bb : BUTTONS_IN_FLOORS &
@@ -144,33 +153,44 @@ OPERATIONS
                 {ff | ff : FLOORS &
                         button_floor_press(ff) = button_press}
             ) || 
-            door_state_changed := FALSE
+            door_state_changed := FALSE 
         END;
+        
+    
 
     /* Two-phase internal request: record the press, then register. */
     press_internal(ffloor) =
         PRE
             ffloor : FLOORS &
-            maintenance_mode = FALSE
+            maintenance_mode = FALSE &
+            button_floor_press(ffloor) = button_released
         THEN
-            press_floor_button(ffloor)
+            press_floor_button(ffloor) ||
+            floor_button_processed(ffloor) := FALSE
         END;
-
+            
+    
     register_internal(ffloor) =
         PRE
             ffloor : FLOORS &
             button_floor_press(ffloor) = button_press &
-            maintenance_mode = FALSE
+            maintenance_mode = FALSE &
+            floor_button_processed(ffloor) = FALSE
         THEN
-            register_internal_request(ffloor)
+            register_internal_request(ffloor) ||
+            floor_button_processed(ffloor) := TRUE
         END;
 
     release_internal(ffloor) =
         PRE
-            ffloor : FLOORS
+            ffloor : FLOORS &
+            ffloor : dom(floor_button_processed) &
+            button_floor_press(ffloor) = button_press &
+            floor_button_processed(ffloor) = TRUE
+            
         THEN
             release_floor_button(ffloor) ||
-            reset_button_floor_timer(ffloor)
+            reset_button_floor_timer(ffloor) 
         END;
 
     /* Two-phase external up request. */
