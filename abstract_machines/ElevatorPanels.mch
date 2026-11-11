@@ -121,14 +121,18 @@ OPERATIONS
         PRE
             dbutton : BUTTON_DOOR_OPTIONS
         THEN
-            button_door_press(dbutton) := button_press
+            button_door_press(dbutton) := button_press ||
+            button_door_led(dbutton) := button_led_active
         END;
 
     release_door_button(dbutton) =
         PRE
             dbutton : BUTTON_DOOR_OPTIONS
         THEN
-            button_door_press(dbutton) := button_released
+            button_door_press(dbutton) := button_released ||
+            IF button_door_led(dbutton) = button_led_active THEN
+                button_door_led(dbutton) := button_led_inactive
+            END
         END;
 
     /* HLR-008: button presses during maintenance are ignored as requests,
@@ -197,6 +201,19 @@ OPERATIONS
         THEN
             button_door_led(dbutton) := lstate ||
             pending_door_blink_off := pending_door_blink_off - {dbutton}
+        END;
+
+    /* Clear a door-button LED and restore the shared display atomically. */
+    clear_door_led_and_display(dbutton, ffloor, ddir) =
+        PRE
+            dbutton : BUTTON_DOOR_OPTIONS &
+            ffloor : FLOORS \/ {-1} &
+            ddir : PANEL_DIR_STATES
+        THEN
+            button_door_led(dbutton) := button_led_inactive ||
+            pending_door_blink_off := pending_door_blink_off - {dbutton} ||
+            panel_curr_floor := ffloor ||
+            panel_curr_direction := ddir
         END;
 
     /* Clear all request LEDs associated with a floor in one operation.
@@ -331,6 +348,15 @@ OPERATIONS
         THEN
             button_floor_led(ffloor) := button_led_active ||
             pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+        END;
+
+    complete_floor_blink_on_and_show_broken(ffloor) =
+        PRE
+            ffloor : pending_floor_blink_on
+        THEN
+            button_floor_led(ffloor) := button_led_active ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            panel_curr_direction := panel_dir_broken_elevator
         END;
 
     blink_dir_led_twice_and_switch_off(ffloor, ddir) =
