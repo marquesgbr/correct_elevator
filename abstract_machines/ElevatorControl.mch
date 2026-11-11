@@ -15,7 +15,6 @@ SEES
 INCLUDES
     RequestService,
     CabinDoor,
-    ElevatorMaintenance,
     ElevatorTimers
 
 CONSTANTS
@@ -282,15 +281,46 @@ OPERATIONS
             remove_cabin_weight(ww)
         END;
 
+    /* HLR-008: maintenance cycle. The key can be inserted at any time; the
+       cabin must be stopped before maintenance mode is entered. */
+    insert_key_event =
+        PRE
+            key_inserted = FALSE
+        THEN
+            insert_maintenance_key
+        END;
+
+    start_maintenance =
+        PRE
+            key_inserted = TRUE &
+            maintenance_mode = FALSE &
+            curr_state = rest
+        THEN
+            enter_maintenance_mode ||
+            floor_button_unprocessed := {} ||
+            dir_button_unprocessed := {}
+        END;
+
+    stop_maintenance =
+        PRE
+            key_inserted = TRUE &
+            curr_state = rest
+        THEN
+            exit_maintenance_mode
+        END;
+
     /* Two-phase internal request: record the press, then register. */
     press_internal(ffloor) =
         PRE
             ffloor : FLOORS &
-            maintenance_mode = FALSE &
             button_floor_press(ffloor) = button_released
         THEN
-            press_floor_button(ffloor) ||
-            floor_button_unprocessed := floor_button_unprocessed \/ {ffloor}
+            IF maintenance_mode = TRUE THEN
+                press_floor_button_and_blink_off(ffloor)
+            ELSE
+                press_floor_button(ffloor) ||
+                floor_button_unprocessed := floor_button_unprocessed \/ {ffloor}
+            END
         END;
             
     
@@ -321,11 +351,14 @@ OPERATIONS
     press_up(ffloor) =
         PRE
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
-            maintenance_mode = FALSE &
             button_dir_press(ffloor, button_dir_up) = button_released
         THEN
-            press_dir_button(ffloor, button_dir_up) ||
-            dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_up)}
+            IF maintenance_mode = TRUE THEN
+                press_dir_button_and_blink_off(ffloor, button_dir_up)
+            ELSE
+                press_dir_button(ffloor, button_dir_up) ||
+                dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_up)}
+            END
         END;
 
     register_up(ffloor) =
@@ -354,11 +387,14 @@ OPERATIONS
     press_down(ffloor) =
         PRE
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
-            maintenance_mode = FALSE &
             button_dir_press(ffloor, button_dir_down) = button_released
         THEN
-            press_dir_button(ffloor, button_dir_down) ||
-            dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_down)}
+            IF maintenance_mode = TRUE THEN
+                press_dir_button_and_blink_off(ffloor, button_dir_down)
+            ELSE
+                press_dir_button(ffloor, button_dir_down) ||
+                dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_down)}
+            END
         END;
 
     register_down(ffloor) =
@@ -445,6 +481,41 @@ OPERATIONS
             dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_down)}
         END;
 
+    /* Door button events. During maintenance the press is rejected with a
+       blink-and-off indication. */
+    press_door(dbutton) =
+        PRE
+            dbutton : BUTTON_DOOR_OPTIONS &
+            button_door_press(dbutton) = button_released
+        THEN
+            IF maintenance_mode = TRUE THEN
+                press_door_button_and_blink_off(dbutton)
+            ELSE
+                press_door_button(dbutton)
+            END
+        END;
+
+    release_door(dbutton) =
+        PRE
+            dbutton : BUTTON_DOOR_OPTIONS &
+            button_door_press(dbutton) = button_press
+        THEN
+            release_door_button(dbutton)
+        END;
+
+    /* HLR-008: advance one maintenance blink step. */
+    advance_maintenance_time =
+        PRE
+            maintenance_mode = TRUE &
+            (
+                pending_floor_blink_off /= {} or
+                pending_dir_blink_off /= {} or
+                pending_door_blink_off /= {}
+            )
+        THEN
+            complete_pending_off
+        END;
+
     /* HLR-003: automatic door operations preserve moving => closed. */
     open_door_automatically =
         PRE
@@ -470,6 +541,7 @@ OPERATIONS
     open_door_immediately =
         PRE
             curr_state = rest &
+            maintenance_mode = FALSE &
             door_state = door_closed &
             button_door_press(button_door_open) = button_press &
             door_state_changed = FALSE
@@ -481,6 +553,7 @@ OPERATIONS
     close_door_immediately =
         PRE
             curr_state = rest &
+            maintenance_mode = FALSE &
             door_state = door_open &
             button_door_press(button_door_close) = button_press &
             door_state_changed = FALSE

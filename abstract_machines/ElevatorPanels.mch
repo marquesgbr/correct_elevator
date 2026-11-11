@@ -32,7 +32,8 @@ VARIABLES
 
     pending_floor_blink_off,
     pending_floor_blink_on,
-    pending_dir_blink_off
+    pending_dir_blink_off,
+    pending_door_blink_off
 
 INVARIANT
     button_dir_led : BUTTONS_IN_FLOORS --> BUTTON_LED_STATES &
@@ -52,7 +53,8 @@ INVARIANT
     pending_floor_blink_off <: FLOORS &
     pending_floor_blink_on <: FLOORS &
     pending_floor_blink_off /\ pending_floor_blink_on = {} &
-    pending_dir_blink_off <: BUTTONS_IN_FLOORS
+    pending_dir_blink_off <: BUTTONS_IN_FLOORS &
+    pending_door_blink_off <: BUTTON_DOOR_OPTIONS
 
 INITIALISATION
     /* All controls start released and all LEDs start inactive. */
@@ -72,7 +74,8 @@ INITIALISATION
     
     pending_floor_blink_off := {} ||
     pending_floor_blink_on := {} ||
-    pending_dir_blink_off := {}
+    pending_dir_blink_off := {} ||
+    pending_door_blink_off := {}
 
 OPERATIONS
 
@@ -128,6 +131,40 @@ OPERATIONS
             button_door_press(dbutton) := button_released
         END;
 
+    /* HLR-008: button presses during maintenance are ignored as requests,
+       but the associated LED blinks and then goes off. */
+    press_floor_button_and_blink_off(ffloor) =
+        PRE
+            ffloor : FLOORS
+        THEN
+            button_floor_press(ffloor) := button_press ||
+            button_floor_led(ffloor) := button_led_blinking ||
+            pending_floor_blink_off := pending_floor_blink_off \/ {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+        END;
+
+    press_dir_button_and_blink_off(ffloor, ddir) =
+        PRE
+            ffloor : FLOORS &
+            ddir : BUTTON_DIR_OPTIONS &
+            (ffloor, ddir) : BUTTONS_IN_FLOORS &
+            (ddir = button_dir_up => ffloor < MAX_FLOOR) &
+            (ddir = button_dir_down => ffloor > MIN_FLOOR)
+        THEN
+            button_dir_press(ffloor, ddir) := button_press ||
+            button_dir_led(ffloor, ddir) := button_led_blinking ||
+            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir}
+        END;
+
+    press_door_button_and_blink_off(dbutton) =
+        PRE
+            dbutton : BUTTON_DOOR_OPTIONS
+        THEN
+            button_door_press(dbutton) := button_press ||
+            button_door_led(dbutton) := button_led_blinking ||
+            pending_door_blink_off := pending_door_blink_off \/ {dbutton}
+        END;
+
      /* LED control. ElevatorRequests uses these operations to keep panel
          indications synchronized with active requests. */
     set_dir_led(ffloor, ddir, lstate) =
@@ -158,7 +195,8 @@ OPERATIONS
             dbutton : BUTTON_DOOR_OPTIONS &
             lstate : BUTTON_LED_STATES
         THEN
-            button_door_led(dbutton) := lstate
+            button_door_led(dbutton) := lstate ||
+            pending_door_blink_off := pending_door_blink_off - {dbutton}
         END;
 
     /* Clear all request LEDs associated with a floor in one operation.
@@ -215,20 +253,41 @@ OPERATIONS
             button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
             pending_floor_blink_off := {} ||
             pending_floor_blink_on := {} ||
-            pending_dir_blink_off := {}
+            pending_dir_blink_off := {} ||
+            pending_door_blink_off := {}
         END;
 
-    /* HLR-008: entering maintenance clears every panel LED and turns on the
-       maintenance warning. */
+    /* HLR-008: entering maintenance clears every panel LED and press state,
+       and turns on the maintenance warning. */
     enter_maintenance_display =
         BEGIN
             button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
             button_floor_led := FLOORS * {button_led_inactive} ||
             button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
+            button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+            button_floor_press := FLOORS * {button_released} ||
+            button_door_press := BUTTON_DOOR_OPTIONS * {button_released} ||
             pending_floor_blink_off := {} ||
             pending_floor_blink_on := {} ||
             pending_dir_blink_off := {} ||
+            pending_door_blink_off := {} ||
             maintenance_indicator := TRUE
+        END;
+
+    /* HLR-008: leaving maintenance clears any remaining warning/blink state. */
+    exit_maintenance_display =
+        BEGIN
+            button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
+            button_floor_led := FLOORS * {button_led_inactive} ||
+            button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
+            button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+            button_floor_press := FLOORS * {button_released} ||
+            button_door_press := BUTTON_DOOR_OPTIONS * {button_released} ||
+            pending_floor_blink_off := {} ||
+            pending_floor_blink_on := {} ||
+            pending_dir_blink_off := {} ||
+            pending_door_blink_off := {} ||
+            maintenance_indicator := FALSE
         END;
 
     clear_all_buttons =
@@ -297,6 +356,24 @@ OPERATIONS
         THEN
             button_dir_led(ffloor, ddir) := button_led_inactive ||
             pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
+        END;
+
+    /* Complete all pending blink-off indications in one maintenance time
+       step. */
+    complete_pending_off =
+        BEGIN
+            button_floor_led :=
+                button_floor_led <+
+                %ff.(ff : pending_floor_blink_off | button_led_inactive) ||
+            pending_floor_blink_off := {} ||
+            button_dir_led :=
+                button_dir_led <+
+                %bb.(bb : pending_dir_blink_off | button_led_inactive) ||
+            pending_dir_blink_off := {} ||
+            button_door_led :=
+                button_door_led <+
+                %dd.(dd : pending_door_blink_off | button_led_inactive) ||
+            pending_door_blink_off := {}
         END;
 
      /* Display state. ElevatorControl uses these to mirror the cabin

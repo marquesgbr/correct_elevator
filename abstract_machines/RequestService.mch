@@ -33,6 +33,11 @@ PROMOTES
     release_dir_button,
     press_door_button,
     release_door_button,
+    press_floor_button_and_blink_off,
+    press_dir_button_and_blink_off,
+    press_door_button_and_blink_off,
+    complete_pending_off,
+    exit_maintenance_display,
 
     register_internal_request,
     register_up_request,
@@ -225,7 +230,7 @@ OPERATIONS
             curr_state = rest
         THEN
             remove_key ||
-            change_maintenance_indicator(FALSE)
+            exit_maintenance_display
         END;
 
     /* Lifecycle operation to be called after the active request has been

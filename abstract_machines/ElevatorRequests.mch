@@ -20,6 +20,12 @@ PROMOTES
 	press_door_button,
 	release_door_button,
 
+	press_floor_button_and_blink_off,
+	press_dir_button_and_blink_off,
+	press_door_button_and_blink_off,
+	complete_pending_off,
+	exit_maintenance_display,
+
 	set_floor_led,
 	set_dir_led,
 	set_door_led,
