@@ -31,14 +31,14 @@ PROPERTIES
 
 VARIABLES
     door_state_changed,
-    floor_button_processed
+    floor_button_unprocessed
     
 
 
 INVARIANT
     
     door_state_changed : BOOL &
-    floor_button_processed : {ff | ff : FLOORS & button_floor_press(ff) = button_press} --> BOOL &
+    floor_button_unprocessed : FIN(FLOORS) &
 
 
     /* HLR-001 / HLR-003 / HLR-007: displayed floor and direction. */
@@ -105,7 +105,7 @@ ASSERTIONS
 
 INITIALISATION
     door_state_changed := FALSE ||
-    floor_button_processed := {}
+    floor_button_unprocessed := {}
     
 
 OPERATIONS
@@ -143,8 +143,7 @@ OPERATIONS
         PRE
             cabin_broken = FALSE &
             maintenance_mode = FALSE &
-            (dom(floor_button_processed) = {} or 
-            ran(floor_button_processed) = {TRUE})
+            floor_button_unprocessed = {}
             
         THEN
             tick(
@@ -153,7 +152,15 @@ OPERATIONS
                 {ff | ff : FLOORS &
                         button_floor_press(ff) = button_press}
             ) || 
-            door_state_changed := FALSE 
+            door_state_changed := FALSE ||
+            IF BUTTON_HOLD_LIMIT : ran(button_floor_timer) THEN
+                floor_button_unprocessed := 
+                floor_button_unprocessed \/ {ff |
+                    ff : FLOORS &
+                    button_floor_timer(ff) >= BUTTON_HOLD_LIMIT}
+                    
+
+            END
         END;
         
     
@@ -166,7 +173,7 @@ OPERATIONS
             button_floor_press(ffloor) = button_released
         THEN
             press_floor_button(ffloor) ||
-            floor_button_processed(ffloor) := FALSE
+            floor_button_unprocessed := floor_button_unprocessed \/ {ffloor}
         END;
             
     
@@ -175,18 +182,17 @@ OPERATIONS
             ffloor : FLOORS &
             button_floor_press(ffloor) = button_press &
             maintenance_mode = FALSE &
-            floor_button_processed(ffloor) = FALSE
+            ffloor : floor_button_unprocessed 
         THEN
             register_internal_request(ffloor) ||
-            floor_button_processed(ffloor) := TRUE
+            floor_button_unprocessed := floor_button_unprocessed - {ffloor}
         END;
 
     release_internal(ffloor) =
         PRE
             ffloor : FLOORS &
-            ffloor : dom(floor_button_processed) &
-            button_floor_press(ffloor) = button_press &
-            floor_button_processed(ffloor) = TRUE
+            ffloor /: floor_button_unprocessed &
+            button_floor_press(ffloor) = button_press 
             
         THEN
             release_floor_button(ffloor) ||
@@ -253,9 +259,11 @@ OPERATIONS
             button_floor_press(ffloor) = button_press &
             maintenance_mode = FALSE &
             ffloor : internal_requests &
-            card(internal_requests) > 1
+            card(internal_requests) > 1 &
+            ffloor : floor_button_unprocessed
         THEN
-            cancel_internal_hold(ffloor)
+            cancel_internal_hold(ffloor) ||
+            floor_button_unprocessed := floor_button_unprocessed - {ffloor}
         END;
 
     /* HLR-005: reject cancellation of the last internal request. */
@@ -267,9 +275,10 @@ OPERATIONS
             ffloor : internal_requests &
             card(internal_requests) = 1 &
             ffloor /: pending_floor_blink_on &
-            ffloor /: pending_floor_blink_off
+            ffloor /: pending_floor_blink_off 
         THEN
-            reject_last_internal_hold(ffloor)
+            reject_last_internal_hold(ffloor) || 
+            floor_button_unprocessed := floor_button_unprocessed - {ffloor}
         END;
 
     /* HLR-005: cancel an external up request after the hold time. */
