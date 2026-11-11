@@ -102,14 +102,14 @@ OPERATIONS
                 IF sweep_direction = up THEN
                     IF requests_upwards /= {} THEN
                         curr_active_request := min(requests_upwards)
-                    ELSE
+                    ELSIF requests_downwards /= {} THEN
                         curr_active_request := max(requests_downwards) ||
                         sweep_direction := down
                     END
                 ELSE
                     IF requests_downwards /= {} THEN
                         curr_active_request := max(requests_downwards)
-                    ELSE
+                    ELSIF requests_upwards /= {} THEN
                         curr_active_request := min(requests_upwards) ||
                         sweep_direction := up
                     END
@@ -256,7 +256,9 @@ OPERATIONS
     stop_at_next_floor =
         PRE
             stop_at_next_floor_requested = TRUE &
-            curr_state /= rest
+            curr_state /= rest &
+            (curr_state = moving_up => curr_floor < MAX_FLOOR) &
+            (curr_state = moving_down => curr_floor > MIN_FLOOR)
         THEN
             advance_and_stop ||
             IF curr_state = moving_up THEN
