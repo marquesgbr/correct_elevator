@@ -265,7 +265,8 @@ OPERATIONS
         PRE
             ww : NAT &
             ww + curr_weight : NAT &
-            curr_state = rest
+            curr_state = rest &
+            door_state = door_open
         THEN
             add_cabin_weight(ww)
         END;
@@ -275,7 +276,8 @@ OPERATIONS
             ww : NAT &
             ww <= curr_weight &
             curr_weight - ww : NAT &
-            curr_state = rest
+            curr_state = rest &
+            door_state = door_open
         THEN
             remove_cabin_weight(ww)
         END;
