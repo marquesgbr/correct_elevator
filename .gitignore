@@ -7,3 +7,6 @@ abstract_machines/.usedby_*
 abstract_machines/AtelierB
 abstract_machines/bdp/
 abstract_machines/lang/
+
+*bdp/
+*lang/
