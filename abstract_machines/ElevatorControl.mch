@@ -1,11 +1,11 @@
 /* ElevatorControl
- * Author: tomclima
  * Creation date: 11/8/26
  *
  * Top-level contract and orchestration machine.
  * Invariants cover HLR-001 through HLR-009. HLR-010 remains a
  * temporal/optimisation property for refinement or model checking.
  */
+ 
 MACHINE
     ElevatorControl
 
@@ -181,6 +181,84 @@ OPERATIONS
         END;
         
     
+
+    /* ------------------------------------------------------------------
+       Request dispatch and travel.
+       ------------------------------------------------------------------ */
+
+    /* Choose the next active request when the cabin is idle. */
+    select_request =
+        PRE
+            curr_active_request = NO_REQUEST &
+            stop_at_next_floor_requested = FALSE &
+            (internal_requests \/ up_requests \/ down_requests) /= {} &
+            curr_state = rest &
+            maintenance_mode = FALSE &
+            exceeds_capacity = FALSE
+        THEN
+            select_next_request
+        END;
+
+    /* Start moving toward the selected target only with the door closed. */
+    start_travel =
+        PRE
+            curr_active_request /= NO_REQUEST &
+            curr_active_request /= curr_floor &
+            stop_at_next_floor_requested = FALSE &
+            curr_state = rest &
+            door_state = door_closed &
+            maintenance_mode = FALSE &
+            exceeds_capacity = FALSE
+        THEN
+            IF curr_active_request > curr_floor THEN
+                start_moving(up)
+            ELSE
+                start_moving(down)
+            END
+        END;
+
+    /* Move one floor while the selected target is still ahead. */
+    move_travel =
+        PRE
+            curr_state /= rest &
+            curr_active_request /= NO_REQUEST &
+            curr_active_request /= curr_floor &
+            stop_at_next_floor_requested = FALSE &
+            door_state = door_closed &
+            maintenance_mode = FALSE &
+            exceeds_capacity = FALSE
+        THEN
+            move_one_floor
+        END;
+
+    /* Stop when the selected target has been reached. */
+    stop_at_target =
+        PRE
+            curr_active_request = curr_floor &
+            curr_state /= rest
+        THEN
+            stop_cabin
+        END;
+
+    /* Serve all requests at the selected floor and clear the active target. */
+    serve_target =
+        PRE
+            curr_active_request = curr_floor &
+            curr_state = rest
+        THEN
+            serve_active_request
+        END;
+
+    /* HLR-006: after cancelling the active target while moving, stop at the
+       next floor in the current direction. */
+    advance_to_cancellation_stop =
+        PRE
+            stop_at_next_floor_requested = TRUE &
+            curr_state /= rest &
+            door_state = door_closed
+        THEN
+            stop_at_next_floor
+        END;
 
     /* Two-phase internal request: record the press, then register. */
     press_internal(ffloor) =

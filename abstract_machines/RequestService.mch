@@ -53,6 +53,8 @@ INVARIANT
 
     curr_active_request : FLOORS \/ {NO_REQUEST} &
 
+    (curr_active_request /= NO_REQUEST =>
+        curr_active_request : (internal_requests \/ up_requests \/ down_requests)) &
 
     stop_at_next_floor_requested : BOOL &
     (
@@ -105,6 +107,67 @@ OPERATIONS
             END
         END;
 
+    /* Motion primitives. Cabin state and panel display are updated in the
+       same operation so the display invariant is preserved. */
+    start_moving(ddir) =
+        PRE
+            ddir : MOVEMENT_DIRECTIONS - {stop} &
+            curr_state = rest &
+            curr_active_request /= NO_REQUEST &
+            curr_active_request /= curr_floor &
+            stop_at_next_floor_requested = FALSE &
+            (ddir = up => curr_floor < MAX_FLOOR) &
+            (ddir = down => curr_floor > MIN_FLOOR)
+        THEN
+            change_direction(ddir) ||
+            IF ddir = up THEN
+                update_panel_display(curr_floor, panel_dir_up)
+            ELSE
+                update_panel_display(curr_floor, panel_dir_down)
+            END
+        END;
+
+    move_one_floor =
+        PRE
+            ((curr_state = moving_up & curr_floor < MAX_FLOOR) or
+             (curr_state = moving_down & curr_floor > MIN_FLOOR)) &
+            stop_at_next_floor_requested = FALSE
+        THEN
+            move_cabin ||
+            IF curr_state = moving_up THEN
+                IF curr_floor + 1 = MAX_FLOOR THEN
+                    update_panel_display(curr_floor + 1, panel_dir_inactive)
+                ELSE
+                    update_panel_display(curr_floor + 1, panel_dir_up)
+                END
+            ELSE
+                IF curr_floor - 1 = MIN_FLOOR THEN
+                    update_panel_display(curr_floor - 1, panel_dir_inactive)
+                ELSE
+                    update_panel_display(curr_floor - 1, panel_dir_down)
+                END
+            END
+        END;
+
+    stop_cabin =
+        PRE
+            curr_state /= rest
+        THEN
+            change_direction(stop) ||
+            update_panel_display(curr_floor, panel_dir_inactive)
+        END;
+
+    serve_active_request =
+        PRE
+            curr_active_request /= NO_REQUEST &
+            curr_state = rest &
+            curr_active_request = curr_floor
+        THEN
+            serve_floor_requests(curr_active_request) ||
+            curr_active_request := NO_REQUEST ||
+            stop_at_next_floor_requested := FALSE
+        END;
+
     /* Lifecycle operation to be called after the active request has been
        served or cancelled. If the cabin is still moving and no request
        remains, HLR-006 requires it to stop at the next floor. The actual
@@ -114,23 +177,26 @@ OPERATIONS
             curr_active_request /= NO_REQUEST
         THEN
             curr_active_request := NO_REQUEST ||
-            IF
-                (curr_state /= rest) &
-                ((internal_requests \/ up_requests \/ down_requests) = {})
-            THEN
+            IF curr_state /= rest THEN
                 stop_at_next_floor_requested := TRUE
             ELSE
                 stop_at_next_floor_requested := FALSE
             END
         END;
 
-    /* Called by ElevatorControl after the cabin has moved to the next floor.
-       change_direction(stop) sets the cabin state to rest. */
+    /* HLR-006: move exactly one floor and stop there. The panel display is
+       updated with the post-move floor. */
     stop_at_next_floor =
         PRE
-            stop_at_next_floor_requested = TRUE
+            stop_at_next_floor_requested = TRUE &
+            curr_state /= rest
         THEN
-            change_direction(stop) ||
+            advance_and_stop ||
+            IF curr_state = moving_up THEN
+                update_panel_display(curr_floor + 1, panel_dir_inactive)
+            ELSE
+                update_panel_display(curr_floor - 1, panel_dir_inactive)
+            END ||
             stop_at_next_floor_requested := FALSE
         END;
 
@@ -139,21 +205,45 @@ OPERATIONS
             ffloor : internal_requests &
             card(internal_requests) > 1
         THEN
-            cancel_internal_by_hold(ffloor)
+            cancel_internal_by_hold(ffloor) ||
+            IF curr_active_request = ffloor THEN
+                curr_active_request := NO_REQUEST
+            END ||
+            IF curr_active_request = ffloor & curr_state /= rest THEN
+                stop_at_next_floor_requested := TRUE
+            ELSIF curr_active_request = ffloor THEN
+                stop_at_next_floor_requested := FALSE
+            END
         END;
 
     cancel_up_hold(ffloor) =
         PRE
             ffloor : up_requests
         THEN
-            cancel_up_by_hold(ffloor)
+            cancel_up_by_hold(ffloor) ||
+            IF curr_active_request = ffloor THEN
+                curr_active_request := NO_REQUEST
+            END ||
+            IF curr_active_request = ffloor & curr_state /= rest THEN
+                stop_at_next_floor_requested := TRUE
+            ELSIF curr_active_request = ffloor THEN
+                stop_at_next_floor_requested := FALSE
+            END
         END;
 
     cancel_down_hold(ffloor) =
         PRE
             ffloor : down_requests
         THEN
-            cancel_down_by_hold(ffloor)
+            cancel_down_by_hold(ffloor) ||
+            IF curr_active_request = ffloor THEN
+                curr_active_request := NO_REQUEST
+            END ||
+            IF curr_active_request = ffloor & curr_state /= rest THEN
+                stop_at_next_floor_requested := TRUE
+            ELSIF curr_active_request = ffloor THEN
+                stop_at_next_floor_requested := FALSE
+            END
         END;
 
     reject_last_internal_hold(ffloor) =
