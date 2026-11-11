@@ -93,16 +93,6 @@ OPERATIONS
         button_floor_timer(ffloor) := button_floor_timer(ffloor) + 1
     END;
     
-    increase_open_door_timer =
-    PRE
-        door_state = door_open &
-        door_open_timer < DOOR_OPEN_LIMIT &
-        cabin_broken = FALSE &
-        maintenance_mode = FALSE
-    THEN
-        door_open_timer := door_open_timer + 1
-    END;
-
     reset_button_dir_timer(ffloor, ddir) =
     PRE
         ffloor : FLOORS &
@@ -119,14 +109,12 @@ OPERATIONS
         button_floor_timer(ffloor) := 0
     END;
 
-    reset_open_door_timer =
-    PRE
-        (
-            door_state /= door_open or
-            door_open_timer = DOOR_OPEN_LIMIT
-        )
-    THEN
-        door_open_timer := 0
+    /* Used when closing the door: reset the open timer and clear the broken
+       latch atomically, even if the old door state is still open. */
+    reset_open_door_timer_and_clear_broken =
+    BEGIN
+        door_open_timer := 0 ||
+        cabin_broken := FALSE
     END;
     
     tick(active_dir, active_floor) =
@@ -149,7 +137,10 @@ OPERATIONS
                     button_floor_timer(ff) + 1) ||
 
         IF door_state = door_open & door_open_timer < DOOR_OPEN_LIMIT THEN
-            door_open_timer := door_open_timer + 1
+            door_open_timer := door_open_timer + 1 ||
+            IF door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
+                cabin_broken := TRUE
+            END
         END
     END;
 
