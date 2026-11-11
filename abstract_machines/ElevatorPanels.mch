@@ -161,6 +161,23 @@ OPERATIONS
             button_door_led(dbutton) := lstate
         END;
 
+    /* Clear all request LEDs associated with a floor in one operation.
+       ElevatorRequests uses this when a floor request is served. */
+    clear_floor_request_leds(ffloor) =
+        PRE
+            ffloor : FLOORS
+        THEN
+            button_floor_led(ffloor) := button_led_inactive ||
+            button_dir_led :=
+                button_dir_led <+
+                %bb.(bb : (({ffloor} * BUTTON_DIR_OPTIONS) /\ BUTTONS_IN_FLOORS) |
+                        button_led_inactive) ||
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            pending_dir_blink_off :=
+                pending_dir_blink_off - (({ffloor} * BUTTON_DIR_OPTIONS) /\ BUTTONS_IN_FLOORS)
+        END;
+
     blink_dir_led(ffloor, ddir) =
         PRE
             ffloor : FLOORS &
