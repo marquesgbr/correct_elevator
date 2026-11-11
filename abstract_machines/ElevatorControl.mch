@@ -31,14 +31,16 @@ PROPERTIES
 
 VARIABLES
     door_state_changed,
-    floor_button_unprocessed
+    floor_button_unprocessed,
+    dir_button_unprocessed
     
 
 
 INVARIANT
     
     door_state_changed : BOOL &
-    floor_button_unprocessed : FIN(FLOORS) &
+    floor_button_unprocessed : FIN(FLOORS) & 
+    dir_button_unprocessed : FIN(BUTTONS_IN_FLOORS) &
 
 
     /* HLR-001 / HLR-003 / HLR-007: displayed floor and direction. */
@@ -105,7 +107,8 @@ ASSERTIONS
 
 INITIALISATION
     door_state_changed := FALSE ||
-    floor_button_unprocessed := {}
+    floor_button_unprocessed := {} ||
+    dir_button_unprocessed := {}
     
 
 OPERATIONS
@@ -143,7 +146,8 @@ OPERATIONS
         PRE
             cabin_broken = FALSE &
             maintenance_mode = FALSE &
-            floor_button_unprocessed = {}
+            floor_button_unprocessed = {} &
+            dir_button_unprocessed = {}
             
         THEN
             tick(
@@ -158,6 +162,14 @@ OPERATIONS
                 floor_button_unprocessed \/ {ff |
                     ff : FLOORS &
                     button_floor_timer(ff) >= BUTTON_HOLD_LIMIT}
+                    
+
+            END ||
+            IF BUTTON_HOLD_LIMIT : ran(button_dir_timer) THEN
+                dir_button_unprocessed := 
+                dir_button_unprocessed \/ {bb |
+                    bb : BUTTONS_IN_FLOORS &
+                    button_dir_timer(bb) >= BUTTON_HOLD_LIMIT}
                     
 
             END
@@ -181,6 +193,7 @@ OPERATIONS
         PRE
             ffloor : FLOORS &
             button_floor_press(ffloor) = button_press &
+            button_floor_timer(ffloor) /= BUTTON_HOLD_LIMIT &
             maintenance_mode = FALSE &
             ffloor : floor_button_unprocessed 
         THEN
@@ -203,23 +216,30 @@ OPERATIONS
     press_up(ffloor) =
         PRE
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
-            maintenance_mode = FALSE
+            maintenance_mode = FALSE &
+            button_dir_press(ffloor, button_dir_up) = button_released
         THEN
-            press_dir_button(ffloor, button_dir_up)
+            press_dir_button(ffloor, button_dir_up) ||
+            dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_up)}
         END;
 
     register_up(ffloor) =
         PRE
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
             button_dir_press(ffloor, button_dir_up) = button_press &
-            maintenance_mode = FALSE
+            button_dir_timer(ffloor, button_dir_up) /= BUTTON_HOLD_LIMIT &
+            maintenance_mode = FALSE &
+            (ffloor |-> button_dir_up) : dir_button_unprocessed
         THEN
-            register_up_request(ffloor)
+            register_up_request(ffloor) ||
+            dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_up)}
         END;
 
     release_up(ffloor) =
         PRE
-            ffloor : MIN_FLOOR..(MAX_FLOOR - 1)
+            ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
+            (ffloor |-> button_dir_up) /: dir_button_unprocessed &
+            button_dir_press(ffloor, button_dir_up) = button_press
         THEN
             release_dir_button(ffloor, button_dir_up) ||
             reset_button_dir_timer(ffloor, button_dir_up)
@@ -229,23 +249,30 @@ OPERATIONS
     press_down(ffloor) =
         PRE
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
-            maintenance_mode = FALSE
+            maintenance_mode = FALSE &
+            button_dir_press(ffloor, button_dir_down) = button_released
         THEN
-            press_dir_button(ffloor, button_dir_down)
+            press_dir_button(ffloor, button_dir_down) ||
+            dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_down)}
         END;
 
     register_down(ffloor) =
         PRE
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
             button_dir_press(ffloor, button_dir_down) = button_press &
-            maintenance_mode = FALSE
+            button_dir_timer(ffloor, button_dir_down) /= BUTTON_HOLD_LIMIT &
+            maintenance_mode = FALSE &
+            (ffloor |-> button_dir_down) : dir_button_unprocessed
         THEN
-            register_down_request(ffloor)
+            register_down_request(ffloor) ||
+            dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_down)}
         END;
 
     release_down(ffloor) =
         PRE
-            ffloor : (MIN_FLOOR + 1)..MAX_FLOOR
+            ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
+            (ffloor |-> button_dir_down) /: dir_button_unprocessed &
+            button_dir_press(ffloor, button_dir_down) = button_press
         THEN
             release_dir_button(ffloor, button_dir_down) ||
             reset_button_dir_timer(ffloor, button_dir_down)
@@ -288,9 +315,11 @@ OPERATIONS
             button_dir_timer(ffloor, button_dir_up) = BUTTON_HOLD_LIMIT &
             button_dir_press(ffloor, button_dir_up) = button_press &
             maintenance_mode = FALSE &
-            ffloor : up_requests
+            ffloor : up_requests &
+            (ffloor |-> button_dir_up) : dir_button_unprocessed
         THEN
-            cancel_up_hold(ffloor)
+            cancel_up_hold(ffloor) ||
+            dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_up)}
         END;
 
     /* HLR-005: cancel an external down request after the hold time. */
@@ -300,9 +329,11 @@ OPERATIONS
             button_dir_timer(ffloor, button_dir_down) = BUTTON_HOLD_LIMIT &
             button_dir_press(ffloor, button_dir_down) = button_press &
             maintenance_mode = FALSE &
-            ffloor : down_requests
+            ffloor : down_requests &
+            (ffloor |-> button_dir_down) : dir_button_unprocessed
         THEN
-            cancel_down_hold(ffloor)
+            cancel_down_hold(ffloor) ||
+            dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_down)}
         END;
 
     /* HLR-003: automatic door operations preserve moving => closed. */
