@@ -93,6 +93,7 @@ INVARIANT
     (maintenance_mode = TRUE => internal_requests = {}) &
     (maintenance_mode = TRUE => up_requests = {}) &
     (maintenance_mode = TRUE => down_requests = {}) &
+    (maintenance_mode = TRUE => pending_floor_blink_on = {}) &
     (maintenance_indicator = maintenance_mode) &
 
     /* HLR-009: overweight display and movement prohibition. */
@@ -107,7 +108,21 @@ ASSERTIONS
     !(ffloor).(
         ffloor : (MIN_FLOOR + 1)..MAX_FLOOR =>
         (ffloor, button_dir_down) : BUTTONS_IN_FLOORS
-    )
+    ) &
+    (floor_button_unprocessed \/
+        {ff | ff : FLOORS &
+              button_floor_timer(ff) >= BUTTON_HOLD_LIMIT}) : FIN(FLOORS) &
+    (dir_button_unprocessed \/
+        {bb | bb : BUTTONS_IN_FLOORS &
+              button_dir_timer(bb) >= BUTTON_HOLD_LIMIT}) : FIN(BUTTONS_IN_FLOORS) &
+    (pending_floor_blink_on /= {} =>
+        min(pending_floor_blink_on) : internal_requests) &
+    pending_floor_blink_on - {curr_active_request} <:
+        internal_requests - {curr_active_request} &
+    !(cs).(cs : CABIN_STATES =>
+        panel_direction_of(cs) /= panel_dir_broken_elevator) &
+    !(ffloor).(ffloor : FLOORS =>
+        (ffloor |-> button_dir_up) /= (ffloor |-> button_dir_down))
 
 INITIALISATION
     door_state_changed := FALSE ||
@@ -219,6 +234,7 @@ OPERATIONS
             curr_active_request /= curr_floor &
             stop_at_next_floor_requested = FALSE &
             curr_state = rest &
+            cabin_broken = FALSE &
             door_state = door_closed &
             maintenance_mode = FALSE &
             exceeds_capacity = FALSE
@@ -234,9 +250,12 @@ OPERATIONS
     move_travel =
         PRE
             curr_state /= rest &
+            ((curr_state = moving_up & curr_floor < MAX_FLOOR) or
+             (curr_state = moving_down & curr_floor > MIN_FLOOR)) &
             curr_active_request /= NO_REQUEST &
             curr_active_request /= curr_floor &
             stop_at_next_floor_requested = FALSE &
+            cabin_broken = FALSE &
             door_state = door_closed &
             maintenance_mode = FALSE &
             exceeds_capacity = FALSE
@@ -248,7 +267,8 @@ OPERATIONS
     stop_at_target =
         PRE
             curr_active_request = curr_floor &
-            curr_state /= rest
+            curr_state /= rest &
+            cabin_broken = FALSE
         THEN
             stop_cabin
         END;
@@ -268,6 +288,9 @@ OPERATIONS
         PRE
             stop_at_next_floor_requested = TRUE &
             curr_state /= rest &
+            ((curr_state = moving_up & curr_floor < MAX_FLOOR) or
+             (curr_state = moving_down & curr_floor > MIN_FLOOR)) &
+            cabin_broken = FALSE &
             door_state = door_closed
         THEN
             stop_at_next_floor
@@ -558,6 +581,7 @@ OPERATIONS
     open_door_immediately =
         PRE
             curr_state = rest &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             door_state = door_closed &
             button_door_press(button_door_open) = button_press &

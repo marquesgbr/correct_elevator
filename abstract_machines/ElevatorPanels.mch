@@ -50,11 +50,32 @@ INVARIANT
     excess_weight_indicator : BOOL &
     maintenance_indicator : BOOL &
 
-    pending_floor_blink_off <: FLOORS &
-    pending_floor_blink_on <: FLOORS &
+    pending_floor_blink_off : FIN(FLOORS) &
+    pending_floor_blink_on : FIN(FLOORS) &
     pending_floor_blink_off /\ pending_floor_blink_on = {} &
-    pending_dir_blink_off <: BUTTONS_IN_FLOORS &
-    pending_door_blink_off <: BUTTON_DOOR_OPTIONS
+    pending_dir_blink_off : FIN(BUTTONS_IN_FLOORS) &
+    pending_door_blink_off : FIN(BUTTON_DOOR_OPTIONS) &
+    !(ff).(ff : pending_floor_blink_off =>
+        button_floor_led(ff) = button_led_blinking) &
+    !(ff).(ff : pending_floor_blink_on =>
+        button_floor_led(ff) = button_led_blinking) &
+    !(bb).(bb : pending_dir_blink_off =>
+        button_dir_led(bb) = button_led_blinking) &
+    !(dd).(dd : pending_door_blink_off =>
+        button_door_led(dd) = button_led_blinking)
+
+ASSERTIONS
+    button_led_active /= button_led_inactive &
+    button_led_active /= button_led_blinking &
+    button_led_inactive /= button_led_blinking &
+    button_press /= button_released &
+    button_dir_up /= button_dir_down &
+    panel_dir_inactive /= panel_dir_up &
+    panel_dir_inactive /= panel_dir_down &
+    panel_dir_inactive /= panel_dir_broken_elevator &
+    panel_dir_up /= panel_dir_down &
+    panel_dir_up /= panel_dir_broken_elevator &
+    panel_dir_down /= panel_dir_broken_elevator
 
 INITIALISATION
     /* All controls start released and all LEDs start inactive. */
@@ -122,7 +143,8 @@ OPERATIONS
             dbutton : BUTTON_DOOR_OPTIONS
         THEN
             button_door_press(dbutton) := button_press ||
-            button_door_led(dbutton) := button_led_active
+            button_door_led(dbutton) := button_led_active ||
+            pending_door_blink_off := pending_door_blink_off - {dbutton}
         END;
 
     release_door_button(dbutton) =
