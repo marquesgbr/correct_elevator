@@ -369,7 +369,8 @@ OPERATIONS
             button_floor_press(ffloor) = button_press &
             button_floor_timer(ffloor) /= BUTTON_HOLD_LIMIT &
             maintenance_mode = FALSE &
-            ffloor : floor_button_unprocessed 
+            ffloor : floor_button_unprocessed &
+			exceeds_capacity = FALSE
         THEN
             register_internal_request(ffloor) ||
             floor_button_unprocessed := floor_button_unprocessed - {ffloor}

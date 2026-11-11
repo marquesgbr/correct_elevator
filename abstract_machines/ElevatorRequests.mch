@@ -81,7 +81,10 @@ INVARIANT
 	down_requests <: (MIN_FLOOR + 1)..MAX_FLOOR &
 	internal_requests <: FLOORS &
 	up_requests <: FLOORS &
-	down_requests <: FLOORS
+	down_requests <: FLOORS &
+	internal_requests : FIN(FLOORS) &
+	up_requests : FIN(FLOORS) &
+	down_requests : FIN(FLOORS) 
 
 INITIALISATION
 	/* No request is active when the system starts. */

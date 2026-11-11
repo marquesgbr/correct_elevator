@@ -39,9 +39,9 @@ OPERATIONS
         (direction = down => curr_floor > MIN_FLOOR)
         
     THEN
-        IF direction = up THEN 
+        IF direction = up & curr_floor < MAX_FLOOR THEN 
             curr_state := moving_up
-        ELSIF direction = down THEN 
+        ELSIF direction = down & curr_floor > MIN_FLOOR THEN 
             curr_state := moving_down
         ELSE curr_state := rest
         END

@@ -29,6 +29,8 @@ PROPERTIES
     BUTTONS_IN_FLOORS =
         (MIN_FLOOR..(MAX_FLOOR - 1)) * {button_dir_up} \/
         ((MIN_FLOOR + 1)..MAX_FLOOR) * {button_dir_down} &
-    BUTTONS_IN_FLOORS /= {}
+    BUTTONS_IN_FLOORS /= {} &
+    FLOORS : FIN(FLOORS) &
+    BUTTONS_IN_FLOORS : FIN(BUTTONS_IN_FLOORS)
 
 END
