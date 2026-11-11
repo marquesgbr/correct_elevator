@@ -19,6 +19,7 @@ PROMOTES
 
 	press_door_button,
 	release_door_button,
+	clear_door_led_and_display,
 
 	press_floor_button_and_blink_off,
 	press_dir_button_and_blink_off,
@@ -42,6 +43,7 @@ PROMOTES
 
 	complete_floor_led_blink,
 	complete_floor_led_blink_and_keep_on,
+	complete_floor_blink_on_and_show_broken,
 	complete_dir_led_blink,
 
 	all_leds_off,
