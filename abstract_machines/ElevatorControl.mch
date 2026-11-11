@@ -301,15 +301,6 @@ OPERATIONS
             dir_button_unprocessed := {}
         END;
 
-    remove_key_event =
-        PRE
-            key_inserted = TRUE &
-            maintenance_mode = FALSE &
-            curr_state = rest
-        THEN
-            remove_maintenance_key
-        END;
-
     stop_maintenance =
         PRE
             key_inserted = TRUE &
