@@ -152,9 +152,15 @@ OPERATIONS
         THEN
             tick(
                 {bb | bb : BUTTONS_IN_FLOORS &
-                        button_dir_press(bb) = button_press},
+                        button_dir_press(bb) = button_press &
+                        bb : (up_requests * {button_dir_up})}
+                \/
+                {bb | bb : BUTTONS_IN_FLOORS &
+                        button_dir_press(bb) = button_press &
+                        bb : (down_requests * {button_dir_down})},
                 {ff | ff : FLOORS &
-                        button_floor_press(ff) = button_press}
+                        button_floor_press(ff) = button_press &
+                        ff : internal_requests}
             ) || 
             door_state_changed := FALSE ||
             IF BUTTON_HOLD_LIMIT : ran(button_floor_timer) THEN
@@ -162,17 +168,16 @@ OPERATIONS
                 floor_button_unprocessed \/ {ff |
                     ff : FLOORS &
                     button_floor_timer(ff) >= BUTTON_HOLD_LIMIT}
-                    
-
             END ||
             IF BUTTON_HOLD_LIMIT : ran(button_dir_timer) THEN
                 dir_button_unprocessed := 
                 dir_button_unprocessed \/ {bb |
                     bb : BUTTONS_IN_FLOORS &
                     button_dir_timer(bb) >= BUTTON_HOLD_LIMIT}
-                    
-
-            END
+            END ||
+            IF pending_floor_blink_on /= {}  THEN
+                complete_floor_led_blink_and_keep_on(min(pending_floor_blink_on))
+                END
         END;
         
     
@@ -290,6 +295,7 @@ OPERATIONS
             ffloor : floor_button_unprocessed
         THEN
             cancel_internal_hold(ffloor) ||
+            reset_button_floor_timer(ffloor) ||
             floor_button_unprocessed := floor_button_unprocessed - {ffloor}
         END;
 
@@ -304,7 +310,8 @@ OPERATIONS
             ffloor /: pending_floor_blink_on &
             ffloor /: pending_floor_blink_off 
         THEN
-            reject_last_internal_hold(ffloor) || 
+            reject_last_internal_hold(ffloor) ||
+            reset_button_floor_timer(ffloor) ||
             floor_button_unprocessed := floor_button_unprocessed - {ffloor}
         END;
 
@@ -319,6 +326,7 @@ OPERATIONS
             (ffloor |-> button_dir_up) : dir_button_unprocessed
         THEN
             cancel_up_hold(ffloor) ||
+            reset_button_dir_timer(ffloor, button_dir_up) ||
             dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_up)}
         END;
 
@@ -333,6 +341,7 @@ OPERATIONS
             (ffloor |-> button_dir_down) : dir_button_unprocessed
         THEN
             cancel_down_hold(ffloor) ||
+            reset_button_dir_timer(ffloor, button_dir_down) ||
             dir_button_unprocessed := dir_button_unprocessed - {(ffloor |-> button_dir_down)}
         END;
 

@@ -23,7 +23,7 @@ PROMOTES
 
     update_panel_display,
     show_panel_broken,
-
+    complete_floor_led_blink_and_keep_on,
     press_floor_button,
     release_floor_button,
     press_dir_button,
