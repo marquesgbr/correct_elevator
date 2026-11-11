@@ -6,12 +6,14 @@ MACHINE
     RequestService
 
 SEES
-    ElevatorContext
+    ElevatorContext,
+    CabinDoor
 
 INCLUDES
     CabinState,
     ElevatorRequests,
-    CabinCapacity
+    CabinCapacity,
+    ElevatorMaintenance
 
 PROMOTES
     change_direction,
@@ -176,7 +178,8 @@ OPERATIONS
         PRE
             ww : NAT &
             ww + curr_weight : NAT &
-            curr_state = rest
+            curr_state = rest &
+            door_state = door_open
         THEN
             add_weight(ww) ||
             change_excess_weight(bool(curr_weight + ww > MAX_CAPACITY))
@@ -187,10 +190,42 @@ OPERATIONS
             ww : NAT &
             ww <= curr_weight &
             curr_weight - ww : NAT &
-            curr_state = rest
+            curr_state = rest &
+            door_state = door_open
         THEN
             remove_weight(ww) ||
             change_excess_weight(bool(curr_weight - ww > MAX_CAPACITY))
+        END;
+
+    /* HLR-008: maintenance cycle. Entering maintenance is only possible while
+       stopped, cancels all requests, clears their LEDs and displays the
+       maintenance warning. */
+    insert_maintenance_key =
+        PRE
+            key_inserted = FALSE
+        THEN
+            insert_key
+        END;
+
+    enter_maintenance_mode =
+        PRE
+            key_inserted = TRUE &
+            maintenance_mode = FALSE &
+            curr_state = rest
+        THEN
+            enter_maintenance ||
+            cancel_all_requests_for_maintenance ||
+            curr_active_request := NO_REQUEST ||
+            stop_at_next_floor_requested := FALSE
+        END;
+
+    exit_maintenance_mode =
+        PRE
+            key_inserted = TRUE &
+            curr_state = rest
+        THEN
+            remove_key ||
+            change_maintenance_indicator(FALSE)
         END;
 
     /* Lifecycle operation to be called after the active request has been

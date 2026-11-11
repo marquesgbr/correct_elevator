@@ -272,6 +272,16 @@ OPERATIONS
 		up_requests := {} ||
 		down_requests := {} ||
 		all_leds_off
+	END;
+
+	/* HLR-008: entering maintenance removes all requests, clears every LED and
+	   displays the maintenance warning atomically. */
+	cancel_all_requests_for_maintenance =
+	BEGIN
+		internal_requests := {} ||
+		up_requests := {} ||
+		down_requests := {} ||
+		enter_maintenance_display
 	END
 
 END

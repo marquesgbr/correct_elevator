@@ -218,6 +218,19 @@ OPERATIONS
             pending_dir_blink_off := {}
         END;
 
+    /* HLR-008: entering maintenance clears every panel LED and turns on the
+       maintenance warning. */
+    enter_maintenance_display =
+        BEGIN
+            button_dir_led := BUTTONS_IN_FLOORS * {button_led_inactive} ||
+            button_floor_led := FLOORS * {button_led_inactive} ||
+            button_door_led := BUTTON_DOOR_OPTIONS * {button_led_inactive} ||
+            pending_floor_blink_off := {} ||
+            pending_floor_blink_on := {} ||
+            pending_dir_blink_off := {} ||
+            maintenance_indicator := TRUE
+        END;
+
     clear_all_buttons =
         BEGIN
             button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
