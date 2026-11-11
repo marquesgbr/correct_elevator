@@ -137,6 +137,18 @@ OPERATIONS
 		set_dir_led(target_floor, button_dir_down, button_led_inactive)
 	END;
 
+	/* Serve every request associated with a floor in one operation. This is
+	   used by RequestService when the cabin reaches its selected target. */
+	serve_floor_requests(target_floor) =
+	PRE
+		target_floor : FLOORS
+	THEN
+		internal_requests := internal_requests - {target_floor} ||
+		up_requests := up_requests - {target_floor} ||
+		down_requests := down_requests - {target_floor} ||
+		clear_floor_request_leds(target_floor)
+	END;
+
 	/* Explicit cancellation. Control logic and maintenance use these when an
 	   active request must be removed. */
 	cancel_internal_request(target_floor) =
