@@ -48,6 +48,7 @@ INVARIANT
         (cabin_broken = TRUE  => panel_curr_direction = panel_dir_broken_elevator)
     ) &
     (cabin_broken = TRUE => door_open_timer >= DOOR_OPEN_LIMIT) &
+    (door_open_timer >= DOOR_OPEN_LIMIT => cabin_broken = TRUE) &
 
     /* HLR-003: the cabin may only move with the door closed. */
     (curr_state /= rest => door_state = door_closed) &
@@ -74,6 +75,11 @@ INVARIANT
             (button_dir_led(ffloor, button_dir_down) = button_led_active => ffloor : down_requests) &
             (ffloor : down_requests => button_dir_led(ffloor, button_dir_down) /= button_led_inactive)
         )
+    ) &
+    !(dbutton).(
+        dbutton : BUTTON_DOOR_OPTIONS =>
+        (button_door_led(dbutton) = button_led_active =>
+            button_door_press(dbutton) = button_press)
     ) &
 
     /* HLR-005: a blinking-to-on internal LED still has its request active. */
@@ -173,9 +179,18 @@ OPERATIONS
                     bb : BUTTONS_IN_FLOORS &
                     button_dir_timer(bb) >= BUTTON_HOLD_LIMIT}
             END ||
-            IF pending_floor_blink_on /= {}  THEN
+            IF pending_floor_blink_on /= {} &
+               door_state = door_open &
+               door_open_timer < DOOR_OPEN_LIMIT &
+               door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
+                complete_floor_blink_on_and_show_broken(min(pending_floor_blink_on))
+            ELSIF pending_floor_blink_on /= {} THEN
                 complete_floor_led_blink_and_keep_on(min(pending_floor_blink_on))
-                END
+            ELSIF door_state = door_open &
+                  door_open_timer < DOOR_OPEN_LIMIT &
+                  door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
+                show_panel_broken
+            END
         END;
         
     
@@ -534,8 +549,9 @@ OPERATIONS
             door_state_changed = FALSE
         THEN
             close_automatically ||
+            reset_open_door_timer_and_clear_broken ||
+            update_panel_display(curr_floor, panel_direction_of(curr_state)) ||
             door_state_changed := TRUE
-            
         END;
 
     /* HLR-003: immediate door commands only while the cabin is stopped. */
@@ -548,6 +564,7 @@ OPERATIONS
             door_state_changed = FALSE
         THEN
             open_immediately ||
+            clear_door_led_and_display(button_door_open, curr_floor, panel_direction_of(curr_state)) ||
             door_state_changed := TRUE
         END;
 
@@ -560,6 +577,8 @@ OPERATIONS
             door_state_changed = FALSE
         THEN
             close_immediately ||
+            reset_open_door_timer_and_clear_broken ||
+            clear_door_led_and_display(button_door_close, curr_floor, panel_direction_of(curr_state)) ||
             door_state_changed := TRUE
         END
 
