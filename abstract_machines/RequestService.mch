@@ -224,9 +224,21 @@ OPERATIONS
             stop_at_next_floor_requested := FALSE
         END;
 
+    /* Removing a key that was inserted but never activated for maintenance
+       must not touch requests or LEDs. */
+    remove_maintenance_key =
+        PRE
+            key_inserted = TRUE &
+            maintenance_mode = FALSE &
+            curr_state = rest
+        THEN
+            remove_key
+        END;
+
     exit_maintenance_mode =
         PRE
             key_inserted = TRUE &
+            maintenance_mode = TRUE &
             curr_state = rest
         THEN
             remove_key ||
