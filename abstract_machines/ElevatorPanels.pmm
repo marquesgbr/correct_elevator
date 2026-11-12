@@ -1,0 +1,9 @@
+THEORY User_Pass IS
+    ff(0) & dd(0) & ar(PanelBack) & pr
+END &
+THEORY PanelBack IS
+    binhyp(b : s \/ {a}) & binhyp(!x.(x : s => r(x) = v)) => ((r <+ {a |-> v})(b) = v);
+    binhyp(b : s - d) & binhyp(!x.(x : s => r(x) = w)) => ((r <+ %x.(x : d | v))(b) = w);
+    binhyp(b : s) & binhyp(d /\ s = {}) & binhyp(!x.(x : s => r(x) = w)) => ((r <+ %x.(x : d | v))(b) = w);
+    binhyp(b : s) & binhyp(s /\ d = {}) & binhyp(!x.(x : s => r(x) = w)) => ((r <+ %x.(x : d | v))(b) = w)
+END

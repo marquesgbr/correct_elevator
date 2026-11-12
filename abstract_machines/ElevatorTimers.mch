@@ -10,7 +10,7 @@ MACHINE
     ElevatorTimers
     
 SEES
-    ElevatorPanels,
+    ElevatorContext,
     CabinDoor,
     ElevatorMaintenance
 
@@ -19,9 +19,9 @@ CONSTANTS
     DOOR_OPEN_LIMIT
 
 PROPERTIES
-    BUTTON_HOLD_LIMIT : NAT &
+    BUTTON_HOLD_LIMIT : INTEGER &
     BUTTON_HOLD_LIMIT = 3 &
-    DOOR_OPEN_LIMIT : NAT &
+    DOOR_OPEN_LIMIT : INTEGER &
     DOOR_OPEN_LIMIT = 120 
 
 VARIABLES
@@ -35,6 +35,10 @@ INVARIANT
     button_floor_timer : FLOORS --> 0..BUTTON_HOLD_LIMIT &
     door_open_timer : 0..DOOR_OPEN_LIMIT &
     cabin_broken : BOOL
+
+ASSERTIONS
+    dom(button_dir_timer) = BUTTONS_IN_FLOORS &
+    dom(button_floor_timer) = FLOORS
 
 INITIALISATION
     button_dir_timer := BUTTONS_IN_FLOORS * {0} ||
@@ -53,7 +57,6 @@ OPERATIONS
         ffloor : FLOORS &
         ddir : BUTTON_DIR_OPTIONS &
         (ffloor, ddir) : BUTTONS_IN_FLOORS &
-        button_dir_press(ffloor, ddir) = button_press &
         button_dir_timer(ffloor, ddir) < BUTTON_HOLD_LIMIT &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
@@ -62,28 +65,31 @@ OPERATIONS
     END;
     
     
-        update_button_dir_timers =
-    BEGIN
-        button_dir_timer := button_dir_timer <+ %bb.(bb : {
-                xx | xx : BUTTONS_IN_FLOORS &
-                button_dir_press(xx) = button_press &
-                button_dir_timer(xx) < BUTTON_HOLD_LIMIT
-            } | button_dir_timer(bb) + 1)
+    update_button_dir_timers(active_dir) =
+    PRE
+        active_dir <: BUTTONS_IN_FLOORS
+    THEN
+        button_dir_timer :=
+            button_dir_timer <+
+            %bb.(bb : {xx | xx : active_dir &
+                            button_dir_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_dir_timer(bb) + 1)
     END;
-    
-    update_button_floor_timers = 
-    BEGIN
-        button_floor_timer := button_floor_timer <+ %bb.(bb :{
-                xx | xx : FLOORS  &
-                button_floor_press(xx) = button_press &
-                button_floor_timer(xx) < BUTTON_HOLD_LIMIT
-            } | button_floor_timer(bb) + 1 )
-        END;
+
+    update_button_floor_timers(active_floor) =
+    PRE
+        active_floor <: FLOORS
+    THEN
+        button_floor_timer :=
+            button_floor_timer <+
+            %ff.(ff : {xx | xx : active_floor &
+                            button_floor_timer(xx) < BUTTON_HOLD_LIMIT} |
+                    button_floor_timer(ff) + 1)
+    END;
     
     increase_button_floor_timer(ffloor) =
     PRE
-        ffloor : FLOORS  &
-        button_floor_press(ffloor) = button_press &
+        ffloor : FLOORS &
         button_floor_timer(ffloor) < BUTTON_HOLD_LIMIT &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
@@ -91,71 +97,54 @@ OPERATIONS
         button_floor_timer(ffloor) := button_floor_timer(ffloor) + 1
     END;
     
-    increase_open_door_timer =
-    PRE
-        door_state = door_open &
-        door_open_timer < DOOR_OPEN_LIMIT &
-        cabin_broken = FALSE &
-        maintenance_mode = FALSE
-    THEN
-        door_open_timer := door_open_timer + 1
-    END;
-
     reset_button_dir_timer(ffloor, ddir) =
     PRE
         ffloor : FLOORS &
         ddir : BUTTON_DIR_OPTIONS &
-        (ffloor, ddir) : BUTTONS_IN_FLOORS &
-        (
-            button_dir_press(ffloor, ddir) = button_released or
-            button_dir_timer(ffloor, ddir) = BUTTON_HOLD_LIMIT
-        )
+        (ffloor, ddir) : BUTTONS_IN_FLOORS
     THEN
         button_dir_timer(ffloor, ddir) := 0
     END;
 
     reset_button_floor_timer(ffloor) =
     PRE
-        ffloor : FLOORS &
-        (
-            button_floor_press(ffloor) = button_released or
-            button_floor_timer(ffloor) = BUTTON_HOLD_LIMIT
-        )
+        ffloor : FLOORS
     THEN
         button_floor_timer(ffloor) := 0
     END;
 
-    reset_open_door_timer =
-    PRE
-        (
-            door_state /= door_open or
-            door_open_timer = DOOR_OPEN_LIMIT
-        )
-    THEN
-        door_open_timer := 0
+    /* Used when closing the door: reset the open timer and clear the broken
+       latch atomically, even if the old door state is still open. */
+    reset_open_door_timer_and_clear_broken =
+    BEGIN
+        door_open_timer := 0 ||
+        cabin_broken := FALSE
     END;
     
-    tick =
+    tick(active_dir, active_floor) =
     PRE
+        active_dir <: BUTTONS_IN_FLOORS &
+        active_floor <: FLOORS &
         cabin_broken = FALSE &
         maintenance_mode = FALSE
     THEN
         button_dir_timer :=
             button_dir_timer <+
-            %bb.(bb : {xx | xx : BUTTONS_IN_FLOORS &
-                            button_dir_press(xx) = button_press &
+            %bb.(bb : {xx | xx : active_dir &
                             button_dir_timer(xx) < BUTTON_HOLD_LIMIT} |
                     button_dir_timer(bb) + 1) ||
 
         button_floor_timer :=
             button_floor_timer <+
-            %ff.(ff : {xx | xx : FLOORS &
-                            button_floor_press(xx) = button_press &
+            %ff.(ff : {xx | xx : active_floor &
                             button_floor_timer(xx) < BUTTON_HOLD_LIMIT} |
                     button_floor_timer(ff) + 1) ||
 
         IF door_state = door_open & door_open_timer < DOOR_OPEN_LIMIT THEN
-            door_open_timer := door_open_timer + 1
+            door_open_timer := door_open_timer + 1 ||
+            IF door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
+                cabin_broken := TRUE
+            END
         END
     END;
 

@@ -6,8 +6,7 @@ MACHINE
     CabinDoor
 
 SEES
-    CabinState,
-    ElevatorPanels
+    CabinState
 
 SETS 
     DOOR_STATES = {door_open, door_closed}
@@ -52,8 +51,7 @@ OPERATIONS
     open_immediately =
         PRE
             curr_state = rest &
-            door_state = door_closed &
-            button_door_press(button_door_open) = button_press
+            door_state = door_closed
         THEN
             door_state := door_open
         END;
@@ -61,8 +59,7 @@ OPERATIONS
     close_immediately =
         PRE
             curr_state = rest &
-            door_state = door_open &
-            button_door_press(button_door_close) = button_press
+            door_state = door_open
         THEN
             door_state := door_closed
         END;

@@ -1,0 +1,4270 @@
+{
+  "transitionList": [
+    {
+      "name": "$setup_constants",
+      "destState": {
+        "FLOORS": "{1,2,3}",
+        "MAX_FLOOR": "3",
+        "MIN_FLOOR": "1",
+        "BUTTONS_IN_FLOORS": "{(1↦button_dir_up),(2↦button_dir_up),(2↦button_dir_down),(3↦button_dir_down)}",
+        "DOOR_OPEN_LIMIT": "120",
+        "BUTTON_HOLD_LIMIT": "3",
+        "NO_REQUEST": "0",
+        "MAX_CAPACITY": "450",
+        "panel_direction_of": "{(rest↦panel_dir_inactive),(moving_up↦panel_dir_up),(moving_down↦panel_dir_down)}"
+      }
+    },
+    {
+      "name": "$initialise_machine",
+      "destState": {
+        "maintenance_mode": "FALSE",
+        "button_floor_timer": "{(1↦0),(2↦0),(3↦0)}",
+        "dir_button_unprocessed": "∅",
+        "down_requests": "∅",
+        "maintenance_indicator": "FALSE",
+        "floor_button_unprocessed": "∅",
+        "internal_requests": "∅",
+        "button_dir_led": "{(1↦button_dir_up↦button_led_inactive),(2↦button_dir_up↦button_led_inactive),(2↦button_dir_down↦button_led_inactive),(3↦button_dir_down↦button_led_inactive)}",
+        "button_floor_press": "{(1↦button_released),(2↦button_released),(3↦button_released)}",
+        "curr_active_request": "0",
+        "panel_curr_direction": "panel_dir_inactive",
+        "sweep_direction": "up",
+        "pending_floor_blink_on": "∅",
+        "button_dir_timer": "{(1↦button_dir_up↦0),(2↦button_dir_up↦0),(2↦button_dir_down↦0),(3↦button_dir_down↦0)}",
+        "curr_floor": "1",
+        "key_inserted": "FALSE",
+        "button_door_led": "{(button_door_close↦button_led_inactive),(button_door_open↦button_led_inactive)}",
+        "excess_weight_indicator": "FALSE",
+        "cabin_broken": "FALSE",
+        "exceeds_capacity": "FALSE",
+        "pending_dir_blink_off": "∅",
+        "curr_state": "rest",
+        "button_dir_press": "{(1↦button_dir_up↦button_released),(2↦button_dir_up↦button_released),(2↦button_dir_down↦button_released),(3↦button_dir_down↦button_released)}",
+        "curr_weight": "0",
+        "door_open_timer": "0",
+        "door_state": "door_open",
+        "pending_floor_blink_off": "∅",
+        "panel_curr_floor": "1",
+        "up_requests": "∅",
+        "button_floor_led": "{(1↦button_led_inactive),(2↦button_led_inactive),(3↦button_led_inactive)}",
+        "pending_door_blink_off": "∅",
+        "button_door_press": "{(button_door_close↦button_released),(button_door_open↦button_released)}",
+        "door_state_changed": "FALSE",
+        "stop_at_next_floor_requested": "FALSE"
+      }
+    },
+    {
+      "name": "press_internal",
+      "params": {
+        "ffloor": "3"
+      },
+      "destState": {
+        "button_floor_press": "{(1↦button_released),(2↦button_released),(3↦button_press)}",
+        "floor_button_unprocessed": "{3}"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "close_door_automatically",
+      "destState": {
+        "door_state": "door_closed",
+        "door_state_changed": "TRUE"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "register_internal",
+      "params": {
+        "ffloor": "3"
+      },
+      "destState": {
+        "internal_requests": "{3}",
+        "button_floor_led": "{(1↦button_led_inactive),(2↦button_led_inactive),(3↦button_led_active)}",
+        "floor_button_unprocessed": "∅"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "advance_time",
+      "destState": {
+        "button_floor_timer": "{(1↦0),(2↦0),(3↦1)}",
+        "door_state_changed": "FALSE"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "release_internal",
+      "params": {
+        "ffloor": "3"
+      },
+      "destState": {
+        "button_floor_press": "{(1↦button_released),(2↦button_released),(3↦button_released)}",
+        "button_floor_timer": "{(1↦0),(2↦0),(3↦0)}"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "select_request",
+      "destState": {
+        "curr_active_request": "3"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "start_travel",
+      "destState": {
+        "panel_curr_direction": "panel_dir_up",
+        "curr_state": "moving_up"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "move_travel",
+      "destState": {
+        "curr_floor": "2",
+        "panel_curr_floor": "2"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "move_travel",
+      "destState": {
+        "curr_floor": "3",
+        "panel_curr_floor": "3",
+        "panel_curr_direction": "panel_dir_inactive",
+        "curr_state": "rest"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    },
+    {
+      "name": "serve_target",
+      "destState": {
+        "curr_active_request": "0",
+        "internal_requests": "∅",
+        "button_floor_led": "{(1↦button_led_inactive),(2↦button_led_inactive),(3↦button_led_inactive)}"
+      },
+      "destStateNotChanged": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "curr_weight",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "down_requests",
+        "exceeds_capacity",
+        "excess_weight_indicator",
+        "floor_button_unprocessed",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ]
+    }
+  ],
+  "variableNames": [
+    "button_dir_led",
+    "button_dir_press",
+    "button_dir_timer",
+    "button_door_led",
+    "button_door_press",
+    "button_floor_led",
+    "button_floor_press",
+    "button_floor_timer",
+    "cabin_broken",
+    "curr_active_request",
+    "curr_floor",
+    "curr_state",
+    "curr_weight",
+    "dir_button_unprocessed",
+    "door_open_timer",
+    "door_state",
+    "door_state_changed",
+    "down_requests",
+    "exceeds_capacity",
+    "excess_weight_indicator",
+    "floor_button_unprocessed",
+    "internal_requests",
+    "key_inserted",
+    "maintenance_indicator",
+    "maintenance_mode",
+    "panel_curr_direction",
+    "panel_curr_floor",
+    "pending_dir_blink_off",
+    "pending_door_blink_off",
+    "pending_floor_blink_off",
+    "pending_floor_blink_on",
+    "stop_at_next_floor_requested",
+    "sweep_direction",
+    "up_requests"
+  ],
+  "constantNames": [
+    "MAX_FLOOR",
+    "MIN_FLOOR",
+    "MAX_CAPACITY",
+    "FLOORS",
+    "BUTTONS_IN_FLOORS",
+    "BUTTON_HOLD_LIMIT",
+    "DOOR_OPEN_LIMIT",
+    "NO_REQUEST",
+    "panel_direction_of"
+  ],
+  "setNames": [
+    "BUTTON_DIR_OPTIONS",
+    "DOOR_STATES",
+    "CABIN_STATES",
+    "MOVEMENT_DIRECTIONS",
+    "PANEL_DIR_STATES",
+    "BUTTON_DOOR_OPTIONS",
+    "BUTTON_LED_STATES",
+    "BUTTON_PRESS_STATES"
+  ],
+  "machineOperationInfos": {
+    "ElevatorControl.RequestService.change_excess_weight": {
+      "operationName": "ElevatorControl.RequestService.change_excess_weight",
+      "parameterNames": [
+        "on_off"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "excess_weight_indicator"
+      ],
+      "typeMap": {
+        "on_off": "boolean"
+      }
+    },
+    "release_down": {
+      "operationName": "release_down",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_press",
+        "button_dir_timer",
+        "dir_button_unprocessed"
+      ],
+      "writtenVariables": [
+        "button_dir_press",
+        "button_dir_timer"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.blink_last_internal_request": {
+      "operationName": "ElevatorControl.RequestService.blink_last_internal_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.set_floor_led": {
+      "operationName": "ElevatorControl.RequestService.set_floor_led",
+      "parameterNames": [
+        "ffloor",
+        "lstate"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "lstate": "global('BUTTON_LED_STATES')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "open_door_automatically": {
+      "operationName": "open_door_automatically",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "door_state",
+        "door_state_changed"
+      ],
+      "writtenVariables": [
+        "door_state",
+        "door_state_changed"
+      ]
+    },
+    "start_travel": {
+      "operationName": "start_travel",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "exceeds_capacity",
+        "maintenance_mode",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.release_floor_button": {
+      "operationName": "ElevatorControl.release_floor_button",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_press"
+      ],
+      "writtenVariables": [
+        "button_floor_press"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.press_door_button": {
+      "operationName": "ElevatorControl.press_door_button",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.should_stop_at_next_floor": {
+      "operationName": "ElevatorControl.should_stop_at_next_floor",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.exit_maintenance_mode": {
+      "operationName": "ElevatorControl.exit_maintenance_mode",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "curr_state",
+        "key_inserted"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.increase_button_floor_timer": {
+      "operationName": "ElevatorControl.increase_button_floor_timer",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "button_floor_timer",
+        "cabin_broken",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_floor_timer"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.press_floor_button": {
+      "operationName": "ElevatorControl.press_floor_button",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_press"
+      ],
+      "writtenVariables": [
+        "button_floor_press"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.clear_panel_broken": {
+      "operationName": "ElevatorControl.RequestService.clear_panel_broken",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "panel_curr_direction"
+      ]
+    },
+    "open_door_immediately": {
+      "operationName": "open_door_immediately",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_door_led",
+        "button_door_press",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "door_state_changed",
+        "maintenance_mode",
+        "panel_direction_of",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "door_state",
+        "door_state_changed",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.has_up_requests": {
+      "operationName": "ElevatorControl.RequestService.has_up_requests",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "up_requests"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.update_panel_display": {
+      "operationName": "ElevatorControl.update_panel_display",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "ddir": "global('PANEL_DIR_STATES')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.get_dir_led": {
+      "operationName": "ElevatorControl.RequestService.get_dir_led",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "res": "global('BUTTON_LED_STATES')",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.press_floor_button_and_blink_off": {
+      "operationName": "ElevatorControl.press_floor_button_and_blink_off",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "button_floor_press",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "button_floor_press",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.reject_last_internal_hold": {
+      "operationName": "ElevatorControl.reject_last_internal_hold",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "stop_at_target": {
+      "operationName": "stop_at_target",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.open_immediately": {
+      "operationName": "ElevatorControl.open_immediately",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "door_state"
+      ],
+      "writtenVariables": [
+        "door_state"
+      ]
+    },
+    "stop_maintenance": {
+      "operationName": "stop_maintenance",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "curr_state",
+        "key_inserted",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "key_inserted",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.get_door_led": {
+      "operationName": "ElevatorControl.RequestService.get_door_led",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led"
+      ],
+      "typeMap": {
+        "res": "global('BUTTON_LED_STATES')",
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.ElevatorRequests.clear_floor_request_leds": {
+      "operationName": "ElevatorControl.RequestService.ElevatorRequests.clear_floor_request_leds",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "button_dir_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "insert_key_event": {
+      "operationName": "insert_key_event",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "key_inserted"
+      ],
+      "writtenVariables": [
+        "key_inserted"
+      ]
+    },
+    "ElevatorControl.RequestService.insert_key": {
+      "operationName": "ElevatorControl.RequestService.insert_key",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "key_inserted"
+      ],
+      "writtenVariables": [
+        "key_inserted"
+      ]
+    },
+    "ElevatorControl.RequestService.serve_floor_requests": {
+      "operationName": "ElevatorControl.RequestService.serve_floor_requests",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "button_dir_led",
+        "button_floor_led",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_floor_led",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "typeMap": {
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.exit_maintenance_display": {
+      "operationName": "ElevatorControl.exit_maintenance_display",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "maintenance_indicator",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.cancel_down_hold": {
+      "operationName": "ElevatorControl.cancel_down_hold",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "button_dir_led",
+        "curr_active_request",
+        "curr_state",
+        "down_requests",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "curr_active_request",
+        "down_requests",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "release_door": {
+      "operationName": "release_door",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "button_door_press"
+      ],
+      "nonDetWrittenVariables": [
+        "button_door_led"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.set_panel_floor": {
+      "operationName": "ElevatorControl.RequestService.set_panel_floor",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.is_panel_broken": {
+      "operationName": "ElevatorControl.RequestService.is_panel_broken",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "panel_curr_direction"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "move_travel": {
+      "operationName": "move_travel",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "cabin_broken",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "exceeds_capacity",
+        "maintenance_mode",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_internal_by_hold": {
+      "operationName": "ElevatorControl.RequestService.cancel_internal_by_hold",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_down_request": {
+      "operationName": "ElevatorControl.RequestService.cancel_down_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.complete_floor_led_blink": {
+      "operationName": "ElevatorControl.RequestService.complete_floor_led_blink",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_off"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_up_request": {
+      "operationName": "ElevatorControl.RequestService.cancel_up_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "remove_passenger_weight": {
+      "operationName": "remove_passenger_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_state",
+        "curr_weight",
+        "door_state",
+        "exceeds_capacity"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity",
+        "excess_weight_indicator"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "start_maintenance": {
+      "operationName": "start_maintenance",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "NO_REQUEST",
+        "curr_state",
+        "key_inserted",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "curr_active_request",
+        "dir_button_unprocessed",
+        "down_requests",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.get_floor_led": {
+      "operationName": "ElevatorControl.RequestService.get_floor_led",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led"
+      ],
+      "typeMap": {
+        "res": "global('BUTTON_LED_STATES')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.set_door_led": {
+      "operationName": "ElevatorControl.RequestService.set_door_led",
+      "parameterNames": [
+        "dbutton",
+        "lstate"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "lstate": "global('BUTTON_LED_STATES')",
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.complete_floor_blink_on_and_show_broken": {
+      "operationName": "ElevatorControl.complete_floor_blink_on_and_show_broken",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_floor_led",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "panel_curr_direction",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer"
+      }
+    },
+    "ElevatorControl.show_panel_broken": {
+      "operationName": "ElevatorControl.show_panel_broken",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "panel_curr_direction"
+      ]
+    },
+    "release_up": {
+      "operationName": "release_up",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_press",
+        "button_dir_timer",
+        "dir_button_unprocessed"
+      ],
+      "writtenVariables": [
+        "button_dir_press",
+        "button_dir_timer"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.register_internal_request": {
+      "operationName": "ElevatorControl.register_internal_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.blink_dir_led": {
+      "operationName": "ElevatorControl.RequestService.blink_dir_led",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_down_by_hold": {
+      "operationName": "ElevatorControl.RequestService.cancel_down_by_hold",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "reject_last_internal_by_time": {
+      "operationName": "reject_last_internal_by_time",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "button_floor_led",
+        "button_floor_timer",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "maintenance_mode",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "button_floor_timer",
+        "floor_button_unprocessed",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.is_door_open": {
+      "operationName": "ElevatorControl.is_door_open",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "door_state"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.RequestService.get_panel_floor": {
+      "operationName": "ElevatorControl.RequestService.get_panel_floor",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "res": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.serve_up_request": {
+      "operationName": "ElevatorControl.RequestService.serve_up_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.clear_all_buttons": {
+      "operationName": "ElevatorControl.RequestService.clear_all_buttons",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_press",
+        "button_door_press",
+        "button_floor_press"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.press_dir_button": {
+      "operationName": "ElevatorControl.press_dir_button",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_press"
+      ],
+      "writtenVariables": [
+        "button_dir_press"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.stop_cabin": {
+      "operationName": "ElevatorControl.stop_cabin",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.press_dir_button_and_blink_off": {
+      "operationName": "ElevatorControl.press_dir_button_and_blink_off",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "button_dir_press",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "cancel_up_by_time": {
+      "operationName": "cancel_up_by_time",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "curr_active_request",
+        "curr_state",
+        "dir_button_unprocessed",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_timer",
+        "curr_active_request",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.reset_button_dir_timer": {
+      "operationName": "ElevatorControl.reset_button_dir_timer",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "button_dir_timer"
+      ],
+      "writtenVariables": [
+        "button_dir_timer"
+      ],
+      "typeMap": {
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.tick": {
+      "operationName": "ElevatorControl.tick",
+      "parameterNames": [
+        "active_dir",
+        "active_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "DOOR_OPEN_LIMIT",
+        "FLOORS",
+        "button_dir_timer",
+        "button_floor_timer",
+        "cabin_broken",
+        "door_open_timer",
+        "door_state",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_dir_timer",
+        "button_floor_timer",
+        "cabin_broken",
+        "door_open_timer"
+      ],
+      "nonDetWrittenVariables": [
+        "cabin_broken",
+        "door_open_timer"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "active_floor": "set(integer)",
+        "'FLOORS'": "set(integer)",
+        "active_dir": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.complete_dir_led_blink": {
+      "operationName": "ElevatorControl.RequestService.complete_dir_led_blink",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.add_cabin_weight": {
+      "operationName": "ElevatorControl.add_cabin_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_state",
+        "curr_weight",
+        "door_state"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity",
+        "excess_weight_indicator"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "add_passenger_weight": {
+      "operationName": "add_passenger_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_state",
+        "curr_weight",
+        "door_state"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity",
+        "excess_weight_indicator"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_all_requests_for_maintenance": {
+      "operationName": "ElevatorControl.RequestService.cancel_all_requests_for_maintenance",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "down_requests",
+        "internal_requests",
+        "maintenance_indicator",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.serve_active_request": {
+      "operationName": "ElevatorControl.serve_active_request",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "NO_REQUEST",
+        "button_dir_led",
+        "button_floor_led",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_floor_led",
+        "curr_active_request",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "advance_time": {
+      "operationName": "advance_time",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "DOOR_OPEN_LIMIT",
+        "FLOORS",
+        "button_dir_press",
+        "button_dir_timer",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "cabin_broken",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state",
+        "down_requests",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "maintenance_mode",
+        "panel_curr_direction",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_timer",
+        "button_floor_led",
+        "button_floor_timer",
+        "cabin_broken",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "door_state_changed",
+        "floor_button_unprocessed",
+        "panel_curr_direction",
+        "pending_floor_blink_on"
+      ],
+      "nonDetWrittenVariables": [
+        "button_floor_led",
+        "cabin_broken",
+        "dir_button_unprocessed",
+        "door_open_timer",
+        "floor_button_unprocessed",
+        "panel_curr_direction",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "ElevatorControl.set_cabin_broken": {
+      "operationName": "ElevatorControl.set_cabin_broken",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "DOOR_OPEN_LIMIT",
+        "cabin_broken",
+        "door_open_timer"
+      ],
+      "writtenVariables": [
+        "cabin_broken"
+      ],
+      "typeMap": {
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "ElevatorControl.cancel_up_hold": {
+      "operationName": "ElevatorControl.cancel_up_hold",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "button_dir_led",
+        "curr_active_request",
+        "curr_state",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "curr_active_request",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.ElevatorRequests.is_excess_weight_on": {
+      "operationName": "ElevatorControl.RequestService.ElevatorRequests.is_excess_weight_on",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "excess_weight_indicator"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_up_by_hold": {
+      "operationName": "ElevatorControl.RequestService.cancel_up_by_hold",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.reset_button_floor_timer": {
+      "operationName": "ElevatorControl.reset_button_floor_timer",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_timer"
+      ],
+      "writtenVariables": [
+        "button_floor_timer"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "close_door_automatically": {
+      "operationName": "close_door_automatically",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "door_state_changed",
+        "panel_direction_of"
+      ],
+      "writtenVariables": [
+        "cabin_broken",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.unset_cabin_broken": {
+      "operationName": "ElevatorControl.unset_cabin_broken",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "DOOR_OPEN_LIMIT",
+        "cabin_broken",
+        "door_open_timer"
+      ],
+      "writtenVariables": [
+        "cabin_broken"
+      ],
+      "typeMap": {
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "register_up": {
+      "operationName": "register_up",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "dir_button_unprocessed",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.increase_button_dir_timer": {
+      "operationName": "ElevatorControl.increase_button_dir_timer",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "button_dir_timer",
+        "cabin_broken",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_dir_timer"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.release_dir_button": {
+      "operationName": "ElevatorControl.release_dir_button",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_press"
+      ],
+      "writtenVariables": [
+        "button_dir_press"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.clear_door_led_and_display": {
+      "operationName": "ElevatorControl.clear_door_led_and_display",
+      "parameterNames": [
+        "dbutton",
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_door_led",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "ddir": "global('PANEL_DIR_STATES')",
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "advance_maintenance_time": {
+      "operationName": "advance_maintenance_time",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off"
+      ]
+    },
+    "mark_broken": {
+      "operationName": "mark_broken",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "DOOR_OPEN_LIMIT",
+        "cabin_broken",
+        "door_open_timer"
+      ],
+      "writtenVariables": [
+        "cabin_broken",
+        "panel_curr_direction"
+      ],
+      "typeMap": {
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.serve_internal_request": {
+      "operationName": "ElevatorControl.RequestService.serve_internal_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.advance_and_stop": {
+      "operationName": "ElevatorControl.RequestService.advance_and_stop",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.has_active_requests": {
+      "operationName": "ElevatorControl.RequestService.has_active_requests",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "down_requests",
+        "internal_requests",
+        "up_requests"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.enter_maintenance_mode": {
+      "operationName": "ElevatorControl.enter_maintenance_mode",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "NO_REQUEST",
+        "curr_state",
+        "key_inserted",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "curr_active_request",
+        "down_requests",
+        "internal_requests",
+        "maintenance_indicator",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.get_movement_state": {
+      "operationName": "ElevatorControl.get_movement_state",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "res": "global('CABIN_STATES')"
+      }
+    },
+    "ElevatorControl.complete_pending_off": {
+      "operationName": "ElevatorControl.complete_pending_off",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off"
+      ]
+    },
+    "ElevatorControl.get_sweep_direction": {
+      "operationName": "ElevatorControl.get_sweep_direction",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "sweep_direction"
+      ],
+      "typeMap": {
+        "res": "global('MOVEMENT_DIRECTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.ElevatorRequests.enter_maintenance_display": {
+      "operationName": "ElevatorControl.RequestService.ElevatorRequests.enter_maintenance_display",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "button_door_led",
+        "button_door_press",
+        "button_floor_led",
+        "button_floor_press",
+        "maintenance_indicator",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.get_direction": {
+      "operationName": "ElevatorControl.get_direction",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "res": "global('MOVEMENT_DIRECTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.has_internal_requests": {
+      "operationName": "ElevatorControl.RequestService.has_internal_requests",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "internal_requests"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "clear_broken": {
+      "operationName": "clear_broken",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "DOOR_OPEN_LIMIT",
+        "FLOORS",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "door_open_timer",
+        "panel_direction_of"
+      ],
+      "writtenVariables": [
+        "cabin_broken",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'DOOR_OPEN_LIMIT'": "integer"
+      }
+    },
+    "ElevatorControl.get_door_state": {
+      "operationName": "ElevatorControl.get_door_state",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "door_state"
+      ],
+      "typeMap": {
+        "res": "global('DOOR_STATES')"
+      }
+    },
+    "ElevatorControl.RequestService.is_overweight": {
+      "operationName": "ElevatorControl.RequestService.is_overweight",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.press_door_button_and_blink_off": {
+      "operationName": "ElevatorControl.press_door_button_and_blink_off",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.is_floor_button_pressed": {
+      "operationName": "ElevatorControl.RequestService.is_floor_button_pressed",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_press"
+      ],
+      "typeMap": {
+        "res": "boolean",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.is_stopped": {
+      "operationName": "ElevatorControl.is_stopped",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "select_request": {
+      "operationName": "select_request",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "NO_REQUEST",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "down_requests",
+        "exceeds_capacity",
+        "internal_requests",
+        "maintenance_mode",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "curr_active_request",
+        "sweep_direction"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "sweep_direction"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.all_leds_off": {
+      "operationName": "ElevatorControl.RequestService.all_leds_off",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.move_cabin": {
+      "operationName": "ElevatorControl.move_cabin",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.are_all_leds_inactive": {
+      "operationName": "ElevatorControl.RequestService.are_all_leds_inactive",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led"
+      ],
+      "typeMap": {
+        "res": "boolean",
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.has_down_requests": {
+      "operationName": "ElevatorControl.RequestService.has_down_requests",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "down_requests"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_internal_request": {
+      "operationName": "ElevatorControl.RequestService.cancel_internal_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "press_down": {
+      "operationName": "press_down",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "maintenance_mode",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off"
+      ],
+      "nonDetWrittenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "close_door_immediately": {
+      "operationName": "close_door_immediately",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_door_led",
+        "button_door_press",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "door_state_changed",
+        "maintenance_mode",
+        "panel_direction_of",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "cabin_broken",
+        "door_open_timer",
+        "door_state",
+        "door_state_changed",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "refresh_display": {
+      "operationName": "refresh_display",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "panel_direction_of"
+      ],
+      "writtenVariables": [
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "register_down": {
+      "operationName": "register_down",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "dir_button_unprocessed",
+        "down_requests",
+        "maintenance_mode",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "dir_button_unprocessed",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.is_door_button_pressed": {
+      "operationName": "ElevatorControl.RequestService.is_door_button_pressed",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_press"
+      ],
+      "typeMap": {
+        "res": "boolean",
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.get_current_floor": {
+      "operationName": "ElevatorControl.get_current_floor",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_floor"
+      ],
+      "typeMap": {
+        "res": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.add_weight": {
+      "operationName": "ElevatorControl.RequestService.add_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_weight"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.serve_down_request": {
+      "operationName": "ElevatorControl.RequestService.serve_down_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.blink_floor_led": {
+      "operationName": "ElevatorControl.RequestService.blink_floor_led",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.register_up_request": {
+      "operationName": "ElevatorControl.register_up_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "cancel_internal_by_time": {
+      "operationName": "cancel_internal_by_time",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "NO_REQUEST",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "curr_active_request",
+        "curr_state",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "maintenance_mode",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "button_floor_timer",
+        "curr_active_request",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "press_internal": {
+      "operationName": "press_internal",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "button_floor_press",
+        "floor_button_unprocessed",
+        "maintenance_mode",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "button_floor_press",
+        "floor_button_unprocessed",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "nonDetWrittenVariables": [
+        "button_floor_led",
+        "button_floor_press",
+        "floor_button_unprocessed",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "press_door": {
+      "operationName": "press_door",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "button_door_press",
+        "maintenance_mode",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "nonDetWrittenVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.change_direction": {
+      "operationName": "ElevatorControl.change_direction",
+      "parameterNames": [
+        "direction"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_state"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'MIN_FLOOR'": "integer",
+        "direction": "global('MOVEMENT_DIRECTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.blink_door_led": {
+      "operationName": "ElevatorControl.RequestService.blink_door_led",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led"
+      ],
+      "writtenVariables": [
+        "button_door_led"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "ElevatorControl.RequestService.blink_floor_led_twice_and_switch_off": {
+      "operationName": "ElevatorControl.RequestService.blink_floor_led_twice_and_switch_off",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.complete_floor_led_blink_and_keep_on": {
+      "operationName": "ElevatorControl.complete_floor_led_blink_and_keep_on",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.can_move": {
+      "operationName": "ElevatorControl.RequestService.can_move",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.select_next_request": {
+      "operationName": "ElevatorControl.select_next_request",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "NO_REQUEST",
+        "curr_active_request",
+        "curr_floor",
+        "down_requests",
+        "internal_requests",
+        "stop_at_next_floor_requested",
+        "sweep_direction",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "curr_active_request",
+        "sweep_direction"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "sweep_direction"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "cancel_down_by_time": {
+      "operationName": "cancel_down_by_time",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "button_dir_led",
+        "button_dir_press",
+        "button_dir_timer",
+        "curr_active_request",
+        "curr_state",
+        "dir_button_unprocessed",
+        "down_requests",
+        "maintenance_mode",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_timer",
+        "curr_active_request",
+        "dir_button_unprocessed",
+        "down_requests",
+        "pending_dir_blink_off",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.cancel_internal_hold": {
+      "operationName": "ElevatorControl.cancel_internal_hold",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "NO_REQUEST",
+        "button_floor_led",
+        "curr_active_request",
+        "curr_state",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "curr_active_request",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.blink_floor_led_twice_and_keep_on": {
+      "operationName": "ElevatorControl.RequestService.blink_floor_led_twice_and_keep_on",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.reset_open_door_timer_and_clear_broken": {
+      "operationName": "ElevatorControl.reset_open_door_timer_and_clear_broken",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "cabin_broken",
+        "door_open_timer"
+      ]
+    },
+    "ElevatorControl.close_immediately": {
+      "operationName": "ElevatorControl.close_immediately",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "door_state"
+      ],
+      "writtenVariables": [
+        "door_state"
+      ]
+    },
+    "ElevatorControl.update_button_floor_timers": {
+      "operationName": "ElevatorControl.update_button_floor_timers",
+      "parameterNames": [
+        "active_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "button_floor_timer"
+      ],
+      "writtenVariables": [
+        "button_floor_timer"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "active_floor": "set(integer)",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.change_maintenance_indicator": {
+      "operationName": "ElevatorControl.RequestService.change_maintenance_indicator",
+      "parameterNames": [
+        "on_off"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "maintenance_indicator"
+      ],
+      "typeMap": {
+        "on_off": "boolean"
+      }
+    },
+    "ElevatorControl.start_moving": {
+      "operationName": "ElevatorControl.start_moving",
+      "parameterNames": [
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "NO_REQUEST",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('MOVEMENT_DIRECTIONS')",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.remove_key": {
+      "operationName": "ElevatorControl.RequestService.remove_key",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "key_inserted"
+      ],
+      "writtenVariables": [
+        "key_inserted",
+        "maintenance_mode"
+      ]
+    },
+    "ElevatorControl.RequestService.set_dir_led": {
+      "operationName": "ElevatorControl.RequestService.set_dir_led",
+      "parameterNames": [
+        "ffloor",
+        "ddir",
+        "lstate"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "lstate": "global('BUTTON_LED_STATES')",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.cancel_all_requests": {
+      "operationName": "ElevatorControl.RequestService.cancel_all_requests",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_door_led",
+        "button_floor_led",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_door_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "register_internal": {
+      "operationName": "register_internal",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTON_HOLD_LIMIT",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_floor_led",
+        "button_floor_press",
+        "button_floor_timer",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "maintenance_mode",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "writtenVariables": [
+        "button_floor_led",
+        "floor_button_unprocessed",
+        "internal_requests",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.clear_active_request": {
+      "operationName": "ElevatorControl.clear_active_request",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "NO_REQUEST",
+        "curr_active_request",
+        "curr_state"
+      ],
+      "writtenVariables": [
+        "curr_active_request",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "stop_at_next_floor_requested"
+      ],
+      "typeMap": {
+        "'NO_REQUEST'": "integer"
+      }
+    },
+    "ElevatorControl.stop_at_next_floor": {
+      "operationName": "ElevatorControl.stop_at_next_floor",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "release_internal": {
+      "operationName": "release_internal",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "button_floor_press",
+        "button_floor_timer",
+        "floor_button_unprocessed"
+      ],
+      "writtenVariables": [
+        "button_floor_press",
+        "button_floor_timer"
+      ],
+      "typeMap": {
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)"
+      }
+    },
+    "ElevatorControl.RequestService.enter_maintenance": {
+      "operationName": "ElevatorControl.RequestService.enter_maintenance",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "key_inserted",
+        "maintenance_mode"
+      ],
+      "writtenVariables": [
+        "maintenance_mode"
+      ]
+    },
+    "ElevatorControl.RequestService.remove_weight": {
+      "operationName": "ElevatorControl.RequestService.remove_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "ElevatorControl.get_active_request": {
+      "operationName": "ElevatorControl.get_active_request",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_active_request"
+      ],
+      "typeMap": {
+        "res": "integer"
+      }
+    },
+    "ElevatorControl.release_door_button": {
+      "operationName": "ElevatorControl.release_door_button",
+      "parameterNames": [
+        "dbutton"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "button_door_led",
+        "button_door_press",
+        "pending_door_blink_off"
+      ],
+      "writtenVariables": [
+        "button_door_led",
+        "button_door_press"
+      ],
+      "nonDetWrittenVariables": [
+        "button_door_led"
+      ],
+      "typeMap": {
+        "dbutton": "global('BUTTON_DOOR_OPTIONS')"
+      }
+    },
+    "advance_to_cancellation_stop": {
+      "operationName": "advance_to_cancellation_stop",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "cabin_broken",
+        "curr_floor",
+        "curr_state",
+        "door_state",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor",
+        "stop_at_next_floor_requested"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.is_moving": {
+      "operationName": "ElevatorControl.is_moving",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "serve_target": {
+      "operationName": "serve_target",
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "NO_REQUEST",
+        "button_dir_led",
+        "button_floor_led",
+        "curr_active_request",
+        "curr_floor",
+        "curr_state",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "up_requests"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_floor_led",
+        "curr_active_request",
+        "down_requests",
+        "internal_requests",
+        "pending_dir_blink_off",
+        "pending_floor_blink_off",
+        "pending_floor_blink_on",
+        "stop_at_next_floor_requested",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'FLOORS'": "set(integer)",
+        "'NO_REQUEST'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.is_dir_button_pressed": {
+      "operationName": "ElevatorControl.RequestService.is_dir_button_pressed",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_press"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "res": "boolean",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.close_automatically": {
+      "operationName": "ElevatorControl.close_automatically",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "door_state"
+      ],
+      "writtenVariables": [
+        "door_state"
+      ]
+    },
+    "ElevatorControl.open_automatically": {
+      "operationName": "ElevatorControl.open_automatically",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "curr_state",
+        "door_state"
+      ],
+      "writtenVariables": [
+        "door_state"
+      ]
+    },
+    "ElevatorControl.remove_cabin_weight": {
+      "operationName": "ElevatorControl.remove_cabin_weight",
+      "parameterNames": [
+        "ww"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "MAX_CAPACITY",
+        "curr_state",
+        "curr_weight",
+        "door_state",
+        "exceeds_capacity"
+      ],
+      "writtenVariables": [
+        "curr_weight",
+        "exceeds_capacity",
+        "excess_weight_indicator"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_weight",
+        "exceeds_capacity"
+      ],
+      "typeMap": {
+        "ww": "integer",
+        "'MAX_CAPACITY'": "integer"
+      }
+    },
+    "ElevatorControl.update_button_dir_timers": {
+      "operationName": "ElevatorControl.update_button_dir_timers",
+      "parameterNames": [
+        "active_dir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "BUTTON_HOLD_LIMIT",
+        "button_dir_timer"
+      ],
+      "writtenVariables": [
+        "button_dir_timer"
+      ],
+      "typeMap": {
+        "'BUTTON_HOLD_LIMIT'": "integer",
+        "active_dir": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.has_requests_in_direction": {
+      "operationName": "ElevatorControl.RequestService.has_requests_in_direction",
+      "parameterNames": [
+        "curr_fl",
+        "ddir"
+      ],
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "down_requests",
+        "internal_requests",
+        "up_requests"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "res": "boolean",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "curr_fl": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.register_down_request": {
+      "operationName": "ElevatorControl.register_down_request",
+      "parameterNames": [
+        "target_floor"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "down_requests",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "target_floor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.move_one_floor": {
+      "operationName": "ElevatorControl.move_one_floor",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "curr_floor",
+        "curr_state",
+        "stop_at_next_floor_requested"
+      ],
+      "writtenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "nonDetWrittenVariables": [
+        "curr_floor",
+        "curr_state",
+        "panel_curr_direction",
+        "panel_curr_floor"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer"
+      }
+    },
+    "ElevatorControl.RequestService.blink_dir_led_twice_and_switch_off": {
+      "operationName": "ElevatorControl.RequestService.blink_dir_led_twice_and_switch_off",
+      "parameterNames": [
+        "ffloor",
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ddir": "global('BUTTON_DIR_OPTIONS')",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    },
+    "ElevatorControl.RequestService.get_panel_direction": {
+      "operationName": "ElevatorControl.RequestService.get_panel_direction",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "panel_curr_direction"
+      ],
+      "typeMap": {
+        "res": "global('PANEL_DIR_STATES')"
+      }
+    },
+    "ElevatorControl.insert_maintenance_key": {
+      "operationName": "ElevatorControl.insert_maintenance_key",
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "key_inserted"
+      ],
+      "writtenVariables": [
+        "key_inserted"
+      ]
+    },
+    "ElevatorControl.is_door_closed": {
+      "operationName": "ElevatorControl.is_door_closed",
+      "outputParameterNames": [
+        "res"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "door_state"
+      ],
+      "typeMap": {
+        "res": "boolean"
+      }
+    },
+    "ElevatorControl.RequestService.set_panel_direction": {
+      "operationName": "ElevatorControl.RequestService.set_panel_direction",
+      "parameterNames": [
+        "ddir"
+      ],
+      "topLevel": false,
+      "type": "CLASSICAL_B",
+      "writtenVariables": [
+        "panel_curr_direction"
+      ],
+      "typeMap": {
+        "ddir": "global('PANEL_DIR_STATES')"
+      }
+    },
+    "press_up": {
+      "operationName": "press_up",
+      "parameterNames": [
+        "ffloor"
+      ],
+      "topLevel": true,
+      "type": "CLASSICAL_B",
+      "readVariables": [
+        "BUTTONS_IN_FLOORS",
+        "FLOORS",
+        "MAX_FLOOR",
+        "MIN_FLOOR",
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "maintenance_mode",
+        "pending_dir_blink_off"
+      ],
+      "writtenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off"
+      ],
+      "nonDetWrittenVariables": [
+        "button_dir_led",
+        "button_dir_press",
+        "dir_button_unprocessed",
+        "pending_dir_blink_off"
+      ],
+      "typeMap": {
+        "'MAX_FLOOR'": "integer",
+        "ffloor": "integer",
+        "'FLOORS'": "set(integer)",
+        "'MIN_FLOOR'": "integer",
+        "'BUTTONS_IN_FLOORS'": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))"
+      }
+    }
+  },
+  "globalIdentifierTypes": {
+    "maintenance_mode": "boolean",
+    "down_requests": "set(integer)",
+    "button_floor_timer": "set(couple(integer,integer))",
+    "maintenance_indicator": "boolean",
+    "dir_button_unprocessed": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+    "floor_button_unprocessed": "set(integer)",
+    "internal_requests": "set(integer)",
+    "button_dir_led": "set(couple(couple(integer,global('BUTTON_DIR_OPTIONS')),global('BUTTON_LED_STATES')))",
+    "curr_active_request": "integer",
+    "panel_curr_direction": "global('PANEL_DIR_STATES')",
+    "sweep_direction": "global('MOVEMENT_DIRECTIONS')",
+    "button_floor_press": "set(couple(integer,global('BUTTON_PRESS_STATES')))",
+    "pending_floor_blink_on": "set(integer)",
+    "button_dir_timer": "set(couple(couple(integer,global('BUTTON_DIR_OPTIONS')),integer))",
+    "curr_floor": "integer",
+    "key_inserted": "boolean",
+    "button_door_led": "set(couple(global('BUTTON_DOOR_OPTIONS'),global('BUTTON_LED_STATES')))",
+    "excess_weight_indicator": "boolean",
+    "panel_direction_of": "set(couple(global('CABIN_STATES'),global('PANEL_DIR_STATES')))",
+    "cabin_broken": "boolean",
+    "exceeds_capacity": "boolean",
+    "pending_dir_blink_off": "set(couple(integer,global('BUTTON_DIR_OPTIONS')))",
+    "curr_state": "global('CABIN_STATES')",
+    "button_dir_press": "set(couple(couple(integer,global('BUTTON_DIR_OPTIONS')),global('BUTTON_PRESS_STATES')))",
+    "door_open_timer": "integer",
+    "curr_weight": "integer",
+    "door_state": "global('DOOR_STATES')",
+    "pending_floor_blink_off": "set(integer)",
+    "panel_curr_floor": "integer",
+    "up_requests": "set(integer)",
+    "button_floor_led": "set(couple(integer,global('BUTTON_LED_STATES')))",
+    "pending_door_blink_off": "set(global('BUTTON_DOOR_OPTIONS'))",
+    "button_door_press": "set(couple(global('BUTTON_DOOR_OPTIONS'),global('BUTTON_PRESS_STATES')))",
+    "stop_at_next_floor_requested": "boolean",
+    "door_state_changed": "boolean"
+  },
+  "metadata": {
+    "fileType": "Trace",
+    "formatVersion": 6,
+    "savedAt": "2026-11-12T02:29:12.828728703Z",
+    "creator": "traceReplay",
+    "proB2KernelVersion": "4.16.1",
+    "proBCliVersion": "1.16.1-final",
+    "modelName": "ElevatorControl"
+  }
+}

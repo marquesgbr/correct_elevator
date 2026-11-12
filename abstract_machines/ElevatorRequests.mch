@@ -19,10 +19,20 @@ PROMOTES
 
 	press_door_button,
 	release_door_button,
+	clear_door_led_and_display,
+
+	press_floor_button_and_blink_off,
+	press_dir_button_and_blink_off,
+	press_door_button_and_blink_off,
+	complete_pending_off,
+	exit_maintenance_display,
 
 	set_floor_led,
 	set_dir_led,
 	set_door_led,
+
+	change_excess_weight,
+	change_maintenance_indicator,
 
 	blink_floor_led,
 	blink_dir_led,
@@ -33,6 +43,7 @@ PROMOTES
 
 	complete_floor_led_blink,
 	complete_floor_led_blink_and_keep_on,
+	complete_floor_blink_on_and_show_broken,
 	complete_dir_led_blink,
 
 	all_leds_off,
@@ -65,12 +76,17 @@ VARIABLES
 
 INVARIANT
 	/* Request and LED updates are paired in the operations below. */
-	internal_requests <: MIN_FLOOR..MAX_FLOOR &
+	internal_requests : FIN(FLOORS) &
+	up_requests : FIN(FLOORS) &
+	down_requests : FIN(FLOORS) &
 	up_requests <: MIN_FLOOR..(MAX_FLOOR - 1) &
 	down_requests <: (MIN_FLOOR + 1)..MAX_FLOOR &
 	internal_requests <: FLOORS &
 	up_requests <: FLOORS &
-	down_requests <: FLOORS
+	down_requests <: FLOORS &
+	internal_requests : FIN(FLOORS) &
+	up_requests : FIN(FLOORS) &
+	down_requests : FIN(FLOORS) 
 
 INITIALISATION
 	/* No request is active when the system starts. */
@@ -132,6 +148,18 @@ OPERATIONS
 	THEN
 		down_requests := down_requests - {target_floor} ||
 		set_dir_led(target_floor, button_dir_down, button_led_inactive)
+	END;
+
+	/* Serve every request associated with a floor in one operation. This is
+	   used by RequestService when the cabin reaches its selected target. */
+	serve_floor_requests(target_floor) =
+	PRE
+		target_floor : FLOORS
+	THEN
+		internal_requests := internal_requests - {target_floor} ||
+		up_requests := up_requests - {target_floor} ||
+		down_requests := down_requests - {target_floor} ||
+		clear_floor_request_leds(target_floor)
 	END;
 
 	/* Explicit cancellation. Control logic and maintenance use these when an
@@ -257,6 +285,16 @@ OPERATIONS
 		up_requests := {} ||
 		down_requests := {} ||
 		all_leds_off
+	END;
+
+	/* HLR-008: entering maintenance removes all requests, clears every LED and
+	   displays the maintenance warning atomically. */
+	cancel_all_requests_for_maintenance =
+	BEGIN
+		internal_requests := {} ||
+		up_requests := {} ||
+		down_requests := {} ||
+		enter_maintenance_display
 	END
 
 END
