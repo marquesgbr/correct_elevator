@@ -1,0 +1,13 @@
+Position,Transition
+1,SETUP_CONSTANTS
+2,INITIALISATION
+3,press_internal(ffloor=3)
+4,close_door_automatically
+5,register_internal(ffloor=3)
+6,advance_time
+7,release_internal(ffloor=3)
+8,select_request
+9,start_travel
+10,move_travel
+11,move_travel
+12,serve_target
