@@ -1,0 +1,56 @@
+THEORY User_Pass IS
+    ff(0) & dd(0) & ar(ControlBack) & pr
+END &
+THEORY ControlBack IS
+    /* 1. Start travel / advance_to_cancellation_stop bounds */
+    binhyp(curr_active_request : FLOORS) & binhyp(not(curr_active_request = curr_floor)) & binhyp(not(1 + curr_floor <= curr_active_request)) => (MIN_FLOOR + 1 <= curr_floor);
+    binhyp(curr_state = moving_up) & binhyp(curr_floor = 3 => not(curr_state = moving_up)) & binhyp(curr_floor <= 3) => (curr_floor + 1 <= MAX_FLOOR);
+    binhyp(curr_state = moving_down) & binhyp(curr_floor = 1 => not(curr_state = moving_down)) & binhyp(1 <= curr_floor) => (MIN_FLOOR + 1 <= curr_floor);
+
+    /* 2. Singleton override {a |-> v} where v /= w and not(r(b) = w) */
+    binhyp(not(v = w)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
+    binhyp(not(w = v)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
+
+    /* 3. Comprehension override %x.(x : d | v) where v /= w and not(r(b) = w) */
+    binhyp(not(v = w)) & binhyp(not(r(b) = w)) => not((r <+ %x.(x : d | v))(b) = w);
+    binhyp(not(w = v)) & binhyp(not(r(b) = w)) => not((r <+ %x.(x : d | v))(b) = w);
+
+    /* 4. Singleton override {a |-> v} where a /= b and not(r(b) = w) */
+    binhyp(not(b = a)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
+    binhyp(not(a = b)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
+    binhyp(not(b = a)) & binhyp(not(r(b |-> d) = w)) => not((r <+ {a |-> d |-> v})(b |-> d) = w);
+    binhyp(not(a = b)) & binhyp(not(r(b |-> d) = w)) => not((r <+ {a |-> d |-> v})(b |-> d) = w);
+
+    /* 5. Orthogonal direction override (up vs down) */
+    binhyp(not(r(b |-> button_dir_down) = w)) => not((r <+ {a |-> button_dir_up |-> v})(b |-> button_dir_down) = w);
+    binhyp(not(r(b |-> button_dir_up) = w)) => not((r <+ {a |-> button_dir_down |-> v})(b |-> button_dir_up) = w);
+
+    /* 6. Request removal override {a |-> button_led_inactive} where b /: s - {a} */
+    binhyp(not(b : s - {a})) & binhyp(not(b : s) => not(r(b) = w)) =>
+        not((r <+ {a |-> button_led_inactive})(b) = w);
+    binhyp(c = a) & binhyp(not(b : s - {a})) & binhyp(not(b : s) => not(r(b) = w)) =>
+        not((r <+ {c |-> button_led_inactive})(b) = w);
+    binhyp(not(b : s - {a})) & binhyp(not(b : s) => not(r(b |-> d) = w)) =>
+        not((r <+ {a |-> d |-> button_led_inactive})(b |-> d) = w);
+
+    /* 7. Request addition override {a |-> v} where b : s \/ {a} and v /= w */
+    binhyp(b : s \/ {a}) & binhyp(b : s => not(r(b) = w)) & binhyp(not(v = w)) => not((r <+ {a |-> v})(b) = w);
+    binhyp(b : s \/ {a}) & binhyp(b : s => not(r(b |-> d) = w)) & binhyp(not(v = w)) => not((r <+ {a |-> d |-> v})(b |-> d) = w);
+
+    /* 8. serve_target comprehension override on {c} * BUTTON_DIR_OPTIONS /\ BUTTONS_IN_FLOORS */
+    binhyp(c = a) & binhyp(not(b : s - {a})) & binhyp(not(b : s) => not(r(b |-> d) = w)) =>
+        not((r <+ %bb.(bb : {c} * BUTTON_DIR_OPTIONS /\ BUTTONS_IN_FLOORS | v))(b |-> d) = w);
+    binhyp(not(b = a)) & binhyp(c = a) & binhyp(not(r(b |-> d) = w)) =>
+        not((r <+ %bb.(bb : {c} * BUTTON_DIR_OPTIONS /\ BUTTONS_IN_FLOORS | w))(b |-> d) = w);
+
+    /* 9. Door button rules (press_door and release_door) */
+    binhyp(not((p <+ {d |-> button_press})(b) = button_press)) =>
+        not((r <+ {d |-> v})(b) = button_led_active);
+    binhyp(not((p <+ {d |-> button_released})(b) = button_press)) &
+    binhyp(not(p(b) = button_press) => not(r(b) = button_led_active)) =>
+        not((r <+ {d |-> button_led_inactive})(b) = button_led_active);
+    binhyp(not(r(d) = button_led_active)) &
+    binhyp(not((p <+ {d |-> button_released})(b) = button_press)) &
+    binhyp(not(p(b) = button_press) => not(r(b) = button_led_active)) =>
+        not(r(b) = button_led_active)
+END

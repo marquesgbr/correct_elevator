@@ -75,7 +75,8 @@ ASSERTIONS
     panel_dir_inactive /= panel_dir_broken_elevator &
     panel_dir_up /= panel_dir_down &
     panel_dir_up /= panel_dir_broken_elevator &
-    panel_dir_down /= panel_dir_broken_elevator
+    panel_dir_down /= panel_dir_broken_elevator &
+    button_door_close /= button_door_open
 
 INITIALISATION
     /* All controls start released and all LEDs start inactive. */
@@ -153,7 +154,8 @@ OPERATIONS
         THEN
             button_door_press(dbutton) := button_released ||
             IF button_door_led(dbutton) = button_led_active THEN
-                button_door_led(dbutton) := button_led_inactive
+                button_door_led(dbutton) := button_led_inactive ||
+                pending_door_blink_off := pending_door_blink_off - {dbutton}
             END
         END;
 

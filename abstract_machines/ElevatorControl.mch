@@ -58,29 +58,28 @@ INVARIANT
     !(ffloor).(
         ffloor : FLOORS =>
         (
-            (button_floor_led(ffloor) = button_led_active => ffloor : internal_requests) &
+            (ffloor /: internal_requests => button_floor_led(ffloor) /= button_led_active) &
             (ffloor : internal_requests => button_floor_led(ffloor) /= button_led_inactive)
         )
     ) &
     !(ffloor).(
         ffloor : MIN_FLOOR..(MAX_FLOOR - 1) =>
         (
-            (button_dir_led(ffloor, button_dir_up) = button_led_active => ffloor : up_requests) &
+            (ffloor /: up_requests => button_dir_led(ffloor, button_dir_up) /= button_led_active) &
             (ffloor : up_requests => button_dir_led(ffloor, button_dir_up) /= button_led_inactive)
         )
     ) &
     !(ffloor).(
         ffloor : (MIN_FLOOR + 1)..MAX_FLOOR =>
         (
-            (button_dir_led(ffloor, button_dir_down) = button_led_active => ffloor : down_requests) &
+            (ffloor /: down_requests => button_dir_led(ffloor, button_dir_down) /= button_led_active) &
             (ffloor : down_requests => button_dir_led(ffloor, button_dir_down) /= button_led_inactive)
         )
     ) &
-    !(dbutton).(
-        dbutton : BUTTON_DOOR_OPTIONS =>
-        (button_door_led(dbutton) = button_led_active =>
-            button_door_press(dbutton) = button_press)
-    ) &
+    (button_door_press(button_door_open) /= button_press =>
+        button_door_led(button_door_open) /= button_led_active) &
+    (button_door_press(button_door_close) /= button_press =>
+        button_door_led(button_door_close) /= button_led_active) &
 
     /* HLR-005: a blinking-to-on internal LED still has its request active. */
     pending_floor_blink_on <: internal_requests &
@@ -126,7 +125,11 @@ ASSERTIONS
     !(cs).(cs : CABIN_STATES =>
         panel_direction_of(cs) /= panel_dir_broken_elevator) &
     !(ffloor).(ffloor : FLOORS =>
-        (ffloor |-> button_dir_up) /= (ffloor |-> button_dir_down))
+        (ffloor |-> button_dir_up) /= (ffloor |-> button_dir_down)) &
+    button_door_close /= button_door_open &
+    (curr_active_request /= NO_REQUEST => curr_active_request : FLOORS) &
+    (curr_active_request /= NO_REQUEST & curr_active_request <= curr_floor & curr_active_request /= curr_floor =>
+        curr_floor > MIN_FLOOR)
 
 INITIALISATION
     door_state_changed := FALSE ||
