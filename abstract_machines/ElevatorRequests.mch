@@ -76,7 +76,9 @@ VARIABLES
 
 INVARIANT
 	/* Request and LED updates are paired in the operations below. */
-	internal_requests <: MIN_FLOOR..MAX_FLOOR &
+	internal_requests : FIN(FLOORS) &
+	up_requests : FIN(FLOORS) &
+	down_requests : FIN(FLOORS) &
 	up_requests <: MIN_FLOOR..(MAX_FLOOR - 1) &
 	down_requests <: (MIN_FLOOR + 1)..MAX_FLOOR &
 	internal_requests <: FLOORS &

@@ -109,6 +109,10 @@ ASSERTIONS
         ffloor : (MIN_FLOOR + 1)..MAX_FLOOR =>
         (ffloor, button_dir_down) : BUTTONS_IN_FLOORS
     ) &
+    {bb | bb : BUTTONS_IN_FLOORS &
+              button_dir_timer(bb) >= BUTTON_HOLD_LIMIT} : FIN(BUTTONS_IN_FLOORS) &
+          {ff | ff : FLOORS &
+              button_floor_timer(ff) >= BUTTON_HOLD_LIMIT} : FIN(FLOORS) &
     (floor_button_unprocessed \/
         {ff | ff : FLOORS &
               button_floor_timer(ff) >= BUTTON_HOLD_LIMIT}) : FIN(FLOORS) &

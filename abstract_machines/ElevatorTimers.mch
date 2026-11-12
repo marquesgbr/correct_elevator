@@ -36,6 +36,10 @@ INVARIANT
     door_open_timer : 0..DOOR_OPEN_LIMIT &
     cabin_broken : BOOL
 
+ASSERTIONS
+    dom(button_dir_timer) = BUTTONS_IN_FLOORS &
+    dom(button_floor_timer) = FLOORS
+
 INITIALISATION
     button_dir_timer := BUTTONS_IN_FLOORS * {0} ||
     button_floor_timer := FLOORS * {0} ||
