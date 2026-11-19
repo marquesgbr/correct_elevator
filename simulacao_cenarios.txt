@@ -1,0 +1,194 @@
+================================================================================
+Guia de Execução e Simulação de cenários - Correct Elevator 
+================================================================================
+
+1. VISAO GERAL E CONFIGURACAO INICIAL DA MAQUINA
+--------------------------------------------------------------------------------
+A maquina de mais alto nivel do projeto e a `ElevatorControl.mch` (localizada em
+`abstract_machines/ElevatorControl.mch`), que orquestra todas as demais maquinas
+(`RequestService`, `CabinDoor`, `ElevatorTimers`, `ElevatorPanels`,
+`CabinMovement`, `CabinCapacity`, `ElevatorMaintenance`, `ElevatorRequests` e
+`ElevatorContext`).
+
+Parametros definidos em `ElevatorContext.mch` e `ElevatorTimers.mch`:
+- Andares (`FLOORS`): 1..3 (`MIN_FLOOR = 1`, `MAX_FLOOR = 3`)
+- Capacidade maxima (`MAX_CAPACITY`): 450 kg
+- Tempo para cancelar chamada segurando botao (`BUTTON_HOLD_LIMIT`): 3 segundos
+- Tempo limite de porta aberta para pane (`DOOR_OPEN_LIMIT`): 120 segundos
+
+Estado inicial (`INITIALISATION`):
+- Cabine parada (`curr_state = rest`) no andar 1 (`curr_floor = 1`)
+- Porta fechada (`door_state = door_closed`)
+- Peso atual = 0 (`exceeds_capacity = FALSE`)
+- Sem chamadas pendentes (`internal_requests = {}`, `up_requests = {}`,
+  `down_requests = {}`, `curr_active_request = 0`)
+- Modo de manutencao desativado (`maintenance_mode = FALSE`) e sem pane
+  (`cabin_broken = FALSE`)
+
+
+2. COMO CARREGAR E ANIMAR A MAQUINA (PROB / ATELIER B)
+--------------------------------------------------------------------------------
+Usando o ProB:
+1. Abra o ProB (ProB Tcl/Tk ou ProB2-UI).
+2. Va em `File -> Open...` e selecione:
+   `abstract_machines/ElevatorControl.mch`
+3. No painel `Operations` (Operacoes habilitadas), clique em `INITIALISATION`
+   (ou `Setup Constants` seguido de `INITIALISATION`) para inicializar o estado.
+4. Clique duas vezes nas operacoes listadas abaixo em cada cenario para
+   executa-las passo a passo e observe a mudanca das variaveis no painel `State`.
+
+No Atelier B (Verificacao formal e Provas):
+1. Abra o projeto no Atelier B.
+2. Clique com o botao direito em `ElevatorControl` e
+   selecione `Prove -> `Force 0` ou `Force 3`. Faça o mesmo para os demais arquivos.
+3. Em seguida, selecione `Prove -> User Pass` para aplicar as regras dos
+   arquivos `.pmm` (`ElevatorControl.pmm` e `ElevatorPanels.pmm`), atingindo
+   100% de POs provadas.
+
+
+================================================================================
+3. ROTEIRO DE SIMULACAO DE CENARIOS (EM `ElevatorControl`)
+================================================================================
+
+--------------------------------------------------------------------------------
+CENARIO 1: Viagem Normal Completa (Passageiro chama no andar 2 e vai ao andar 3)
+--------------------------------------------------------------------------------
+Objetivo: Simular o elevador saindo da inatividade no andar 1, buscando um
+passageiro no andar 2 e levando-o ate o andar 3.
+
+Passo a passo das operacoes:
+1. `press_up(2)`
+   -> Passageiro no 2o andar aperta o botao externo de subida.
+2. `register_up(2)`
+   -> O controlador registra a chamada externa `up_requests = {2}` e acende o
+      LED correspondente (`button_dir_led(2, button_dir_up) = button_led_active`).
+3. ` release_up(2)`
+   -> Passageiro solta o botao no 2o andar.
+4. `select_request`
+   -> Estando em repouso, o elevador seleciona o andar 2 como alvo atual
+      (`curr_active_request = 2`).
+5. `start_travel`
+   -> Com a porta fechada, a cabine inicia o movimento de subida
+      (`curr_state = moving_up`, painel exibe subida).
+6. `move_travel`
+   -> A cabine avanca 1 andar e chega ao 2o andar (`curr_floor = 2`).
+7. `stop_at_target`
+   -> Ao atingir `curr_floor = curr_active_request = 2`, a cabine para
+      (`curr_state = rest`).
+8. `serve_target`
+   -> A chamada do 2o andar e atendida e removida de `up_requests`, apagando o
+      LED externo e limpando `curr_active_request = 0`.
+9. `open_door_automatically`
+   -> A porta se abre no 2o andar (`door_state = door_open`).
+10. `add_passenger_weight(75)`
+    -> Passageiro de 75 kg entra na cabine (`curr_weight = 75`).
+11. `press_internal(3)`
+    -> Passageiro aperta o botao interno do 3o andar.
+12. `register_internal(3)`
+    -> Chamada interna registrada (`internal_requests = {3}`, LED do 3o andar
+       aceso).
+13. `release_internal(3)`
+    -> Passageiro solta o botao interno do 3o andar.
+14. `advance_time`
+    -> Passa 1 unidade de tempo (libera a trava `door_state_changed := FALSE`
+       para permitir a transicao seguinte da porta).
+15. `close_door_automatically`
+    -> A porta se fecha (`door_state = door_closed`) e o timer de porta aberta
+       e zerado.
+16. `select_request`
+    -> O elevador seleciona o destino interno (`curr_active_request = 3`).
+17. `start_travel`
+    -> A cabine inicia a subida (`curr_state = moving_up`).
+18. `move_travel`
+    -> A cabine chega ao 3o andar (`curr_floor = 3`).
+19. `stop_at_target`
+    -> A cabine para no 3o andar (`curr_state = rest`).
+20. `serve_target`
+    -> Chamada interna do 3o andar e concluida (`internal_requests = {}`, LED
+       apagado).
+21. `open_door_automatically`
+    -> A porta se abre no 3o andar (`door_state = door_open`).
+22. `remove_passenger_weight(75)`
+    -> Passageiro desembarca (`curr_weight = 0`).
+23. `advance_time`
+    -> Passa 1 segundo.
+24. `close_door_automatically`
+    -> Porta se fecha e o elevador volta ao estado ocioso no 3o andar.
+
+
+--------------------------------------------------------------------------------
+CENARIO 2: Excesso de Peso (Bloqueio de Movimento - HLR-009)
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar que o elevador aciona o alerta de excesso de peso quando
+`curr_weight > 450` e impede a selecao/partida da viagem ate que o peso volte
+ao limite permitido.
+
+Passo a passo das operacoes (partindo do elevador parado e de porta fechada):
+1. `open_door_automatically`
+   -> Abre a porta no andar atual (`door_state = door_open`).
+2. `add_passenger_weight(500)`
+   -> Entram 500 kg na cabine (acima de `MAX_CAPACITY = 450`).
+   -> Resultado: `exceeds_capacity = TRUE` e `excess_weight_indicator = TRUE`
+      no painel.
+3. `press_internal(2)`
+   -> Passageiro tenta apertar o botao do 2o andar.
+   -> Observe que `register_internal(2)`, `select_request` e `start_travel`
+      ficam DESABILITADOS enquanto `exceeds_capacity = TRUE`.
+4. `remove_passenger_weight(100)`
+   -> Um passageiro sai da cabine (`curr_weight = 400 <= 450`).
+   -> Resultado: `exceeds_capacity = FALSE` e o indicador de excesso de peso
+      apaga (`excess_weight_indicator = FALSE`).
+5. `register_internal(2)`
+   -> Agora o registro da chamada interna para o 2o andar e permitido!
+6. `release_internal(2)`
+   -> Solta o botao do 2o andar.
+7. `advance_time` -> `close_door_automatically` -> `select_request` -> `start_travel`
+   -> O elevador fecha a porta e segue viagem normalmente.
+
+
+--------------------------------------------------------------------------------
+CENARIO 3: Cancelamento de Chamada por Tempo Pressionado (Hold >= 3s - HLR-005)
+           e Tentativa de Cancelar a Ultima Chamada Interna
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar que segurar um botao por 3 segundos (`BUTTON_HOLD_LIMIT = 3`)
+cancela a chamada quando ha mais de uma chamada interna, mas rejeita o
+cancelamento (piscando o LED e mantendo-o aceso) quando e a unica chamada
+interna restante.
+
+Passo a passo das operacoes (com cabine parada e `exceeds_capacity = FALSE`):
+1. Registrar duas chamadas internas (andares 2 e 3):
+   - `press_internal(2)` -> `register_internal(2)` -> `release_internal(2)`
+   - `press_internal(3)` -> `register_internal(3)` -> `release_internal(3)`
+   -> Estado: `internal_requests = {2, 3}` (ambos os LEDs acesos).
+
+2. Cancelar a chamada do andar 3 segurando o botao por 3 segundos:
+   - `press_internal(3)`
+     (Nota: como o andar 3 ja esta em `internal_requests`, queremos testar o
+     hold; caso `floor_button_unprocessed` contenha 3, execute
+     `register_internal(3)` para processar o clique inicial mantendo o botao
+     pressionado `button_floor_press(3) = button_press`).
+   - `advance_time`  (timer do botao 3 sobe para 1)
+   - `advance_time`  (timer do botao 3 sobe para 2)
+   - `advance_time`  (timer do botao 3 atinge `BUTTON_HOLD_LIMIT = 3`)
+   - `advance_time`  (marca o botao 3 em `floor_button_unprocessed`)
+   - `cancel_internal_by_time(3)`
+     -> Como havia 2 chamadas (`card(internal_requests) > 1`), a chamada do
+        andar 3 e CANCELADA (`internal_requests = {2}`) e seu LED pisca duas
+        vezes e apaga!
+   - `release_internal(3)`
+
+3. Tentar cancelar a ULTIMA chamada interna restante (andar 2):
+   - `press_internal(2)` -> `register_internal(2)` (mantendo pressionado)
+   - `advance_time`  (timer do botao 2 = 1)
+   - `advance_time`  (timer do botao 2 = 2)
+   - `advance_time`  (timer do botao 2 = 3)
+   - `advance_time`  (marca o botao 2 para processamento de hold)
+   - `reject_last_internal_by_time(2)`
+     -> Como `card(internal_requests) = 1`, o cancelamento e REJEITADO: a
+        chamada continua ativa (`internal_requests = {2}`) e o LED pisca duas
+        vezes permanecendo aceso (`pending_floor_blink_on = {2}`).
+   - `release_internal(2)`
+   - `advance_time`
+     -> Conclui a animacao do pisca mantendo o LED do andar 2 aceso
+        (`button_floor_led(2) = button_led_active`).
+================================================================================
