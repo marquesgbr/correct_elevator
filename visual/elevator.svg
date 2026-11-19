@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760">
+  <rect x="0" y="0" width="1280" height="760" fill="#0b1120"/>
+
+  <!-- HEADER -->
+  <rect x="16" y="8" width="1248" height="50" rx="8" fill="#111827" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="32" y="29" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">CORRECT ELEVATOR - PROTOTIPO VISUAL VISB (ProB2-UI)</text>
+  <text x="32" y="47" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#94a3b8">Maquina Topo: ElevatorControl.mch | FLOORS: 1..3 | MAX_CAPACITY: 450 kg | HOLD: 3 ticks | DOOR_LIMIT: 120 ticks</text>
+
+  <g id="status_pills">
+    <rect id="ind_status_pill" x="646" y="17" width="194" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text id="txt_status" x="743" y="37" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#e0f2fe">PARADO | PORTA ABERTA</text>
+
+    <rect id="ind_maintenance" x="848" y="17" width="142" height="32" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text id="txt_ind_maint" x="919" y="37" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">MANUTENCAO: OFF</text>
+
+    <rect id="ind_overload" x="998" y="17" width="136" height="32" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text id="txt_ind_overload" x="1066" y="37" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">PESO: NORMAL</text>
+
+    <rect id="ind_broken" x="1142" y="17" width="110" height="32" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text id="txt_ind_broken" x="1197" y="37" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">AVARIA: NAO</text>
+  </g>
+
+  <!-- COLUMN 1: SHAFT & EXTERNAL PANELS -->
+  <rect x="16" y="68" width="428" height="680" rx="8" fill="#111827" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="28" y="89" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">1. POCO DO ELEVADOR &amp; PAINEIS EXTERNOS</text>
+
+  <rect id="shaft_bg" x="28" y="102" width="180" height="525" rx="4" fill="#090d16" stroke="#334155" stroke-width="1.5"/>
+  <line x1="42" y1="106" x2="42" y2="623" stroke="#1e293b" stroke-width="3"/>
+  <line x1="194" y1="106" x2="194" y2="623" stroke="#1e293b" stroke-width="3"/>
+  <line x1="28" y1="277" x2="208" y2="277" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="28" y1="452" x2="208" y2="452" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <rect id="floor_3_target_bar" x="31" y="108" width="6" height="163" rx="3" fill="#1e293b"/>
+  <text id="floor_3_label" x="200" y="116" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">ANDAR 3</text>
+  <rect id="floor_2_target_bar" x="31" y="283" width="6" height="163" rx="3" fill="#1e293b"/>
+  <text id="floor_2_label" x="200" y="291" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">ANDAR 2</text>
+  <rect id="floor_1_target_bar" x="31" y="458" width="6" height="163" rx="3" fill="#1e293b"/>
+  <text id="floor_1_label" x="200" y="466" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">ANDAR 1</text>
+
+  <line id="shaft_cable" x1="118" y1="102" x2="118" y2="472" stroke="#64748b" stroke-width="2.5" stroke-dasharray="5 3"/>
+
+  <svg id="cabin_group" x="44" y="472" width="148" height="148" viewBox="0 0 148 148">
+    <rect id="cabin_body" x="2" y="2" width="144" height="144" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5">
+      <title id="cabin_tooltip">Cabine do Elevador</title>
+    </rect>
+    <rect x="6" y="6" width="136" height="26" rx="4" fill="#0f172a"/>
+    <text id="cabin_floor_text" x="14" y="24" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">A1</text>
+    <text id="cabin_dir_text" x="134" y="23" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#cbd5e1">PARADO</text>
+
+    <rect x="14" y="36" width="120" height="84" rx="3" fill="#090d16" stroke="#334155" stroke-width="1"/>
+    <text id="cabin_door_badge" x="74" y="58" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#22c55e">PORTA ABERTA</text>
+    <text id="cabin_weight_txt" x="68" y="80" text-anchor="end" font-family="Consolas, monospace" font-size="14" font-weight="700" fill="#f8fafc">0</text>
+    <text x="72" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#94a3b8">kg</text>
+    <rect x="22" y="92" width="104" height="8" rx="4" fill="#1e293b"/>
+    <rect id="cabin_load_bar" x="22" y="92" width="0" height="8" rx="4" fill="#22c55e"/>
+
+    <rect id="cabin_door_left" x="15" y="37" width="12" height="82" rx="2" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+    <rect id="cabin_door_right" x="122" y="37" width="12" height="82" rx="2" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+
+    <rect x="8" y="125" width="132" height="15" rx="2" fill="#334155"/>
+    <text x="74" y="136" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#cbd5e1">CABINE PRINCIPAL</text>
+  </svg>
+
+  <rect x="218" y="106" width="216" height="167" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="228" y="126" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">PAVIMENTO 3</text>
+  <rect id="ext_display_3" x="342" y="112" width="84" height="20" rx="4" fill="#050a14" stroke="#334155" stroke-width="1"/>
+  <text id="ext_disp_fl_3" x="364" y="126" text-anchor="middle" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#38bdf8">A1</text>
+  <text id="ext_disp_dir_3" x="404" y="126" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">•</text>
+  <rect x="226" y="142" width="200" height="48" rx="4" fill="#111827" stroke="#1e293b"/>
+  <text x="326" y="164" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#64748b">TOPO (MAX_FLOOR = 3)</text>
+  <text x="326" y="180" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#475569">Somente chamada de descida</text>
+  <g id="ext_btn_down_3" cursor="pointer">
+    <title>Andar 3: press_down(3) - DESCER</title>
+    <rect id="ext_btn_down_3_bg" x="226" y="205" width="44" height="54" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="248" y="227" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#f8fafc" pointer-events="none">▼</text>
+    <circle id="ext_led_down_3" cx="248" cy="244" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="ext_status_down_3" x="276" y="219" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: OFF</text>
+  <text id="ext_unproc_down_3" x="276" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Pend: NAO</text>
+  <text id="ext_timer_down_3" x="276" y="250" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="ext_reg_down_3" cursor="pointer">
+  <title>register_down(3)</title>
+  <rect id="ext_reg_down_3_bg" x="352" y="204" width="74" height="17" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="389.0" y="215.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="ext_rel_down_3" cursor="pointer">
+  <title>release_down(3)</title>
+  <rect id="ext_rel_down_3_bg" x="352" y="223" width="74" height="17" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="389.0" y="234.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="ext_canc_down_3" cursor="pointer">
+  <title>cancel_down_by_time(3)</title>
+  <rect id="ext_canc_down_3_bg" x="352" y="242" width="74" height="17" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="389.0" y="253.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <rect x="218" y="281" width="216" height="167" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="228" y="301" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">PAVIMENTO 2</text>
+  <rect id="ext_display_2" x="342" y="287" width="84" height="20" rx="4" fill="#050a14" stroke="#334155" stroke-width="1"/>
+  <text id="ext_disp_fl_2" x="364" y="301" text-anchor="middle" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#38bdf8">A1</text>
+  <text id="ext_disp_dir_2" x="404" y="301" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">•</text>
+  <g id="ext_btn_up_2" cursor="pointer">
+    <title>Andar 2: press_up(2) - SUBIR</title>
+    <rect id="ext_btn_up_2_bg" x="226" y="318" width="44" height="54" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="248" y="340" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#f8fafc" pointer-events="none">▲</text>
+    <circle id="ext_led_up_2" cx="248" cy="357" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="ext_status_up_2" x="276" y="332" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: OFF</text>
+  <text id="ext_unproc_up_2" x="276" y="348" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Pend: NAO</text>
+  <text id="ext_timer_up_2" x="276" y="363" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="ext_reg_up_2" cursor="pointer">
+  <title>register_up(2)</title>
+  <rect id="ext_reg_up_2_bg" x="352" y="317" width="74" height="17" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="389.0" y="328.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="ext_rel_up_2" cursor="pointer">
+  <title>release_up(2)</title>
+  <rect id="ext_rel_up_2_bg" x="352" y="336" width="74" height="17" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="389.0" y="347.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="ext_canc_up_2" cursor="pointer">
+  <title>cancel_up_by_time(2)</title>
+  <rect id="ext_canc_up_2_bg" x="352" y="355" width="74" height="17" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="389.0" y="366.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <g id="ext_btn_down_2" cursor="pointer">
+    <title>Andar 2: press_down(2) - DESCER</title>
+    <rect id="ext_btn_down_2_bg" x="226" y="384" width="44" height="54" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="248" y="406" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#f8fafc" pointer-events="none">▼</text>
+    <circle id="ext_led_down_2" cx="248" cy="423" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="ext_status_down_2" x="276" y="398" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: OFF</text>
+  <text id="ext_unproc_down_2" x="276" y="414" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Pend: NAO</text>
+  <text id="ext_timer_down_2" x="276" y="429" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="ext_reg_down_2" cursor="pointer">
+  <title>register_down(2)</title>
+  <rect id="ext_reg_down_2_bg" x="352" y="383" width="74" height="17" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="389.0" y="394.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="ext_rel_down_2" cursor="pointer">
+  <title>release_down(2)</title>
+  <rect id="ext_rel_down_2_bg" x="352" y="402" width="74" height="17" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="389.0" y="413.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="ext_canc_down_2" cursor="pointer">
+  <title>cancel_down_by_time(2)</title>
+  <rect id="ext_canc_down_2_bg" x="352" y="421" width="74" height="17" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="389.0" y="432.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <rect x="218" y="456" width="216" height="167" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="228" y="476" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">PAVIMENTO 1</text>
+  <rect id="ext_display_1" x="342" y="462" width="84" height="20" rx="4" fill="#050a14" stroke="#334155" stroke-width="1"/>
+  <text id="ext_disp_fl_1" x="364" y="476" text-anchor="middle" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#38bdf8">A1</text>
+  <text id="ext_disp_dir_1" x="404" y="476" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">•</text>
+  <g id="ext_btn_up_1" cursor="pointer">
+    <title>Andar 1: press_up(1) - SUBIR</title>
+    <rect id="ext_btn_up_1_bg" x="226" y="495" width="44" height="54" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="248" y="517" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#f8fafc" pointer-events="none">▲</text>
+    <circle id="ext_led_up_1" cx="248" cy="534" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="ext_status_up_1" x="276" y="509" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: OFF</text>
+  <text id="ext_unproc_up_1" x="276" y="525" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Pend: NAO</text>
+  <text id="ext_timer_up_1" x="276" y="540" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="ext_reg_up_1" cursor="pointer">
+  <title>register_up(1)</title>
+  <rect id="ext_reg_up_1_bg" x="352" y="494" width="74" height="17" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="389.0" y="505.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="ext_rel_up_1" cursor="pointer">
+  <title>release_up(1)</title>
+  <rect id="ext_rel_up_1_bg" x="352" y="513" width="74" height="17" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="389.0" y="524.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="ext_canc_up_1" cursor="pointer">
+  <title>cancel_up_by_time(1)</title>
+  <rect id="ext_canc_up_1_bg" x="352" y="532" width="74" height="17" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="389.0" y="543.6" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <rect x="226" y="562" width="200" height="48" rx="4" fill="#111827" stroke="#1e293b"/>
+  <text x="326" y="584" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#64748b">TERREO (MIN_FLOOR = 1)</text>
+  <text x="326" y="600" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#475569">Somente chamada de subida</text>
+
+  <!-- LEGEND -->
+  <rect x="28" y="638" width="406" height="98" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="40" y="655" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LEGENDA VISUAL &amp; PROTOCOLO DE BOTOES (2 FASES)</text>
+  <circle cx="46" cy="673" r="5" fill="#f59e0b" stroke="#fde68a" stroke-width="1.2"/>
+  <text x="58" y="677" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#cbd5e1">LED Ativo (button_led_active)</text>
+  <circle cx="238" cy="673" r="5" fill="#38bdf8" stroke="#e0f2fe" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <text x="250" y="677" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#cbd5e1">LED Piscando (blinking)</text>
+  <circle cx="46" cy="693" r="5" fill="#334155" stroke="#475569" stroke-width="1.2"/>
+  <text x="58" y="697" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#cbd5e1">LED Inativo (inactive)</text>
+  <rect x="233" y="688" width="10" height="10" rx="2" fill="#22c55e"/>
+  <text x="250" y="697" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#cbd5e1">Alvo Atual / Barra Segura</text>
+  <text x="40" y="715" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">1) Clique no botao para press_*  2) Clique Registrar (ou Tick x3 + Canc Hold)  3) Soltar</text>
+  <text x="40" y="728" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">Botoes apagados (32% opacidade) estao bloqueados pelas pre-condicoes formais B.</text>
+
+  <!-- COLUMN 2: INTERNAL CABIN PANEL -->
+  <rect x="460" y="68" width="384" height="680" rx="8" fill="#111827" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="476" y="89" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">2. PAINEL INTERNO DA CABINE</text>
+
+  <!-- OLED Matrix Display -->
+  <rect x="476" y="102" width="352" height="104" rx="8" fill="#050a14" stroke="#334155" stroke-width="1.5"/>
+  <text x="530" y="120" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#64748b">VISOR ANDAR</text>
+  <text id="panel_floor_digit" x="530" y="176" text-anchor="middle" font-family="Consolas, monospace" font-size="52" font-weight="700" fill="#38bdf8">1</text>
+  <text id="oled_cabin_floor_sub" x="530" y="196" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">Cabine Real: 1</text>
+
+  <line x1="586" y1="112" x2="586" y2="196" stroke="#1e293b" stroke-width="1"/>
+  <polygon id="ind_direction_up" points="614,114 602,134 626,134" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <circle id="ind_direction_idle" cx="614" cy="153" r="6" fill="#38bdf8"/>
+  <polygon id="ind_direction_down" points="614,192 602,172 626,172" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <g id="ind_direction_broken" visibility="hidden">
+    <rect x="638" y="138" width="26" height="28" rx="4" fill="#dc2626" stroke="#fecaca" stroke-width="1.2"/>
+    <text x="651" y="158" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff">!</text>
+  </g>
+
+  <line x1="674" y1="112" x2="674" y2="196" stroke="#1e293b" stroke-width="1"/>
+  <text id="oled_motion_txt" x="684" y="126" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#e2e8f0">MOV: PARADO</text>
+  <text id="oled_door_txt" x="684" y="144" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#4ade80">PORTA: ABERTA</text>
+  <text id="oled_target_txt" x="684" y="162" font-family="Consolas, monospace" font-size="11" font-weight="700" fill="#94a3b8">ALVO: NENHUM</text>
+  <text id="oled_overweight_flag" x="684" y="180" font-family="Consolas, monospace" font-size="10" fill="#64748b">SOBRECARGA: NAO</text>
+  <text id="oled_maint_flag" x="684" y="196" font-family="Consolas, monospace" font-size="10" fill="#64748b">MANUTENCAO: OFF</text>
+
+  <rect x="476" y="218" width="352" height="70" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <g id="int_btn_floor_3" cursor="pointer">
+    <title>Botao Interno Andar 3: press_internal(3)</title>
+    <rect id="int_btn_floor_3_bg" x="484" y="225" width="56" height="56" rx="28" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="512" y="253" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#f8fafc" pointer-events="none">3</text>
+    <circle id="int_led_floor_3" cx="512" cy="268" r="5" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="int_status_3" x="548" y="238" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: INATIVO</text>
+  <text id="int_press_3" x="548" y="253" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#cbd5e1">Botao: LIVRE</text>
+  <text id="int_unproc_3" x="548" y="267" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">Pendente: NAO</text>
+  <text id="int_timer_3" x="548" y="281" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="btn_reg_int_3" cursor="pointer">
+  <title>register_internal(3)</title>
+  <rect id="btn_reg_int_3_bg" x="668" y="226" width="74" height="24" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="705.0" y="241.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="btn_rel_int_3" cursor="pointer">
+  <title>release_internal(3)</title>
+  <rect id="btn_rel_int_3_bg" x="746" y="226" width="74" height="24" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="783.0" y="241.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="btn_cancel_3" cursor="pointer">
+  <title>cancel_internal_by_time(3)</title>
+  <rect id="btn_cancel_3_bg" x="668" y="256" width="74" height="24" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="705.0" y="271.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <g id="btn_reject_int_3" cursor="pointer">
+  <title>reject_last_internal_by_time(3)</title>
+  <rect id="btn_reject_int_3_bg" x="746" y="256" width="74" height="24" rx="4" fill="#3b2f16" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="783.0" y="271.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Rej Ult</text>
+</g>
+  <rect x="476" y="294" width="352" height="70" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <g id="int_btn_floor_2" cursor="pointer">
+    <title>Botao Interno Andar 2: press_internal(2)</title>
+    <rect id="int_btn_floor_2_bg" x="484" y="301" width="56" height="56" rx="28" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="512" y="329" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#f8fafc" pointer-events="none">2</text>
+    <circle id="int_led_floor_2" cx="512" cy="344" r="5" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="int_status_2" x="548" y="314" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: INATIVO</text>
+  <text id="int_press_2" x="548" y="329" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#cbd5e1">Botao: LIVRE</text>
+  <text id="int_unproc_2" x="548" y="343" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">Pendente: NAO</text>
+  <text id="int_timer_2" x="548" y="357" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="btn_reg_int_2" cursor="pointer">
+  <title>register_internal(2)</title>
+  <rect id="btn_reg_int_2_bg" x="668" y="302" width="74" height="24" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="705.0" y="317.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="btn_rel_int_2" cursor="pointer">
+  <title>release_internal(2)</title>
+  <rect id="btn_rel_int_2_bg" x="746" y="302" width="74" height="24" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="783.0" y="317.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="btn_cancel_2" cursor="pointer">
+  <title>cancel_internal_by_time(2)</title>
+  <rect id="btn_cancel_2_bg" x="668" y="332" width="74" height="24" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="705.0" y="347.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <g id="btn_reject_int_2" cursor="pointer">
+  <title>reject_last_internal_by_time(2)</title>
+  <rect id="btn_reject_int_2_bg" x="746" y="332" width="74" height="24" rx="4" fill="#3b2f16" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="783.0" y="347.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Rej Ult</text>
+</g>
+  <rect x="476" y="370" width="352" height="70" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <g id="int_btn_floor_1" cursor="pointer">
+    <title>Botao Interno Andar 1: press_internal(1)</title>
+    <rect id="int_btn_floor_1_bg" x="484" y="377" width="56" height="56" rx="28" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <text x="512" y="405" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#f8fafc" pointer-events="none">1</text>
+    <circle id="int_led_floor_1" cx="512" cy="420" r="5" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <text id="int_status_1" x="548" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">LED: INATIVO</text>
+  <text id="int_press_1" x="548" y="405" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#cbd5e1">Botao: LIVRE</text>
+  <text id="int_unproc_1" x="548" y="419" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">Pendente: NAO</text>
+  <text id="int_timer_1" x="548" y="433" font-family="Consolas, monospace" font-size="9" fill="#cbd5e1">Hold: 0/3</text>
+  <g id="btn_reg_int_1" cursor="pointer">
+  <title>register_internal(1)</title>
+  <rect id="btn_reg_int_1_bg" x="668" y="378" width="74" height="24" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="705.0" y="393.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Registrar</text>
+</g>
+  <g id="btn_rel_int_1" cursor="pointer">
+  <title>release_internal(1)</title>
+  <rect id="btn_rel_int_1_bg" x="746" y="378" width="74" height="24" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="783.0" y="393.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar</text>
+</g>
+  <g id="btn_cancel_1" cursor="pointer">
+  <title>cancel_internal_by_time(1)</title>
+  <rect id="btn_cancel_1_bg" x="668" y="408" width="74" height="24" rx="4" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="705.0" y="423.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Canc Hold</text>
+</g>
+  <g id="btn_reject_int_1" cursor="pointer">
+  <title>reject_last_internal_by_time(1)</title>
+  <rect id="btn_reject_int_1_bg" x="746" y="408" width="74" height="24" rx="4" fill="#3b2f16" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="783.0" y="423.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Rej Ult</text>
+</g>
+
+  <!-- DOOR CONTROLS -->
+  <text x="476" y="464" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">CONTROLE DE PORTAS</text>
+  <text id="txt_door_changed" x="828" y="464" text-anchor="end" font-family="Consolas, monospace" font-size="9" fill="#94a3b8">door_state_changed: FALSE</text>
+
+  <g id="btn_door_open" cursor="pointer">
+    <title>press_door(button_door_open)</title>
+    <rect id="btn_door_open_bg" x="476" y="472" width="170" height="42" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <circle id="led_door_open" cx="496" cy="493" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+    <text x="572" y="497" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">◄ ► ABRIR PORTA</text>
+  </g>
+  <g id="btn_door_close" cursor="pointer">
+    <title>press_door(button_door_close)</title>
+    <rect id="btn_door_close_bg" x="658" y="472" width="170" height="42" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <circle id="led_door_close" cx="678" cy="493" r="6" fill="#334155" stroke="#475569" stroke-width="1.5" pointer-events="none"/>
+    <text x="754" y="497" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">► ◄ FECHAR PORTA</text>
+  </g>
+
+  <g id="btn_door_open_rel" cursor="pointer">
+  <title>release_door(button_door_open)</title>
+  <rect id="btn_door_open_rel_bg" x="476" y="520" width="82" height="28" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="517.0" y="537.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar Abrir</text>
+</g>
+  <g id="btn_open_imm" cursor="pointer">
+  <title>open_door_immediately</title>
+  <rect id="btn_open_imm_bg" x="564" y="520" width="82" height="28" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="605.0" y="537.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Abrir Imed.</text>
+</g>
+  <g id="btn_open_auto" cursor="pointer">
+  <title>open_door_automatically</title>
+  <rect id="btn_open_auto_bg" x="476" y="554" width="170" height="28" rx="5" fill="#0f2942" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="561.0" y="571.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Abrir Automatica (Auto)</text>
+</g>
+  <g id="btn_door_close_rel" cursor="pointer">
+  <title>release_door(button_door_close)</title>
+  <rect id="btn_door_close_rel_bg" x="658" y="520" width="82" height="28" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="699.0" y="537.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Soltar Fech.</text>
+</g>
+  <g id="btn_close_imm" cursor="pointer">
+  <title>close_door_immediately</title>
+  <rect id="btn_close_imm_bg" x="746" y="520" width="82" height="28" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="787.0" y="537.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Fechar Imed.</text>
+</g>
+  <g id="btn_close_auto" cursor="pointer">
+  <title>close_door_automatically</title>
+  <rect id="btn_close_auto_bg" x="658" y="554" width="170" height="28" rx="5" fill="#0f2942" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="743.0" y="571.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#f8fafc" pointer-events="none">Fechar Automatica (Auto)</text>
+</g>
+  <text id="txt_door_btn_open_state" x="476" y="598" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Abrir: LIVRE | LED OFF</text>
+  <text id="txt_door_btn_close_state" x="658" y="598" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Fechar: LIVRE | LED OFF</text>
+
+  <!-- CAPACITY / WEIGHT BAR -->
+  <rect x="476" y="610" width="352" height="126" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="488" y="629" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#cbd5e1">CARGA DA CABINE (MAX_CAPACITY = 450 kg)</text>
+  <text id="txt_weight" x="548" y="662" text-anchor="end" font-family="Consolas, monospace" font-size="24" font-weight="700" fill="#f8fafc">0</text>
+  <text x="554" y="662" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#94a3b8">/ 450 kg</text>
+  <text id="txt_weight_state" x="816" y="660" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#4ade80">CAPACIDADE OK</text>
+  <rect x="488" y="676" width="328" height="16" rx="4" fill="#1e293b"/>
+  <rect id="weight_bar_fill" x="488" y="676" width="0" height="16" rx="4" fill="#22c55e"/>
+  <line x1="652" y1="674" x2="652" y2="694" stroke="#475569" stroke-width="1"/>
+  <line x1="816" y1="674" x2="816" y2="694" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="488" y="707" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">0 kg</text>
+  <text x="652" y="707" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">225 kg</text>
+  <text x="816" y="707" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#f87171">450 kg (LIMITE)</text>
+  <text x="488" y="725" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">HLR-009: Peso so varia com cabine parada e porta aberta.</text>
+
+  <!-- COLUMN 3: DISPATCH, ENVIRONMENT & DIAGNOSTICS -->
+  <rect x="860" y="68" width="404" height="680" rx="8" fill="#111827" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="876" y="89" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">3. DESPACHO, AMBIENTE &amp; DIAGNOSTICO</text>
+
+  <!-- 3A: Dispatch & Travel -->
+  <text x="874" y="110" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">DESPACHO &amp; MOVIMENTO DA CABINE</text>
+
+  <g id="btn_select_request" cursor="pointer">
+  <title>select_request</title>
+  <rect id="btn_select_request_bg" x="874" y="118" width="121" height="36" rx="5" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="934.5" y="133.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Selecionar Alvo</text>
+  <text x="934.5" y="146.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">select_request</text>
+</g>
+  <g id="btn_start_travel" cursor="pointer">
+  <title>start_travel</title>
+  <rect id="btn_start_travel_bg" x="1001" y="118" width="121" height="36" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="1061.5" y="133.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Iniciar Viagem</text>
+  <text x="1061.5" y="146.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">start_travel</text>
+</g>
+  <g id="btn_step_move" cursor="pointer">
+  <title>move_travel</title>
+  <rect id="btn_step_move_bg" x="1128" y="118" width="122" height="36" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="1189.0" y="133.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Mover 1 Andar</text>
+  <text x="1189.0" y="146.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">move_travel</text>
+</g>
+  <g id="btn_stop_target" cursor="pointer">
+  <title>stop_at_target</title>
+  <rect id="btn_stop_target_bg" x="874" y="160" width="121" height="36" rx="5" fill="#3b2f16" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="934.5" y="175.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Parar no Alvo</text>
+  <text x="934.5" y="188.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">stop_at_target</text>
+</g>
+  <g id="btn_serve_target" cursor="pointer">
+  <title>serve_target</title>
+  <rect id="btn_serve_target_bg" x="1001" y="160" width="121" height="36" rx="5" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="1061.5" y="175.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Atender Alvo</text>
+  <text x="1061.5" y="188.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">serve_target</text>
+</g>
+  <g id="btn_cancel_stop" cursor="pointer">
+  <title>advance_to_cancellation_stop</title>
+  <rect id="btn_cancel_stop_bg" x="1128" y="160" width="122" height="36" rx="5" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="1189.0" y="175.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Parada HLR-006</text>
+  <text x="1189.0" y="188.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">cancel_stop</text>
+</g>
+
+  <!-- 3B: TIMERS & CLOCK -->
+  <rect x="874" y="206" width="376" height="96" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="886" y="224" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#cbd5e1">TEMPORIZADORES (DOOR_OPEN_LIMIT = 120)</text>
+  <text id="txt_timer" x="1182" y="224" text-anchor="end" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#38bdf8">0</text>
+  <text x="1186" y="224" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">/ 120 ticks</text>
+  <rect x="886" y="232" width="352" height="10" rx="3" fill="#1e293b"/>
+  <rect id="door_timer_bar" x="886" y="232" width="0" height="10" rx="3" fill="#38bdf8"/>
+
+  <g id="btn_tick_timer" cursor="pointer">
+  <title>advance_time</title>
+  <rect id="btn_tick_timer_bg" x="886" y="248" width="172" height="32" rx="5" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="972.0" y="262.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Avancar Tempo (Tick)</text>
+  <text x="972.0" y="273.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">advance_time</text>
+</g>
+  <g id="btn_maint_tick" cursor="pointer">
+  <title>advance_maintenance_time</title>
+  <rect id="btn_maint_tick_bg" x="1066" y="248" width="172" height="32" rx="5" fill="#3b2f16" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="1152.0" y="262.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Tick Manutencao</text>
+  <text x="1152.0" y="273.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">advance_maintenance_time</text>
+</g>
+  <text id="txt_tick_hint" x="886" y="294" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8">Tick normal pronto.</text>
+
+  <!-- 3C: PASSENGER WEIGHT SIMULATION -->
+  <text x="874" y="319" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">SIMULACAO DE PASSAGEIROS (CARGA)</text>
+
+  <g id="btn_add_weight" cursor="pointer">
+  <title>add_passenger_weight(75)</title>
+  <rect id="btn_add_weight_bg" x="874" y="326" width="72" height="36" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="910.0" y="341.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">+75 kg</text>
+  <text x="910.0" y="354.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">1 passag.</text>
+</g>
+  <g id="btn_add_weight_200" cursor="pointer">
+  <title>add_passenger_weight(200)</title>
+  <rect id="btn_add_weight_200_bg" x="950" y="326" width="72" height="36" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="986.0" y="341.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">+200 kg</text>
+  <text x="986.0" y="354.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">grupo</text>
+</g>
+  <g id="btn_remove_weight" cursor="pointer">
+  <title>remove_passenger_weight(75)</title>
+  <rect id="btn_remove_weight_bg" x="1026" y="326" width="72" height="36" rx="5" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="1062.0" y="341.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">-75 kg</text>
+  <text x="1062.0" y="354.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">1 passag.</text>
+</g>
+  <g id="btn_remove_weight_200" cursor="pointer">
+  <title>remove_passenger_weight(200)</title>
+  <rect id="btn_remove_weight_200_bg" x="1102" y="326" width="72" height="36" rx="5" fill="#3f1d2b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="1138.0" y="341.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">-200 kg</text>
+  <text x="1138.0" y="354.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">grupo</text>
+</g>
+  <g id="btn_clear_weight" cursor="pointer">
+  <title>remove_passenger_weight(curr_weight)</title>
+  <rect id="btn_clear_weight_bg" x="1178" y="326" width="72" height="36" rx="5" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="1214.0" y="341.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Zerar</text>
+  <text x="1214.0" y="354.1" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">esvaziar</text>
+</g>
+
+  <!-- 3D: MAINTENANCE & DISPLAY RECOVERY -->
+  <text x="874" y="381" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">MANUTENCAO &amp; RECUPERACAO DE VISOR</text>
+
+  <g id="btn_insert_key" cursor="pointer">
+  <title>insert_key_event</title>
+  <rect id="btn_insert_key_bg" x="874" y="388" width="121" height="34" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="934.5" y="403.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Inserir Chave</text>
+  <text x="934.5" y="414.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">insert_key_event</text>
+</g>
+  <g id="btn_toggle_maintenance" cursor="pointer">
+  <title>start_maintenance</title>
+  <rect id="btn_toggle_maintenance_bg" x="1001" y="388" width="121" height="34" rx="5" fill="#78350f" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="1061.5" y="403.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Entrar Manut.</text>
+  <text x="1061.5" y="414.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">start_maintenance</text>
+</g>
+  <g id="btn_stop_maintenance" cursor="pointer">
+  <title>stop_maintenance</title>
+  <rect id="btn_stop_maintenance_bg" x="1128" y="388" width="122" height="34" rx="5" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="1189.0" y="403.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Sair Manut.</text>
+  <text x="1189.0" y="414.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">stop_maintenance</text>
+</g>
+  <g id="btn_refresh_display" cursor="pointer">
+  <title>refresh_display</title>
+  <rect id="btn_refresh_display_bg" x="874" y="428" width="121" height="34" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="934.5" y="443.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Atualiz. Visor</text>
+  <text x="934.5" y="454.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">refresh_display</text>
+</g>
+  <g id="btn_mark_broken" cursor="pointer">
+  <title>mark_broken</title>
+  <rect id="btn_mark_broken_bg" x="1001" y="428" width="121" height="34" rx="5" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="1061.5" y="443.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Marcar Avaria</text>
+  <text x="1061.5" y="454.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">mark_broken</text>
+</g>
+  <g id="btn_clear_broken" cursor="pointer">
+  <title>clear_broken</title>
+  <rect id="btn_clear_broken_bg" x="1128" y="428" width="122" height="34" rx="5" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="1189.0" y="443.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" pointer-events="none">Limpar Avaria</text>
+  <text x="1189.0" y="454.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#94a3b8" pointer-events="none">clear_broken</text>
+</g>
+
+  <!-- 3E: FORMAL STATE DIAGNOSTICS -->
+  <rect x="874" y="472" width="376" height="264" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.2"/>
+  <text x="886" y="491" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#cbd5e1">DIAGNOSTICO DO ESTADO FORMAL B</text>
+  <line x1="886" y1="498" x2="1238" y2="498" stroke="#1e293b" stroke-width="1"/>
+
+  <text x="886" y="516" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">Cabine / Visor:</text>
+  <text id="diag_curr_floor" x="1028" y="516" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#38bdf8">curr_floor=1</text>
+  <text id="diag_panel_floor" x="1142" y="516" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">panel=1</text>
+
+  <text x="886" y="534" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">Estado / Varredura:</text>
+  <text id="diag_curr_state" x="1028" y="534" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">rest</text>
+  <text id="diag_sweep_dir" x="1142" y="534" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#38bdf8">sweep=up</text>
+
+  <text x="886" y="552" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">Alvo / Parada Prox.:</text>
+  <text id="diag_active_req" x="1028" y="552" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#94a3b8">NO_REQUEST</text>
+  <text id="diag_stop_next" x="1142" y="552" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#94a3b8">next=FALSE</text>
+
+  <text x="886" y="570" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94a3b8">Chave / Manut / Avar:</text>
+  <text id="diag_key" x="1028" y="570" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#94a3b8">key=FALSE</text>
+  <text id="diag_maint" x="1110" y="570" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#94a3b8">mnt=F</text>
+  <text id="diag_broken" x="1174" y="570" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#94a3b8">brk=F</text>
+
+  <line x1="886" y1="581" x2="1238" y2="581" stroke="#1e293b" stroke-width="1"/>
+  <text x="886" y="597" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#94a3b8">FILAS DE REQUISICOES ATIVAS</text>
+
+  <text x="886" y="618" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#cbd5e1">INT:</text>
+  <rect id="chip_int_1" x="914" y="604" width="26" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="927" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">1</text>
+  <rect id="chip_int_2" x="944" y="604" width="26" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="957" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">2</text>
+  <rect id="chip_int_3" x="974" y="604" width="26" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="987" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">3</text>
+
+  <text x="1014" y="618" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#cbd5e1">UP:</text>
+  <rect id="chip_up_1" x="1038" y="604" width="32" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="1054" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">1▲</text>
+  <rect id="chip_up_2" x="1074" y="604" width="32" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="1090" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">2▲</text>
+
+  <text x="1120" y="618" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#cbd5e1">DN:</text>
+  <rect id="chip_dn_2" x="1144" y="604" width="32" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="1160" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">2▼</text>
+  <rect id="chip_dn_3" x="1180" y="604" width="32" height="20" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="1196" y="618" text-anchor="middle" font-family="Consolas, monospace" font-size="10" font-weight="700" fill="#e2e8f0">3▼</text>
+
+  <line x1="886" y1="636" x2="1238" y2="636" stroke="#1e293b" stroke-width="1"/>
+  <text x="886" y="652" font-family="Segoe UI, Arial, sans-serif" font-size="9" font-weight="700" fill="#94a3b8">FILAS PENDENTES (UNPROCESSED &amp; BLINK)</text>
+
+  <rect x="886" y="662" width="82" height="46" rx="5" fill="#111827" stroke="#334155"/>
+  <text id="diag_unproc_int" x="927" y="684" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" fill="#f8fafc">0</text>
+  <text x="927" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="8" fill="#94a3b8">Unproc Int</text>
+
+  <rect x="976" y="662" width="82" height="46" rx="5" fill="#111827" stroke="#334155"/>
+  <text id="diag_unproc_dir" x="1017" y="684" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" fill="#f8fafc">0</text>
+  <text x="1017" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="8" fill="#94a3b8">Unproc Dir</text>
+
+  <rect x="1066" y="662" width="82" height="46" rx="5" fill="#111827" stroke="#334155"/>
+  <text id="diag_blink_on" x="1107" y="684" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" fill="#38bdf8">0</text>
+  <text x="1107" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="8" fill="#94a3b8">Blink-&gt;ON</text>
+
+  <rect x="1156" y="662" width="82" height="46" rx="5" fill="#111827" stroke="#334155"/>
+  <text id="diag_blink_off" x="1197" y="684" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" fill="#f59e0b">0</text>
+  <text x="1197" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="8" fill="#94a3b8">Blink-&gt;OFF</text>
+
+  <text x="886" y="725" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#64748b">Unproc > 0 exige Registrar antes de advance_time.</text>
+</svg>

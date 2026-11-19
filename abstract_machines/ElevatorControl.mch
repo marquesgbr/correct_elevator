@@ -131,6 +131,9 @@ ASSERTIONS
     (curr_active_request /= NO_REQUEST & curr_active_request <= curr_floor & curr_active_request /= curr_floor =>
         curr_floor > MIN_FLOOR)
 
+DEFINITIONS
+    VISB_JSON_FILE == "../visual/elevator_visb.json"
+
 INITIALISATION
     door_state_changed := FALSE ||
     floor_button_unprocessed := {} ||
