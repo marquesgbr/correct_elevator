@@ -18,12 +18,9 @@ Os arquivos das máquinas abstratas estão em
   seus botões, acionamentos e estados dos LEDs associados.
 - **CabinDoor.mch** — deve representar o estado e os comandos da porta da
   cabine, incluindo abertura, fechamento e os comandos imediatos.
-- **ElevatorIndicators.mch** — deve controlar as informações exibidas nos
-  visores internos e externos, como pavimento, direção, manutenção, excesso de
-  peso e elevador parado ou quebrado.
 - **ElevatorMaintenance.mch** — deve representar a entrada e a saída do modo de
-  manutenção, o uso da chave especial, o cancelamento dos pedidos e a
-  indisponibilidade dos painéis durante a manutenção.
+  manutenção, o uso da chave especial, ~o cancelamento dos pedidos e a
+  indisponibilidade dos painéis durante a manutenção~
 - **CabinCapacity.mch** — deve representar a capacidade de peso da cabine,
   detectar excesso de peso e impedir o movimento quando o limite for excedido.
 - **ElevatorTimers.mch** — deve controlar as temporizações relevantes
