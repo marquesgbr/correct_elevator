@@ -150,6 +150,7 @@ OPERATIONS
         END;
 
     /* HLR-007: show the broken symbol and latch the broken state together. */
+    /* 
     mark_broken =
         PRE
             cabin_broken = FALSE &
@@ -158,8 +159,9 @@ OPERATIONS
             set_cabin_broken ||
             show_panel_broken
         END;
-
+    */
     /* HLR-007: clear the broken state and restore the normal display. */
+    /*
     clear_broken =
         PRE
             cabin_broken = TRUE &
@@ -168,7 +170,7 @@ OPERATIONS
             unset_cabin_broken ||
             update_panel_display(curr_floor, panel_direction_of(curr_state))
         END;
-
+    */
     /* Time step. Control reads which buttons are pressed and passes the
        active button sets to the timer machine. */
     advance_time =

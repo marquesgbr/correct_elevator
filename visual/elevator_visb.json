@@ -2,134 +2,64 @@
   "svg": "elevator.svg",
   "items": [
     {
-      "id": "ind_status_pill",
-      "attr": "stroke",
-      "value": "IF cabin_broken = TRUE THEN \"#ef4444\" ELSIF maintenance_mode = TRUE THEN \"#f59e0b\" ELSIF exceeds_capacity = TRUE THEN \"#f97316\" ELSIF curr_state /= rest THEN \"#22c55e\" ELSE \"#38bdf8\" END"
-    },
-    {
-      "id": "txt_status",
-      "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"SISTEMA EM AVARIA\" ELSIF maintenance_mode = TRUE THEN \"MODO MANUTENCAO\" ELSIF exceeds_capacity = TRUE THEN \"SOBRECARGA BLOQ.\" ELSIF curr_state = moving_up THEN \"MOVENDO: SUBINDO\" ELSIF curr_state = moving_down THEN \"MOVENDO: DESCENDO\" ELSIF door_state = door_open THEN \"PARADO | PORTA ABERTA\" ELSE \"PARADO | PORTA FECHADA\" END"
-    },
-    {
-      "id": "ind_maintenance",
-      "attr": "fill",
-      "value": "IF maintenance_indicator = TRUE THEN \"#78350f\" ELSE \"#1e293b\" END"
-    },
-    {
-      "id": "ind_maintenance",
-      "attr": "stroke",
-      "value": "IF maintenance_indicator = TRUE THEN \"#f59e0b\" ELSE \"#475569\" END"
-    },
-    {
-      "id": "txt_ind_maint",
-      "attr": "text",
-      "value": "IF maintenance_indicator = TRUE THEN \"MANUTENCAO: ON\" ELSE \"MANUTENCAO: OFF\" END"
-    },
-    {
-      "id": "txt_ind_maint",
-      "attr": "fill",
-      "value": "IF maintenance_indicator = TRUE THEN \"#fde68a\" ELSE \"#94a3b8\" END"
-    },
-    {
-      "id": "ind_overload",
-      "attr": "fill",
-      "value": "IF excess_weight_indicator = TRUE THEN \"#7f1d1d\" ELSE \"#1e293b\" END"
-    },
-    {
-      "id": "ind_overload",
-      "attr": "stroke",
-      "value": "IF excess_weight_indicator = TRUE THEN \"#ef4444\" ELSE \"#475569\" END"
-    },
-    {
-      "id": "txt_ind_overload",
-      "attr": "text",
-      "value": "IF excess_weight_indicator = TRUE THEN \"PESO: EXCESSO\" ELSE \"PESO: NORMAL\" END"
-    },
-    {
-      "id": "txt_ind_overload",
-      "attr": "fill",
-      "value": "IF excess_weight_indicator = TRUE THEN \"#fecaca\" ELSE \"#94a3b8\" END"
-    },
-    {
-      "id": "ind_broken",
-      "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#7f1d1d\" ELSE \"#1e293b\" END"
-    },
-    {
-      "id": "ind_broken",
-      "attr": "stroke",
-      "value": "IF cabin_broken = TRUE THEN \"#ef4444\" ELSE \"#475569\" END"
-    },
-    {
-      "id": "txt_ind_broken",
-      "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"AVARIA: SIM\" ELSE \"AVARIA: NAO\" END"
-    },
-    {
-      "id": "txt_ind_broken",
-      "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#fecaca\" ELSE \"#94a3b8\" END"
-    },
-    {
       "id": "floor_3_target_bar",
       "attr": "fill",
-      "value": "IF curr_active_request = 3 THEN \"#22c55e\" ELSIF curr_floor = 3 THEN \"#38bdf8\" ELSE \"#1e293b\" END"
+      "value": "IF curr_active_request = 3 THEN \"#16a34a\" ELSIF curr_floor = 3 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "floor_3_label",
       "attr": "fill",
-      "value": "IF curr_floor = 3 THEN \"#38bdf8\" ELSIF curr_active_request = 3 THEN \"#22c55e\" ELSE \"#475569\" END"
+      "value": "IF curr_floor = 3 THEN \"#1d4ed8\" ELSIF curr_active_request = 3 THEN \"#15803d\" ELSE \"#475569\" END"
     },
     {
       "id": "floor_2_target_bar",
       "attr": "fill",
-      "value": "IF curr_active_request = 2 THEN \"#22c55e\" ELSIF curr_floor = 2 THEN \"#38bdf8\" ELSE \"#1e293b\" END"
+      "value": "IF curr_active_request = 2 THEN \"#16a34a\" ELSIF curr_floor = 2 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "floor_2_label",
       "attr": "fill",
-      "value": "IF curr_floor = 2 THEN \"#38bdf8\" ELSIF curr_active_request = 2 THEN \"#22c55e\" ELSE \"#475569\" END"
+      "value": "IF curr_floor = 2 THEN \"#1d4ed8\" ELSIF curr_active_request = 2 THEN \"#15803d\" ELSE \"#475569\" END"
     },
     {
       "id": "floor_1_target_bar",
       "attr": "fill",
-      "value": "IF curr_active_request = 1 THEN \"#22c55e\" ELSIF curr_floor = 1 THEN \"#38bdf8\" ELSE \"#1e293b\" END"
+      "value": "IF curr_active_request = 1 THEN \"#16a34a\" ELSIF curr_floor = 1 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "floor_1_label",
       "attr": "fill",
-      "value": "IF curr_floor = 1 THEN \"#38bdf8\" ELSIF curr_active_request = 1 THEN \"#22c55e\" ELSE \"#475569\" END"
+      "value": "IF curr_floor = 1 THEN \"#1d4ed8\" ELSIF curr_active_request = 1 THEN \"#15803d\" ELSE \"#475569\" END"
     },
     {
       "id": "cabin_group",
       "attr": "y",
-      "value": "647 - (curr_floor * 175)"
+      "value": "662 - (curr_floor * 180)"
     },
     {
       "id": "shaft_cable",
       "attr": "y2",
-      "value": "647 - (curr_floor * 175)"
+      "value": "662 - (curr_floor * 180)"
     },
     {
       "id": "cabin_body",
       "attr": "stroke",
-      "value": "IF cabin_broken = TRUE THEN \"#ef4444\" ELSIF maintenance_mode = TRUE THEN \"#f59e0b\" ELSIF exceeds_capacity = TRUE THEN \"#f97316\" ELSIF curr_state /= rest THEN \"#22c55e\" ELSE \"#38bdf8\" END"
+      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSIF maintenance_mode = TRUE THEN \"#d97706\" ELSIF exceeds_capacity = TRUE THEN \"#ea580c\" ELSIF curr_state /= rest THEN \"#16a34a\" ELSE \"#2563eb\" END"
     },
     {
       "id": "cabin_body",
       "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#450a0a\" ELSIF maintenance_mode = TRUE THEN \"#451a03\" ELSE \"#1e293b\" END"
+      "value": "IF cabin_broken = TRUE THEN \"#fee2e2\" ELSIF maintenance_mode = TRUE THEN \"#fef3c7\" ELSE \"#ffffff\" END"
     },
     {
       "id": "cabin_floor_text",
       "attr": "text",
-      "value": "IF curr_floor = 1 THEN \"A1\" ELSIF curr_floor = 2 THEN \"A2\" ELSE \"A3\" END"
+      "value": "IF curr_floor = 1 THEN \"F1\" ELSIF curr_floor = 2 THEN \"F2\" ELSE \"F3\" END"
     },
     {
       "id": "cabin_dir_text",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"AVARIA\" ELSIF curr_state = moving_up THEN \"SUBINDO\" ELSIF curr_state = moving_down THEN \"DESCENDO\" ELSE \"PARADO\" END"
+      "value": "IF cabin_broken = TRUE THEN \"BROKEN\" ELSIF curr_state = moving_up THEN \"UP\" ELSIF curr_state = moving_down THEN \"DOWN\" ELSE \"IDLE\" END"
     },
     {
       "id": "cabin_dir_text",
@@ -139,12 +69,12 @@
     {
       "id": "cabin_door_badge",
       "attr": "text",
-      "value": "IF door_state = door_open THEN \"PORTA ABERTA\" ELSE \"PORTA FECHADA\" END"
+      "value": "IF door_state = door_open THEN \"Door Open\" ELSE \"Door Closed\" END"
     },
     {
       "id": "cabin_door_badge",
       "attr": "fill",
-      "value": "IF door_state = door_open THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+      "value": "IF door_state = door_open THEN \"#15803d\" ELSE \"#475569\" END"
     },
     {
       "id": "cabin_weight_txt",
@@ -154,72 +84,72 @@
     {
       "id": "cabin_load_bar",
       "attr": "width",
-      "value": "IF curr_weight >= MAX_CAPACITY THEN 104 ELSE (curr_weight * 104) / MAX_CAPACITY END"
+      "value": "IF curr_weight >= MAX_CAPACITY THEN 100 ELSE (curr_weight * 100) / MAX_CAPACITY END"
     },
     {
       "id": "cabin_load_bar",
       "attr": "fill",
-      "value": "IF exceeds_capacity = TRUE THEN \"#ef4444\" ELSIF curr_weight >= 350 THEN \"#f59e0b\" ELSE \"#22c55e\" END"
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSIF curr_weight >= 350 THEN \"#d97706\" ELSE \"#16a34a\" END"
     },
     {
       "id": "cabin_door_left",
       "attr": "width",
-      "value": "IF door_state = door_open THEN 12 ELSE 59 END"
+      "value": "IF door_state = door_open THEN 11 ELSE 57 END"
     },
     {
       "id": "cabin_door_right",
       "attr": "x",
-      "value": "IF door_state = door_open THEN 122 ELSE 75 END"
+      "value": "IF door_state = door_open THEN 118 ELSE 72 END"
     },
     {
       "id": "cabin_door_right",
       "attr": "width",
-      "value": "IF door_state = door_open THEN 12 ELSE 59 END"
+      "value": "IF door_state = door_open THEN 11 ELSE 57 END"
     },
     {
       "id": "cabin_door_left",
       "attr": "fill",
-      "value": "IF door_state = door_open THEN \"#334155\" ELSE \"#64748b\" END"
+      "value": "IF door_state = door_open THEN \"#64748b\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "cabin_door_right",
       "attr": "fill",
-      "value": "IF door_state = door_open THEN \"#334155\" ELSE \"#64748b\" END"
+      "value": "IF door_state = door_open THEN \"#64748b\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "cabin_tooltip",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"Cabine bloqueada por avaria (porta aberta >= 120 ticks)\" ELSIF maintenance_mode = TRUE THEN \"Cabine estacionada em modo de manutencao\" ELSIF exceeds_capacity = TRUE THEN \"Cabine bloqueada por excesso de peso (> 450 kg)\" ELSIF curr_state /= rest THEN \"Cabine em movimento\" ELSE \"Cabine em repouso\" END"
+      "value": "IF cabin_broken = TRUE THEN \"Cabin out of service (door open >= 120 ticks)\" ELSIF maintenance_mode = TRUE THEN \"Cabin parked in maintenance mode\" ELSIF exceeds_capacity = TRUE THEN \"Cabin blocked due to overload (> 450 kg)\" ELSIF curr_state /= rest THEN \"Cabin in motion\" ELSE \"Cabin idle\" END"
     },
     {
       "id": "ext_disp_fl_3",
       "attr": "text",
-      "value": "IF panel_curr_floor = 1 THEN \"A1\" ELSIF panel_curr_floor = 2 THEN \"A2\" ELSIF panel_curr_floor = 3 THEN \"A3\" ELSE \"--\" END"
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
     },
     {
       "id": "ext_disp_dir_3",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"▲\" ELSIF panel_curr_direction = panel_dir_down THEN \"▼\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"!\" ELSE \"•\" END"
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_3",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#ef4444\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#22c55e\" ELSE \"#64748b\" END"
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_3",
       "attr": "stroke",
-      "value": "IF curr_floor = 3 THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF curr_floor = 3 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_down_3",
       "attr": "fill",
-      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "ext_led_down_3",
       "attr": "stroke",
-      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#fde68a\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_led_down_3",
@@ -229,32 +159,32 @@
     {
       "id": "ext_btn_down_3_bg",
       "attr": "fill",
-      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "ext_btn_down_3_bg",
       "attr": "stroke",
-      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#38bdf8\" ELSIF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSE \"#475569\" END"
+      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#2563eb\" ELSIF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "ext_status_down_3",
       "attr": "text",
-      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"LED: ON\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"LED: PISCA\" ELSE \"LED: OFF\" END"
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_down_3",
       "attr": "fill",
-      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#fbbf24\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_unproc_down_3",
       "attr": "text",
-      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"Pend: SIM\" ELSE \"Pend: NAO\" END"
+      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "ext_unproc_down_3",
       "attr": "fill",
-      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "ext_timer_down_3",
@@ -264,77 +194,37 @@
     {
       "id": "ext_timer_down_3",
       "attr": "fill",
-      "value": "IF button_dir_timer(3, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "ext_btn_down_3",
-      "attr": "opacity",
-      "value": "IF button_dir_press(3, button_dir_down) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_btn_down_3",
-      "attr": "cursor",
-      "value": "IF button_dir_press(3, button_dir_down) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_reg_down_3",
-      "attr": "opacity",
-      "value": "IF button_dir_press(3, button_dir_down) = button_press & button_dir_timer(3, button_dir_down) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (3 |-> button_dir_down) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_reg_down_3",
-      "attr": "cursor",
-      "value": "IF button_dir_press(3, button_dir_down) = button_press & button_dir_timer(3, button_dir_down) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (3 |-> button_dir_down) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_rel_down_3",
-      "attr": "opacity",
-      "value": "IF not((3 |-> button_dir_down) : dir_button_unprocessed) & button_dir_press(3, button_dir_down) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_rel_down_3",
-      "attr": "cursor",
-      "value": "IF not((3 |-> button_dir_down) : dir_button_unprocessed) & button_dir_press(3, button_dir_down) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_canc_down_3",
-      "attr": "opacity",
-      "value": "IF button_dir_timer(3, button_dir_down) = BUTTON_HOLD_LIMIT & button_dir_press(3, button_dir_down) = button_press & maintenance_mode = FALSE & 3 : down_requests & (3 |-> button_dir_down) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_canc_down_3",
-      "attr": "cursor",
-      "value": "IF button_dir_timer(3, button_dir_down) = BUTTON_HOLD_LIMIT & button_dir_press(3, button_dir_down) = button_press & maintenance_mode = FALSE & 3 : down_requests & (3 |-> button_dir_down) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_dir_timer(3, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_disp_fl_2",
       "attr": "text",
-      "value": "IF panel_curr_floor = 1 THEN \"A1\" ELSIF panel_curr_floor = 2 THEN \"A2\" ELSIF panel_curr_floor = 3 THEN \"A3\" ELSE \"--\" END"
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
     },
     {
       "id": "ext_disp_dir_2",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"▲\" ELSIF panel_curr_direction = panel_dir_down THEN \"▼\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"!\" ELSE \"•\" END"
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_2",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#ef4444\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#22c55e\" ELSE \"#64748b\" END"
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_2",
       "attr": "stroke",
-      "value": "IF curr_floor = 2 THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF curr_floor = 2 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_up_2",
       "attr": "fill",
-      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "ext_led_up_2",
       "attr": "stroke",
-      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#fde68a\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_led_up_2",
@@ -344,32 +234,32 @@
     {
       "id": "ext_btn_up_2_bg",
       "attr": "fill",
-      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "ext_btn_up_2_bg",
       "attr": "stroke",
-      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#38bdf8\" ELSIF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSE \"#475569\" END"
+      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#2563eb\" ELSIF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "ext_status_up_2",
       "attr": "text",
-      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"LED: ON\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"LED: PISCA\" ELSE \"LED: OFF\" END"
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_up_2",
       "attr": "fill",
-      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#fbbf24\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_unproc_up_2",
       "attr": "text",
-      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"Pend: SIM\" ELSE \"Pend: NAO\" END"
+      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "ext_unproc_up_2",
       "attr": "fill",
-      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "ext_timer_up_2",
@@ -379,57 +269,17 @@
     {
       "id": "ext_timer_up_2",
       "attr": "fill",
-      "value": "IF button_dir_timer(2, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "ext_btn_up_2",
-      "attr": "opacity",
-      "value": "IF button_dir_press(2, button_dir_up) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_btn_up_2",
-      "attr": "cursor",
-      "value": "IF button_dir_press(2, button_dir_up) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_reg_up_2",
-      "attr": "opacity",
-      "value": "IF button_dir_press(2, button_dir_up) = button_press & button_dir_timer(2, button_dir_up) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (2 |-> button_dir_up) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_reg_up_2",
-      "attr": "cursor",
-      "value": "IF button_dir_press(2, button_dir_up) = button_press & button_dir_timer(2, button_dir_up) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (2 |-> button_dir_up) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_rel_up_2",
-      "attr": "opacity",
-      "value": "IF not((2 |-> button_dir_up) : dir_button_unprocessed) & button_dir_press(2, button_dir_up) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_rel_up_2",
-      "attr": "cursor",
-      "value": "IF not((2 |-> button_dir_up) : dir_button_unprocessed) & button_dir_press(2, button_dir_up) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_canc_up_2",
-      "attr": "opacity",
-      "value": "IF button_dir_timer(2, button_dir_up) = BUTTON_HOLD_LIMIT & button_dir_press(2, button_dir_up) = button_press & maintenance_mode = FALSE & 2 : up_requests & (2 |-> button_dir_up) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_canc_up_2",
-      "attr": "cursor",
-      "value": "IF button_dir_timer(2, button_dir_up) = BUTTON_HOLD_LIMIT & button_dir_press(2, button_dir_up) = button_press & maintenance_mode = FALSE & 2 : up_requests & (2 |-> button_dir_up) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_dir_timer(2, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_led_down_2",
       "attr": "fill",
-      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "ext_led_down_2",
       "attr": "stroke",
-      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#fde68a\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_led_down_2",
@@ -439,32 +289,32 @@
     {
       "id": "ext_btn_down_2_bg",
       "attr": "fill",
-      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "ext_btn_down_2_bg",
       "attr": "stroke",
-      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#38bdf8\" ELSIF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSE \"#475569\" END"
+      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#2563eb\" ELSIF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "ext_status_down_2",
       "attr": "text",
-      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"LED: ON\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"LED: PISCA\" ELSE \"LED: OFF\" END"
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_down_2",
       "attr": "fill",
-      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#fbbf24\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_unproc_down_2",
       "attr": "text",
-      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"Pend: SIM\" ELSE \"Pend: NAO\" END"
+      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "ext_unproc_down_2",
       "attr": "fill",
-      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "ext_timer_down_2",
@@ -474,77 +324,37 @@
     {
       "id": "ext_timer_down_2",
       "attr": "fill",
-      "value": "IF button_dir_timer(2, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "ext_btn_down_2",
-      "attr": "opacity",
-      "value": "IF button_dir_press(2, button_dir_down) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_btn_down_2",
-      "attr": "cursor",
-      "value": "IF button_dir_press(2, button_dir_down) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_reg_down_2",
-      "attr": "opacity",
-      "value": "IF button_dir_press(2, button_dir_down) = button_press & button_dir_timer(2, button_dir_down) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (2 |-> button_dir_down) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_reg_down_2",
-      "attr": "cursor",
-      "value": "IF button_dir_press(2, button_dir_down) = button_press & button_dir_timer(2, button_dir_down) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (2 |-> button_dir_down) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_rel_down_2",
-      "attr": "opacity",
-      "value": "IF not((2 |-> button_dir_down) : dir_button_unprocessed) & button_dir_press(2, button_dir_down) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_rel_down_2",
-      "attr": "cursor",
-      "value": "IF not((2 |-> button_dir_down) : dir_button_unprocessed) & button_dir_press(2, button_dir_down) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_canc_down_2",
-      "attr": "opacity",
-      "value": "IF button_dir_timer(2, button_dir_down) = BUTTON_HOLD_LIMIT & button_dir_press(2, button_dir_down) = button_press & maintenance_mode = FALSE & 2 : down_requests & (2 |-> button_dir_down) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_canc_down_2",
-      "attr": "cursor",
-      "value": "IF button_dir_timer(2, button_dir_down) = BUTTON_HOLD_LIMIT & button_dir_press(2, button_dir_down) = button_press & maintenance_mode = FALSE & 2 : down_requests & (2 |-> button_dir_down) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_dir_timer(2, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_disp_fl_1",
       "attr": "text",
-      "value": "IF panel_curr_floor = 1 THEN \"A1\" ELSIF panel_curr_floor = 2 THEN \"A2\" ELSIF panel_curr_floor = 3 THEN \"A3\" ELSE \"--\" END"
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
     },
     {
       "id": "ext_disp_dir_1",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"▲\" ELSIF panel_curr_direction = panel_dir_down THEN \"▼\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"!\" ELSE \"•\" END"
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_1",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#ef4444\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#22c55e\" ELSE \"#64748b\" END"
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_1",
       "attr": "stroke",
-      "value": "IF curr_floor = 1 THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF curr_floor = 1 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_up_1",
       "attr": "fill",
-      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "ext_led_up_1",
       "attr": "stroke",
-      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#fde68a\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_led_up_1",
@@ -554,32 +364,32 @@
     {
       "id": "ext_btn_up_1_bg",
       "attr": "fill",
-      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "ext_btn_up_1_bg",
       "attr": "stroke",
-      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#38bdf8\" ELSIF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSE \"#475569\" END"
+      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#2563eb\" ELSIF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "ext_status_up_1",
       "attr": "text",
-      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"LED: ON\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"LED: PISCA\" ELSE \"LED: OFF\" END"
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_up_1",
       "attr": "fill",
-      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#fbbf24\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "ext_unproc_up_1",
       "attr": "text",
-      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"Pend: SIM\" ELSE \"Pend: NAO\" END"
+      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "ext_unproc_up_1",
       "attr": "fill",
-      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "ext_timer_up_1",
@@ -589,47 +399,7 @@
     {
       "id": "ext_timer_up_1",
       "attr": "fill",
-      "value": "IF button_dir_timer(1, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "ext_btn_up_1",
-      "attr": "opacity",
-      "value": "IF button_dir_press(1, button_dir_up) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_btn_up_1",
-      "attr": "cursor",
-      "value": "IF button_dir_press(1, button_dir_up) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_reg_up_1",
-      "attr": "opacity",
-      "value": "IF button_dir_press(1, button_dir_up) = button_press & button_dir_timer(1, button_dir_up) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (1 |-> button_dir_up) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_reg_up_1",
-      "attr": "cursor",
-      "value": "IF button_dir_press(1, button_dir_up) = button_press & button_dir_timer(1, button_dir_up) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & (1 |-> button_dir_up) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_rel_up_1",
-      "attr": "opacity",
-      "value": "IF not((1 |-> button_dir_up) : dir_button_unprocessed) & button_dir_press(1, button_dir_up) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_rel_up_1",
-      "attr": "cursor",
-      "value": "IF not((1 |-> button_dir_up) : dir_button_unprocessed) & button_dir_press(1, button_dir_up) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "ext_canc_up_1",
-      "attr": "opacity",
-      "value": "IF button_dir_timer(1, button_dir_up) = BUTTON_HOLD_LIMIT & button_dir_press(1, button_dir_up) = button_press & maintenance_mode = FALSE & 1 : up_requests & (1 |-> button_dir_up) : dir_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "ext_canc_up_1",
-      "attr": "cursor",
-      "value": "IF button_dir_timer(1, button_dir_up) = BUTTON_HOLD_LIMIT & button_dir_press(1, button_dir_up) = button_press & maintenance_mode = FALSE & 1 : up_requests & (1 |-> button_dir_up) : dir_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_dir_timer(1, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "panel_floor_digit",
@@ -639,12 +409,12 @@
     {
       "id": "panel_floor_digit",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#ef4444\" ELSIF maintenance_mode = TRUE THEN \"#f59e0b\" ELSE \"#38bdf8\" END"
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF maintenance_mode = TRUE THEN \"#fbbf24\" ELSE \"#38bdf8\" END"
     },
     {
       "id": "oled_cabin_floor_sub",
       "attr": "text",
-      "value": "IF curr_floor = 1 THEN \"Cabine Real: 1\" ELSIF curr_floor = 2 THEN \"Cabine Real: 2\" ELSE \"Cabine Real: 3\" END"
+      "value": "IF curr_floor = 1 THEN \"Cabin Position: 1\" ELSIF curr_floor = 2 THEN \"Cabin Position: 2\" ELSE \"Cabin Position: 3\" END"
     },
     {
       "id": "ind_direction_up",
@@ -669,22 +439,22 @@
     {
       "id": "oled_motion_txt",
       "attr": "text",
-      "value": "IF curr_state = moving_up THEN \"MOV: SUBINDO\" ELSIF curr_state = moving_down THEN \"MOV: DESCENDO\" ELSE \"MOV: PARADO\" END"
+      "value": "IF curr_state = moving_up THEN \"State: Moving Up\" ELSIF curr_state = moving_down THEN \"State: Moving Down\" ELSE \"State: Idle\" END"
     },
     {
       "id": "oled_door_txt",
       "attr": "text",
-      "value": "IF door_state = door_open THEN \"PORTA: ABERTA\" ELSE \"PORTA: FECHADA\" END"
+      "value": "IF door_state = door_open THEN \"Door: Open\" ELSE \"Door: Closed\" END"
     },
     {
       "id": "oled_door_txt",
       "attr": "fill",
-      "value": "IF door_state = door_open THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+      "value": "IF door_state = door_open THEN \"#4ade80\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "oled_target_txt",
       "attr": "text",
-      "value": "IF curr_active_request = 1 THEN \"ALVO: ANDAR 1\" ELSIF curr_active_request = 2 THEN \"ALVO: ANDAR 2\" ELSIF curr_active_request = 3 THEN \"ALVO: ANDAR 3\" ELSIF stop_at_next_floor_requested = TRUE THEN \"ALVO: PROX. ANDAR\" ELSE \"ALVO: NENHUM\" END"
+      "value": "IF curr_active_request = 1 THEN \"Target: Floor 1\" ELSIF curr_active_request = 2 THEN \"Target: Floor 2\" ELSIF curr_active_request = 3 THEN \"Target: Floor 3\" ELSIF stop_at_next_floor_requested = TRUE THEN \"Target: Next Floor\" ELSE \"Target: None\" END"
     },
     {
       "id": "oled_target_txt",
@@ -694,32 +464,32 @@
     {
       "id": "oled_overweight_flag",
       "attr": "text",
-      "value": "IF excess_weight_indicator = TRUE THEN \"SOBRECARGA: SIM\" ELSE \"SOBRECARGA: NAO\" END"
+      "value": "IF excess_weight_indicator = TRUE THEN \"Overweight: Yes\" ELSE \"Overweight: No\" END"
     },
     {
       "id": "oled_overweight_flag",
       "attr": "fill",
-      "value": "IF excess_weight_indicator = TRUE THEN \"#f87171\" ELSE \"#64748b\" END"
+      "value": "IF excess_weight_indicator = TRUE THEN \"#f87171\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "oled_maint_flag",
       "attr": "text",
-      "value": "IF maintenance_indicator = TRUE THEN \"MANUTENCAO: ON\" ELSE \"MANUTENCAO: OFF\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"Maintenance: On\" ELSE \"Maintenance: Off\" END"
     },
     {
       "id": "oled_maint_flag",
       "attr": "fill",
-      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSE \"#64748b\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "int_led_floor_3",
       "attr": "fill",
-      "value": "IF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "int_led_floor_3",
       "attr": "stroke",
-      "value": "IF button_floor_led(3) = button_led_active THEN \"#fde68a\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "int_led_floor_3",
@@ -729,42 +499,42 @@
     {
       "id": "int_btn_floor_3_bg",
       "attr": "fill",
-      "value": "IF button_floor_press(3) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_floor_press(3) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
     },
     {
       "id": "int_btn_floor_3_bg",
       "attr": "stroke",
-      "value": "IF button_floor_press(3) = button_press THEN \"#38bdf8\" ELSIF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#38bdf8\" ELSE \"#475569\" END"
+      "value": "IF button_floor_press(3) = button_press THEN \"#2563eb\" ELSIF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "int_status_3",
       "attr": "text",
-      "value": "IF 3 : pending_floor_blink_on THEN \"LED: PISCA->ON\" ELSIF 3 : pending_floor_blink_off THEN \"LED: PISCA->OFF\" ELSIF button_floor_led(3) = button_led_active THEN \"LED: ATIVO\" ELSIF button_floor_led(3) = button_led_blinking THEN \"LED: PISCANDO\" ELSE \"LED: INATIVO\" END"
+      "value": "IF 3 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 3 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(3) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(3) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_3",
       "attr": "fill",
-      "value": "IF button_floor_led(3) = button_led_active THEN \"#fbbf24\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "int_press_3",
       "attr": "text",
-      "value": "IF button_floor_press(3) = button_press THEN \"Botao: PRESSIONADO\" ELSE \"Botao: LIVRE\" END"
+      "value": "IF button_floor_press(3) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
     },
     {
       "id": "int_press_3",
       "attr": "fill",
-      "value": "IF button_floor_press(3) = button_press THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_press(3) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
     },
     {
       "id": "int_unproc_3",
       "attr": "text",
-      "value": "IF 3 : floor_button_unprocessed THEN \"Pendente: SIM\" ELSE \"Pendente: NAO\" END"
+      "value": "IF 3 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "int_unproc_3",
       "attr": "fill",
-      "value": "IF 3 : floor_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF 3 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "int_timer_3",
@@ -774,67 +544,17 @@
     {
       "id": "int_timer_3",
       "attr": "fill",
-      "value": "IF button_floor_timer(3) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "int_btn_floor_3",
-      "attr": "opacity",
-      "value": "IF button_floor_press(3) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "int_btn_floor_3",
-      "attr": "cursor",
-      "value": "IF button_floor_press(3) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reg_int_3",
-      "attr": "opacity",
-      "value": "IF button_floor_press(3) = button_press & button_floor_timer(3) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 3 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reg_int_3",
-      "attr": "cursor",
-      "value": "IF button_floor_press(3) = button_press & button_floor_timer(3) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 3 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_rel_int_3",
-      "attr": "opacity",
-      "value": "IF not(3 : floor_button_unprocessed) & button_floor_press(3) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_rel_int_3",
-      "attr": "cursor",
-      "value": "IF not(3 : floor_button_unprocessed) & button_floor_press(3) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_cancel_3",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(3) = BUTTON_HOLD_LIMIT & button_floor_press(3) = button_press & maintenance_mode = FALSE & 3 : internal_requests & card(internal_requests) > 1 & 3 : floor_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_cancel_3",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(3) = BUTTON_HOLD_LIMIT & button_floor_press(3) = button_press & maintenance_mode = FALSE & 3 : internal_requests & card(internal_requests) > 1 & 3 : floor_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reject_int_3",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(3) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 3 : internal_requests & card(internal_requests) = 1 & 3 /: pending_floor_blink_on & 3 /: pending_floor_blink_off THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reject_int_3",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(3) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 3 : internal_requests & card(internal_requests) = 1 & 3 /: pending_floor_blink_on & 3 /: pending_floor_blink_off THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_floor_timer(3) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "int_led_floor_2",
       "attr": "fill",
-      "value": "IF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "int_led_floor_2",
       "attr": "stroke",
-      "value": "IF button_floor_led(2) = button_led_active THEN \"#fde68a\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "int_led_floor_2",
@@ -844,42 +564,42 @@
     {
       "id": "int_btn_floor_2_bg",
       "attr": "fill",
-      "value": "IF button_floor_press(2) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_floor_press(2) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
     },
     {
       "id": "int_btn_floor_2_bg",
       "attr": "stroke",
-      "value": "IF button_floor_press(2) = button_press THEN \"#38bdf8\" ELSIF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#38bdf8\" ELSE \"#475569\" END"
+      "value": "IF button_floor_press(2) = button_press THEN \"#2563eb\" ELSIF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "int_status_2",
       "attr": "text",
-      "value": "IF 2 : pending_floor_blink_on THEN \"LED: PISCA->ON\" ELSIF 2 : pending_floor_blink_off THEN \"LED: PISCA->OFF\" ELSIF button_floor_led(2) = button_led_active THEN \"LED: ATIVO\" ELSIF button_floor_led(2) = button_led_blinking THEN \"LED: PISCANDO\" ELSE \"LED: INATIVO\" END"
+      "value": "IF 2 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 2 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(2) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(2) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_2",
       "attr": "fill",
-      "value": "IF button_floor_led(2) = button_led_active THEN \"#fbbf24\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "int_press_2",
       "attr": "text",
-      "value": "IF button_floor_press(2) = button_press THEN \"Botao: PRESSIONADO\" ELSE \"Botao: LIVRE\" END"
+      "value": "IF button_floor_press(2) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
     },
     {
       "id": "int_press_2",
       "attr": "fill",
-      "value": "IF button_floor_press(2) = button_press THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_press(2) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
     },
     {
       "id": "int_unproc_2",
       "attr": "text",
-      "value": "IF 2 : floor_button_unprocessed THEN \"Pendente: SIM\" ELSE \"Pendente: NAO\" END"
+      "value": "IF 2 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "int_unproc_2",
       "attr": "fill",
-      "value": "IF 2 : floor_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF 2 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "int_timer_2",
@@ -889,67 +609,17 @@
     {
       "id": "int_timer_2",
       "attr": "fill",
-      "value": "IF button_floor_timer(2) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "int_btn_floor_2",
-      "attr": "opacity",
-      "value": "IF button_floor_press(2) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "int_btn_floor_2",
-      "attr": "cursor",
-      "value": "IF button_floor_press(2) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reg_int_2",
-      "attr": "opacity",
-      "value": "IF button_floor_press(2) = button_press & button_floor_timer(2) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 2 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reg_int_2",
-      "attr": "cursor",
-      "value": "IF button_floor_press(2) = button_press & button_floor_timer(2) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 2 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_rel_int_2",
-      "attr": "opacity",
-      "value": "IF not(2 : floor_button_unprocessed) & button_floor_press(2) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_rel_int_2",
-      "attr": "cursor",
-      "value": "IF not(2 : floor_button_unprocessed) & button_floor_press(2) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_cancel_2",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(2) = BUTTON_HOLD_LIMIT & button_floor_press(2) = button_press & maintenance_mode = FALSE & 2 : internal_requests & card(internal_requests) > 1 & 2 : floor_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_cancel_2",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(2) = BUTTON_HOLD_LIMIT & button_floor_press(2) = button_press & maintenance_mode = FALSE & 2 : internal_requests & card(internal_requests) > 1 & 2 : floor_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reject_int_2",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(2) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 2 : internal_requests & card(internal_requests) = 1 & 2 /: pending_floor_blink_on & 2 /: pending_floor_blink_off THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reject_int_2",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(2) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 2 : internal_requests & card(internal_requests) = 1 & 2 /: pending_floor_blink_on & 2 /: pending_floor_blink_off THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_floor_timer(2) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "int_led_floor_1",
       "attr": "fill",
-      "value": "IF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "int_led_floor_1",
       "attr": "stroke",
-      "value": "IF button_floor_led(1) = button_led_active THEN \"#fde68a\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "int_led_floor_1",
@@ -959,42 +629,42 @@
     {
       "id": "int_btn_floor_1_bg",
       "attr": "fill",
-      "value": "IF button_floor_press(1) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_floor_press(1) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
     },
     {
       "id": "int_btn_floor_1_bg",
       "attr": "stroke",
-      "value": "IF button_floor_press(1) = button_press THEN \"#38bdf8\" ELSIF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#38bdf8\" ELSE \"#475569\" END"
+      "value": "IF button_floor_press(1) = button_press THEN \"#2563eb\" ELSIF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "int_status_1",
       "attr": "text",
-      "value": "IF 1 : pending_floor_blink_on THEN \"LED: PISCA->ON\" ELSIF 1 : pending_floor_blink_off THEN \"LED: PISCA->OFF\" ELSIF button_floor_led(1) = button_led_active THEN \"LED: ATIVO\" ELSIF button_floor_led(1) = button_led_blinking THEN \"LED: PISCANDO\" ELSE \"LED: INATIVO\" END"
+      "value": "IF 1 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 1 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(1) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(1) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_1",
       "attr": "fill",
-      "value": "IF button_floor_led(1) = button_led_active THEN \"#fbbf24\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
     },
     {
       "id": "int_press_1",
       "attr": "text",
-      "value": "IF button_floor_press(1) = button_press THEN \"Botao: PRESSIONADO\" ELSE \"Botao: LIVRE\" END"
+      "value": "IF button_floor_press(1) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
     },
     {
       "id": "int_press_1",
       "attr": "fill",
-      "value": "IF button_floor_press(1) = button_press THEN \"#38bdf8\" ELSE \"#94a3b8\" END"
+      "value": "IF button_floor_press(1) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
     },
     {
       "id": "int_unproc_1",
       "attr": "text",
-      "value": "IF 1 : floor_button_unprocessed THEN \"Pendente: SIM\" ELSE \"Pendente: NAO\" END"
+      "value": "IF 1 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
     },
     {
       "id": "int_unproc_1",
       "attr": "fill",
-      "value": "IF 1 : floor_button_unprocessed THEN \"#fde047\" ELSE \"#64748b\" END"
+      "value": "IF 1 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
     },
     {
       "id": "int_timer_1",
@@ -1004,77 +674,27 @@
     {
       "id": "int_timer_1",
       "attr": "fill",
-      "value": "IF button_floor_timer(1) >= BUTTON_HOLD_LIMIT THEN \"#fb7185\" ELSE \"#cbd5e1\" END"
-    },
-    {
-      "id": "int_btn_floor_1",
-      "attr": "opacity",
-      "value": "IF button_floor_press(1) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "int_btn_floor_1",
-      "attr": "cursor",
-      "value": "IF button_floor_press(1) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reg_int_1",
-      "attr": "opacity",
-      "value": "IF button_floor_press(1) = button_press & button_floor_timer(1) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 1 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reg_int_1",
-      "attr": "cursor",
-      "value": "IF button_floor_press(1) = button_press & button_floor_timer(1) /= BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 1 : floor_button_unprocessed & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_rel_int_1",
-      "attr": "opacity",
-      "value": "IF not(1 : floor_button_unprocessed) & button_floor_press(1) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_rel_int_1",
-      "attr": "cursor",
-      "value": "IF not(1 : floor_button_unprocessed) & button_floor_press(1) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_cancel_1",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(1) = BUTTON_HOLD_LIMIT & button_floor_press(1) = button_press & maintenance_mode = FALSE & 1 : internal_requests & card(internal_requests) > 1 & 1 : floor_button_unprocessed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_cancel_1",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(1) = BUTTON_HOLD_LIMIT & button_floor_press(1) = button_press & maintenance_mode = FALSE & 1 : internal_requests & card(internal_requests) > 1 & 1 : floor_button_unprocessed THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_reject_int_1",
-      "attr": "opacity",
-      "value": "IF button_floor_timer(1) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 1 : internal_requests & card(internal_requests) = 1 & 1 /: pending_floor_blink_on & 1 /: pending_floor_blink_off THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_reject_int_1",
-      "attr": "cursor",
-      "value": "IF button_floor_timer(1) = BUTTON_HOLD_LIMIT & maintenance_mode = FALSE & 1 : internal_requests & card(internal_requests) = 1 & 1 /: pending_floor_blink_on & 1 /: pending_floor_blink_off THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF button_floor_timer(1) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "txt_door_changed",
       "attr": "text",
-      "value": "IF door_state_changed = TRUE THEN \"door_state_changed: TRUE\" ELSE \"door_state_changed: FALSE\" END"
+      "value": "IF door_state_changed = TRUE THEN \"Door Changed: Yes\" ELSE \"Door Changed: No\" END"
     },
     {
       "id": "txt_door_changed",
       "attr": "fill",
-      "value": "IF door_state_changed = TRUE THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
+      "value": "IF door_state_changed = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "led_door_open",
       "attr": "fill",
-      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "led_door_open",
       "attr": "stroke",
-      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#fde68a\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#b45309\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "led_door_open",
@@ -1084,12 +704,12 @@
     {
       "id": "led_door_close",
       "attr": "fill",
-      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#38bdf8\" ELSE \"#334155\" END"
+      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
     },
     {
       "id": "led_door_close",
       "attr": "stroke",
-      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#fde68a\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#e0f2fe\" ELSE \"#475569\" END"
+      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#b45309\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "led_door_close",
@@ -1099,22 +719,22 @@
     {
       "id": "btn_door_open_bg",
       "attr": "fill",
-      "value": "IF button_door_press(button_door_open) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_door_press(button_door_open) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "btn_door_close_bg",
       "attr": "fill",
-      "value": "IF button_door_press(button_door_close) = button_press THEN \"#334155\" ELSE \"#1e293b\" END"
+      "value": "IF button_door_press(button_door_close) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
     },
     {
       "id": "txt_door_btn_open_state",
       "attr": "text",
-      "value": "IF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_blinking THEN \"Abrir: PRESS | PISCA\" ELSIF button_door_press(button_door_open) = button_press THEN \"Abrir: PRESS | LED ON\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"Abrir: LIVRE | PISCA\" ELSE \"Abrir: LIVRE | LED OFF\" END"
+      "value": "IF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_active THEN \"Open: Pressed | LED On\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_blinking THEN \"Open: Pressed | Blinking\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_inactive THEN \"Open: Pressed | LED Off\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"Open: Released | Blinking\" ELSE \"Open: Released | LED Off\" END"
     },
     {
       "id": "txt_door_btn_close_state",
       "attr": "text",
-      "value": "IF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_blinking THEN \"Fechar: PRESS | PISCA\" ELSIF button_door_press(button_door_close) = button_press THEN \"Fechar: PRESS | LED ON\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"Fechar: LIVRE | PISCA\" ELSE \"Fechar: LIVRE | LED OFF\" END"
+      "value": "IF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_active THEN \"Close: Pressed | LED On\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_blinking THEN \"Close: Pressed | Blinking\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_inactive THEN \"Close: Pressed | LED Off\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"Close: Released | Blinking\" ELSE \"Close: Released | LED Off\" END"
     },
     {
       "id": "txt_weight",
@@ -1124,162 +744,22 @@
     {
       "id": "txt_weight_state",
       "attr": "text",
-      "value": "IF exceeds_capacity = TRUE THEN \"SOBRECARGA!\" ELSE \"CAPACIDADE OK\" END"
+      "value": "IF exceeds_capacity = TRUE THEN \"Overweight\" ELSE \"Capacity OK\" END"
     },
     {
       "id": "txt_weight_state",
       "attr": "fill",
-      "value": "IF exceeds_capacity = TRUE THEN \"#ef4444\" ELSE \"#4ade80\" END"
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSE \"#15803d\" END"
     },
     {
       "id": "weight_bar_fill",
       "attr": "width",
-      "value": "IF curr_weight >= MAX_CAPACITY THEN 328 ELSE (curr_weight * 328) / MAX_CAPACITY END"
+      "value": "IF curr_weight >= MAX_CAPACITY THEN 364 ELSE (curr_weight * 364) / MAX_CAPACITY END"
     },
     {
       "id": "weight_bar_fill",
       "attr": "fill",
-      "value": "IF exceeds_capacity = TRUE THEN \"#ef4444\" ELSIF curr_weight >= 350 THEN \"#f59e0b\" ELSE \"#22c55e\" END"
-    },
-    {
-      "id": "btn_door_open",
-      "attr": "opacity",
-      "value": "IF button_door_press(button_door_open) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_door_open",
-      "attr": "cursor",
-      "value": "IF button_door_press(button_door_open) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_door_open_rel",
-      "attr": "opacity",
-      "value": "IF button_door_press(button_door_open) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_door_open_rel",
-      "attr": "cursor",
-      "value": "IF button_door_press(button_door_open) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_open_imm",
-      "attr": "opacity",
-      "value": "IF curr_state = rest & cabin_broken = FALSE & maintenance_mode = FALSE & door_state = door_closed & button_door_press(button_door_open) = button_press & door_state_changed = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_open_imm",
-      "attr": "cursor",
-      "value": "IF curr_state = rest & cabin_broken = FALSE & maintenance_mode = FALSE & door_state = door_closed & button_door_press(button_door_open) = button_press & door_state_changed = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_open_auto",
-      "attr": "opacity",
-      "value": "IF curr_state = rest & door_state = door_closed & door_state_changed = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_open_auto",
-      "attr": "cursor",
-      "value": "IF curr_state = rest & door_state = door_closed & door_state_changed = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_door_close",
-      "attr": "opacity",
-      "value": "IF button_door_press(button_door_close) = button_released THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_door_close",
-      "attr": "cursor",
-      "value": "IF button_door_press(button_door_close) = button_released THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_door_close_rel",
-      "attr": "opacity",
-      "value": "IF button_door_press(button_door_close) = button_press THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_door_close_rel",
-      "attr": "cursor",
-      "value": "IF button_door_press(button_door_close) = button_press THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_close_imm",
-      "attr": "opacity",
-      "value": "IF curr_state = rest & maintenance_mode = FALSE & door_state = door_open & button_door_press(button_door_close) = button_press & door_state_changed = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_close_imm",
-      "attr": "cursor",
-      "value": "IF curr_state = rest & maintenance_mode = FALSE & door_state = door_open & button_door_press(button_door_close) = button_press & door_state_changed = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_close_auto",
-      "attr": "opacity",
-      "value": "IF door_state = door_open & door_state_changed = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_close_auto",
-      "attr": "cursor",
-      "value": "IF door_state = door_open & door_state_changed = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_select_request",
-      "attr": "opacity",
-      "value": "IF curr_active_request = NO_REQUEST & stop_at_next_floor_requested = FALSE & (internal_requests \\/ up_requests \\/ down_requests) /= {} & curr_state = rest & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_select_request",
-      "attr": "cursor",
-      "value": "IF curr_active_request = NO_REQUEST & stop_at_next_floor_requested = FALSE & (internal_requests \\/ up_requests \\/ down_requests) /= {} & curr_state = rest & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_start_travel",
-      "attr": "opacity",
-      "value": "IF curr_active_request /= NO_REQUEST & curr_active_request /= curr_floor & stop_at_next_floor_requested = FALSE & curr_state = rest & cabin_broken = FALSE & door_state = door_closed & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_start_travel",
-      "attr": "cursor",
-      "value": "IF curr_active_request /= NO_REQUEST & curr_active_request /= curr_floor & stop_at_next_floor_requested = FALSE & curr_state = rest & cabin_broken = FALSE & door_state = door_closed & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_step_move",
-      "attr": "opacity",
-      "value": "IF curr_state /= rest & ((curr_state = moving_up & curr_floor < MAX_FLOOR) or (curr_state = moving_down & curr_floor > MIN_FLOOR)) & curr_active_request /= NO_REQUEST & curr_active_request /= curr_floor & stop_at_next_floor_requested = FALSE & cabin_broken = FALSE & door_state = door_closed & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_step_move",
-      "attr": "cursor",
-      "value": "IF curr_state /= rest & ((curr_state = moving_up & curr_floor < MAX_FLOOR) or (curr_state = moving_down & curr_floor > MIN_FLOOR)) & curr_active_request /= NO_REQUEST & curr_active_request /= curr_floor & stop_at_next_floor_requested = FALSE & cabin_broken = FALSE & door_state = door_closed & maintenance_mode = FALSE & exceeds_capacity = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_stop_target",
-      "attr": "opacity",
-      "value": "IF curr_active_request = curr_floor & curr_state /= rest & cabin_broken = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_stop_target",
-      "attr": "cursor",
-      "value": "IF curr_active_request = curr_floor & curr_state /= rest & cabin_broken = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_serve_target",
-      "attr": "opacity",
-      "value": "IF curr_active_request = curr_floor & curr_state = rest THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_serve_target",
-      "attr": "cursor",
-      "value": "IF curr_active_request = curr_floor & curr_state = rest THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_cancel_stop",
-      "attr": "opacity",
-      "value": "IF stop_at_next_floor_requested = TRUE & curr_state /= rest & ((curr_state = moving_up & curr_floor < MAX_FLOOR) or (curr_state = moving_down & curr_floor > MIN_FLOOR)) & cabin_broken = FALSE & door_state = door_closed THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_cancel_stop",
-      "attr": "cursor",
-      "value": "IF stop_at_next_floor_requested = TRUE & curr_state /= rest & ((curr_state = moving_up & curr_floor < MAX_FLOOR) or (curr_state = moving_down & curr_floor > MIN_FLOOR)) & cabin_broken = FALSE & door_state = door_closed THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSIF curr_weight >= 350 THEN \"#d97706\" ELSE \"#16a34a\" END"
     },
     {
       "id": "txt_timer",
@@ -1289,227 +769,97 @@
     {
       "id": "door_timer_bar",
       "attr": "width",
-      "value": "(door_open_timer * 352) / DOOR_OPEN_LIMIT"
+      "value": "(door_open_timer * 368) / DOOR_OPEN_LIMIT"
     },
     {
       "id": "door_timer_bar",
       "attr": "fill",
-      "value": "IF door_open_timer >= DOOR_OPEN_LIMIT THEN \"#ef4444\" ELSIF door_open_timer >= 90 THEN \"#f59e0b\" ELSE \"#38bdf8\" END"
+      "value": "IF door_open_timer >= DOOR_OPEN_LIMIT THEN \"#dc2626\" ELSIF door_open_timer >= 90 THEN \"#d97706\" ELSE \"#2563eb\" END"
     },
     {
       "id": "txt_tick_hint",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"Tick bloq.: cabine em avaria (feche a porta).\" ELSIF maintenance_mode = TRUE THEN \"Modo manutencao: use Tick Manutencao p/ piscas.\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"Tick bloq.: clique Registrar no botao pendente!\" ELSE \"advance_time habilitado (incrementa holds e porta aberta).\" END"
+      "value": "IF cabin_broken = TRUE THEN \"Blocked: elevator out of service (close the door).\" ELSIF maintenance_mode = TRUE THEN \"Maintenance mode: use Maintenance Tick for blinking LEDs.\" ELSIF BUTTON_HOLD_LIMIT : button_floor_timer[floor_button_unprocessed] or BUTTON_HOLD_LIMIT : button_dir_timer[dir_button_unprocessed] THEN \"Hold limit reached: click Cancel or Reject on the pending button.\" ELSIF floor_button_unprocessed /= {} & exceeds_capacity = TRUE THEN \"Overweight: remove load before registering the internal button.\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"Click Register on the pending button.\" ELSE \"Advance Time enabled (updates hold and door timers).\" END"
     },
     {
       "id": "txt_tick_hint",
       "attr": "fill",
-      "value": "IF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"#fde047\" ELSIF cabin_broken = TRUE THEN \"#f87171\" ELSE \"#94a3b8\" END"
-    },
-    {
-      "id": "btn_tick_timer",
-      "attr": "opacity",
-      "value": "IF cabin_broken = FALSE & maintenance_mode = FALSE & floor_button_unprocessed = {} & dir_button_unprocessed = {} THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_tick_timer",
-      "attr": "cursor",
-      "value": "IF cabin_broken = FALSE & maintenance_mode = FALSE & floor_button_unprocessed = {} & dir_button_unprocessed = {} THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_maint_tick",
-      "attr": "opacity",
-      "value": "IF maintenance_mode = TRUE & (pending_floor_blink_off /= {} or pending_dir_blink_off /= {} or pending_door_blink_off /= {}) THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_maint_tick",
-      "attr": "cursor",
-      "value": "IF maintenance_mode = TRUE & (pending_floor_blink_off /= {} or pending_dir_blink_off /= {} or pending_door_blink_off /= {}) THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_add_weight",
-      "attr": "opacity",
-      "value": "IF curr_state = rest & door_state = door_open THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_add_weight",
-      "attr": "cursor",
-      "value": "IF curr_state = rest & door_state = door_open THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_add_weight_200",
-      "attr": "opacity",
-      "value": "IF curr_state = rest & door_state = door_open THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_add_weight_200",
-      "attr": "cursor",
-      "value": "IF curr_state = rest & door_state = door_open THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_remove_weight",
-      "attr": "opacity",
-      "value": "IF curr_weight >= 75 & curr_state = rest & door_state = door_open THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_remove_weight",
-      "attr": "cursor",
-      "value": "IF curr_weight >= 75 & curr_state = rest & door_state = door_open THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_remove_weight_200",
-      "attr": "opacity",
-      "value": "IF curr_weight >= 200 & curr_state = rest & door_state = door_open THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_remove_weight_200",
-      "attr": "cursor",
-      "value": "IF curr_weight >= 200 & curr_state = rest & door_state = door_open THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_clear_weight",
-      "attr": "opacity",
-      "value": "IF curr_weight > 0 & curr_state = rest & door_state = door_open THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_clear_weight",
-      "attr": "cursor",
-      "value": "IF curr_weight > 0 & curr_state = rest & door_state = door_open THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_insert_key",
-      "attr": "opacity",
-      "value": "IF key_inserted = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_insert_key",
-      "attr": "cursor",
-      "value": "IF key_inserted = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_toggle_maintenance",
-      "attr": "opacity",
-      "value": "IF key_inserted = TRUE & maintenance_mode = FALSE & curr_state = rest THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_toggle_maintenance",
-      "attr": "cursor",
-      "value": "IF key_inserted = TRUE & maintenance_mode = FALSE & curr_state = rest THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_stop_maintenance",
-      "attr": "opacity",
-      "value": "IF key_inserted = TRUE & maintenance_mode = TRUE & curr_state = rest THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_stop_maintenance",
-      "attr": "cursor",
-      "value": "IF key_inserted = TRUE & maintenance_mode = TRUE & curr_state = rest THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_refresh_display",
-      "attr": "opacity",
-      "value": "IF cabin_broken = FALSE THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_refresh_display",
-      "attr": "cursor",
-      "value": "IF cabin_broken = FALSE THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_mark_broken",
-      "attr": "opacity",
-      "value": "IF cabin_broken = FALSE & door_open_timer >= DOOR_OPEN_LIMIT THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_mark_broken",
-      "attr": "cursor",
-      "value": "IF cabin_broken = FALSE & door_open_timer >= DOOR_OPEN_LIMIT THEN \"pointer\" ELSE \"not-allowed\" END"
-    },
-    {
-      "id": "btn_clear_broken",
-      "attr": "opacity",
-      "value": "IF cabin_broken = TRUE & door_open_timer < DOOR_OPEN_LIMIT THEN \"1.0\" ELSE \"0.32\" END"
-    },
-    {
-      "id": "btn_clear_broken",
-      "attr": "cursor",
-      "value": "IF cabin_broken = TRUE & door_open_timer < DOOR_OPEN_LIMIT THEN \"pointer\" ELSE \"not-allowed\" END"
+      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_curr_floor",
       "attr": "text",
-      "value": "IF curr_floor = 1 THEN \"curr_floor=1\" ELSIF curr_floor = 2 THEN \"curr_floor=2\" ELSE \"curr_floor=3\" END"
+      "value": "IF curr_floor = 1 THEN \"Floor: 1\" ELSIF curr_floor = 2 THEN \"Floor: 2\" ELSE \"Floor: 3\" END"
     },
     {
       "id": "diag_panel_floor",
       "attr": "text",
-      "value": "IF panel_curr_floor = 1 THEN \"panel=1\" ELSIF panel_curr_floor = 2 THEN \"panel=2\" ELSIF panel_curr_floor = 3 THEN \"panel=3\" ELSE \"panel=-1\" END"
+      "value": "IF panel_curr_floor = 1 THEN \"Display: 1\" ELSIF panel_curr_floor = 2 THEN \"Display: 2\" ELSIF panel_curr_floor = 3 THEN \"Display: 3\" ELSE \"Display: -1\" END"
     },
     {
       "id": "diag_curr_state",
       "attr": "text",
-      "value": "IF curr_state = moving_up THEN \"moving_up\" ELSIF curr_state = moving_down THEN \"moving_down\" ELSE \"rest\" END"
+      "value": "IF curr_state = moving_up THEN \"Moving Up\" ELSIF curr_state = moving_down THEN \"Moving Down\" ELSE \"Idle\" END"
     },
     {
       "id": "diag_curr_state",
       "attr": "fill",
-      "value": "IF curr_state /= rest THEN \"#4ade80\" ELSE \"#e2e8f0\" END"
+      "value": "IF curr_state /= rest THEN \"#15803d\" ELSE \"#0f172a\" END"
     },
     {
       "id": "diag_sweep_dir",
       "attr": "text",
-      "value": "IF sweep_direction = up THEN \"sweep=up\" ELSE \"sweep=down\" END"
+      "value": "IF sweep_direction = up THEN \"Sweep: Up\" ELSE \"Sweep: Down\" END"
     },
     {
       "id": "diag_active_req",
       "attr": "text",
-      "value": "IF curr_active_request = 1 THEN \"target=1\" ELSIF curr_active_request = 2 THEN \"target=2\" ELSIF curr_active_request = 3 THEN \"target=3\" ELSE \"NO_REQUEST\" END"
+      "value": "IF curr_active_request = 1 THEN \"Target: 1\" ELSIF curr_active_request = 2 THEN \"Target: 2\" ELSIF curr_active_request = 3 THEN \"Target: 3\" ELSE \"None\" END"
     },
     {
       "id": "diag_active_req",
       "attr": "fill",
-      "value": "IF curr_active_request /= NO_REQUEST THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
+      "value": "IF curr_active_request /= NO_REQUEST THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_stop_next",
       "attr": "text",
-      "value": "IF stop_at_next_floor_requested = TRUE THEN \"next=TRUE\" ELSE \"next=FALSE\" END"
+      "value": "IF stop_at_next_floor_requested = TRUE THEN \"Next Stop: Yes\" ELSE \"Next Stop: No\" END"
     },
     {
       "id": "diag_stop_next",
       "attr": "fill",
-      "value": "IF stop_at_next_floor_requested = TRUE THEN \"#fb7185\" ELSE \"#94a3b8\" END"
+      "value": "IF stop_at_next_floor_requested = TRUE THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_key",
       "attr": "text",
-      "value": "IF key_inserted = TRUE THEN \"key=TRUE\" ELSE \"key=FALSE\" END"
+      "value": "IF key_inserted = TRUE THEN \"Key: In\" ELSE \"Key: Out\" END"
     },
     {
       "id": "diag_key",
       "attr": "fill",
-      "value": "IF key_inserted = TRUE THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
+      "value": "IF key_inserted = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_maint",
       "attr": "text",
-      "value": "IF maintenance_mode = TRUE THEN \"mnt=T\" ELSE \"mnt=F\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"Maint: On\" ELSE \"Maint: Off\" END"
     },
     {
       "id": "diag_maint",
       "attr": "fill",
-      "value": "IF maintenance_mode = TRUE THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_broken",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"brk=T\" ELSE \"brk=F\" END"
+      "value": "IF cabin_broken = TRUE THEN \"Broken: Yes\" ELSE \"Broken: No\" END"
     },
     {
       "id": "diag_broken",
       "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#f87171\" ELSE \"#94a3b8\" END"
+      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_unproc_int",
@@ -1534,72 +884,72 @@
     {
       "id": "chip_int_1",
       "attr": "fill",
-      "value": "IF 1 : internal_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 1 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_int_1",
       "attr": "stroke",
-      "value": "IF 1 : internal_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 1 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_int_2",
       "attr": "fill",
-      "value": "IF 2 : internal_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 2 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_int_2",
       "attr": "stroke",
-      "value": "IF 2 : internal_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 2 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_int_3",
       "attr": "fill",
-      "value": "IF 3 : internal_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 3 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_int_3",
       "attr": "stroke",
-      "value": "IF 3 : internal_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 3 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_up_1",
       "attr": "fill",
-      "value": "IF 1 : up_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 1 : up_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_up_1",
       "attr": "stroke",
-      "value": "IF 1 : up_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 1 : up_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_up_2",
       "attr": "fill",
-      "value": "IF 2 : up_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 2 : up_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_up_2",
       "attr": "stroke",
-      "value": "IF 2 : up_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 2 : up_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_dn_2",
       "attr": "fill",
-      "value": "IF 2 : down_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 2 : down_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_dn_2",
       "attr": "stroke",
-      "value": "IF 2 : down_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 2 : down_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "chip_dn_3",
       "attr": "fill",
-      "value": "IF 3 : down_requests THEN \"#b45309\" ELSE \"#1e293b\" END"
+      "value": "IF 3 : down_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
     },
     {
       "id": "chip_dn_3",
       "attr": "stroke",
-      "value": "IF 3 : down_requests THEN \"#f59e0b\" ELSE \"#334155\" END"
+      "value": "IF 3 : down_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
     }
   ],
   "events": [
@@ -1616,6 +966,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1631,6 +993,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1646,6 +1020,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1661,6 +1047,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1676,6 +1074,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1691,6 +1101,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1706,6 +1128,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1721,6 +1155,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1736,6 +1182,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1751,6 +1209,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1766,6 +1236,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1781,6 +1263,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1796,6 +1290,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1811,6 +1317,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1826,6 +1344,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1841,6 +1371,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1856,6 +1398,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1871,6 +1425,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1886,6 +1452,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1901,6 +1479,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1916,6 +1506,18 @@
       ],
       "predicates": [
         "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1931,6 +1533,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1946,6 +1560,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1961,6 +1587,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1976,6 +1614,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -1991,6 +1641,18 @@
       ],
       "predicates": [
         "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2006,6 +1668,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2021,6 +1695,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2036,6 +1722,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2051,6 +1749,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2066,6 +1776,18 @@
       ],
       "predicates": [
         "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2081,6 +1803,18 @@
       ],
       "predicates": [
         "dbutton = button_door_open"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2096,6 +1830,18 @@
       ],
       "predicates": [
         "dbutton = button_door_open"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2108,6 +1854,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2119,6 +1877,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2135,6 +1905,18 @@
       ],
       "predicates": [
         "dbutton = button_door_close"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2150,6 +1932,18 @@
       ],
       "predicates": [
         "dbutton = button_door_close"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2161,6 +1955,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2174,6 +1980,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2185,6 +2003,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2198,6 +2028,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2209,6 +2051,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2222,6 +2076,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2233,6 +2099,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2246,6 +2124,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2258,6 +2148,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2269,6 +2171,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2285,6 +2199,18 @@
       ],
       "predicates": [
         "ww = 75"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2300,6 +2226,18 @@
       ],
       "predicates": [
         "ww = 200"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2315,6 +2253,18 @@
       ],
       "predicates": [
         "ww = 75"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2330,6 +2280,18 @@
       ],
       "predicates": [
         "ww = 200"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2346,6 +2308,18 @@
       "predicates": [
         "ww = curr_weight",
         "curr_weight > 0"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2357,6 +2331,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2370,6 +2356,18 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
@@ -2381,6 +2379,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     },
@@ -2394,9 +2404,23 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
+      "comment": "Unreachable operation due to ElevatorControl.mch invariant",
+      "ignore": true,
       "id": "btn_mark_broken",
       "event": "mark_broken",
       "hovers": [
@@ -2406,9 +2430,23 @@
           "enter": "3",
           "leave": "1.5"
         }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
       ]
     },
     {
+      "comment": "Unreachable operation due to ElevatorControl.mch invariant",
+      "ignore": true,
       "id": "btn_clear_broken",
       "event": "clear_broken",
       "hovers": [
@@ -2417,6 +2455,18 @@
           "attr": "stroke-width",
           "enter": "3",
           "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
         }
       ]
     }
