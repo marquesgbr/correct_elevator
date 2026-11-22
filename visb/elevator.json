@@ -1,0 +1,357 @@
+{
+  "svg": "elevator.svg",
+  "items": [
+    {
+      "id": "elevator_car_3",
+      "attr": "display",
+      "value": "IF curr_floor = 3 THEN \"inline\" ELSE \"none\" END"
+    },
+    {
+      "id": "elevator_closed_3",
+      "attr": "visibility",
+      "value": "IF door_state = door_closed THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "elevator_open_3",
+      "attr": "visibility",
+      "value": "IF door_state = door_open THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "floor_highlight_3",
+      "attr": "visibility",
+      "value": "IF curr_floor = 3 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "elevator_car_2",
+      "attr": "display",
+      "value": "IF curr_floor = 2 THEN \"inline\" ELSE \"none\" END"
+    },
+    {
+      "id": "elevator_closed_2",
+      "attr": "visibility",
+      "value": "IF door_state = door_closed THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "elevator_open_2",
+      "attr": "visibility",
+      "value": "IF door_state = door_open THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "floor_highlight_2",
+      "attr": "visibility",
+      "value": "IF curr_floor = 2 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "elevator_car_1",
+      "attr": "display",
+      "value": "IF curr_floor = 1 THEN \"inline\" ELSE \"none\" END"
+    },
+    {
+      "id": "elevator_closed_1",
+      "attr": "visibility",
+      "value": "IF door_state = door_closed THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "elevator_open_1",
+      "attr": "visibility",
+      "value": "IF door_state = door_open THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "floor_highlight_1",
+      "attr": "visibility",
+      "value": "IF curr_floor = 1 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_floor_3",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 3 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_floor_2",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 2 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_floor_1",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 1 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_dir_up",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_dir_down",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_down THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_dir_inactive",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_inactive THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_3_dir_broken",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_floor_3",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 3 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_floor_2",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 2 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_floor_1",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 1 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_dir_up",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_dir_down",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_down THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_dir_inactive",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_inactive THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_2_dir_broken",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_floor_3",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 3 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_floor_2",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 2 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_floor_1",
+      "attr": "visibility",
+      "value": "IF panel_curr_floor = 1 THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_dir_up",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_dir_down",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_down THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_dir_inactive",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_inactive THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "panel_1_dir_broken",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "call_down_3_led",
+      "attr": "fill",
+      "value": "IF 3 : down_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "call_down_3_ring",
+      "attr": "stroke",
+      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "call_up_2_led",
+      "attr": "fill",
+      "value": "IF 2 : up_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "call_up_2_ring",
+      "attr": "stroke",
+      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "call_down_2_led",
+      "attr": "fill",
+      "value": "IF 2 : down_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "call_down_2_ring",
+      "attr": "stroke",
+      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "call_up_1_led",
+      "attr": "fill",
+      "value": "IF 1 : up_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "call_up_1_ring",
+      "attr": "stroke",
+      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "cabin_floor_1_led",
+      "attr": "fill",
+      "value": "IF 1 : internal_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_floor_1_ring",
+      "attr": "stroke",
+      "value": "IF button_floor_press(1) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "cabin_floor_2_led",
+      "attr": "fill",
+      "value": "IF 2 : internal_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_floor_2_ring",
+      "attr": "stroke",
+      "value": "IF button_floor_press(2) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "cabin_floor_3_led",
+      "attr": "fill",
+      "value": "IF 3 : internal_requests THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_floor_3_ring",
+      "attr": "stroke",
+      "value": "IF button_floor_press(3) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "cabin_door_open_led",
+      "attr": "fill",
+      "value": "IF button_door_led(button_door_open) /= button_led_inactive THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_door_open_ring",
+      "attr": "stroke",
+      "value": "IF button_door_press(button_door_open) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "cabin_door_close_led",
+      "attr": "fill",
+      "value": "IF button_door_led(button_door_close) /= button_led_inactive THEN \"#22c55e\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_door_close_ring",
+      "attr": "stroke",
+      "value": "IF button_door_press(button_door_close) = button_press THEN \"#f59e0b\" ELSE \"#334155\" END"
+    }
+  ],
+  "events": [
+    {
+      "id": "ctrl_advance",
+      "event": "advance_time"
+    },
+    {
+      "id": "ctrl_dispatch",
+      "event": "select_request"
+    },
+    {
+      "id": "ctrl_start",
+      "event": "start_travel"
+    },
+    {
+      "id": "ctrl_move",
+      "event": "move_travel"
+    },
+    {
+      "id": "ctrl_stop",
+      "event": "stop_at_target"
+    },
+    {
+      "id": "ctrl_serve",
+      "event": "serve_target"
+    },
+    {
+      "id": "ctrl_open",
+      "event": "open_door_automatically"
+    },
+    {
+      "id": "ctrl_close",
+      "event": "close_door_automatically"
+    },
+    {
+      "id": "call_up_1",
+      "event": "press_up",
+      "predicates": [
+        "ffloor=1"
+      ]
+    },
+    {
+      "id": "call_up_2",
+      "event": "press_up",
+      "predicates": [
+        "ffloor=2"
+      ]
+    },
+    {
+      "id": "call_down_2",
+      "event": "press_down",
+      "predicates": [
+        "ffloor=2"
+      ]
+    },
+    {
+      "id": "call_down_3",
+      "event": "press_down",
+      "predicates": [
+        "ffloor=3"
+      ]
+    },
+    {
+      "id": "cabin_floor_1",
+      "event": "press_internal",
+      "predicates": [
+        "ffloor=1"
+      ]
+    },
+    {
+      "id": "cabin_floor_2",
+      "event": "press_internal",
+      "predicates": [
+        "ffloor=2"
+      ]
+    },
+    {
+      "id": "cabin_floor_3",
+      "event": "press_internal",
+      "predicates": [
+        "ffloor=3"
+      ]
+    },
+    {
+      "id": "cabin_door_open",
+      "event": "press_door",
+      "predicates": [
+        "dbutton=button_door_open"
+      ]
+    },
+    {
+      "id": "cabin_door_close",
+      "event": "press_door",
+      "predicates": [
+        "dbutton=button_door_close"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e8eef6"/>
+    </linearGradient>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#dbe4ee"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .label { font-family: Inter, Segoe UI, sans-serif; fill: #334155; }
+      .muted { font-family: Inter, Segoe UI, sans-serif; fill: #64748b; }
+      .title { font-family: Inter, Segoe UI, sans-serif; fill: #0f172a; font-weight: 700; }
+      .panelText { font-family: Inter, Segoe UI, sans-serif; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="760" rx="18" fill="url(#bg)"/>
+  <text x="500" y="38" text-anchor="middle" font-size="26" class="title">Elevator Control</text>
+  <text x="500" y="64" text-anchor="middle" font-size="14" class="muted">Cabin position, floor call buttons, and one display panel per floor</text>
+
+  <rect x="50" y="100" width="300" height="540" rx="16" fill="url(#shaft)" stroke="#94a3b8" stroke-width="2" filter="url(#softShadow)"/>
+  <rect id="floor_highlight_3" x="54" y="104" width="292" height="172" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" visibility="hidden"/>
+  <text x="34" y="205" text-anchor="middle" font-size="34" font-weight="700" class="muted">3</text>
+  <text x="68" y="128" font-size="13" class="muted">FLOOR 3</text>
+  <rect id="floor_highlight_2" x="54" y="284" width="292" height="172" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" visibility="hidden"/>
+  <text x="34" y="385" text-anchor="middle" font-size="34" font-weight="700" class="muted">2</text>
+  <text x="68" y="308" font-size="13" class="muted">FLOOR 2</text>
+  <rect id="floor_highlight_1" x="54" y="464" width="292" height="172" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" visibility="hidden"/>
+  <text x="34" y="565" text-anchor="middle" font-size="34" font-weight="700" class="muted">1</text>
+  <text x="68" y="488" font-size="13" class="muted">FLOOR 1</text>
+  <line x1="56" y1="280" x2="344" y2="280" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="56" y1="460" x2="344" y2="460" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+  <g id="elevator_car_3" display="none">
+    <rect x="112" y="107" width="176" height="166" rx="14" fill="#0f172a" opacity="0.16"/>
+    <rect x="120" y="115" width="160" height="150" rx="10" fill="#111827" stroke="#475569" stroke-width="3"/>
+    <image id="elevator_closed_3" href="elevator_closed.png" x="120" y="115" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+    <image id="elevator_open_3" href="elevator_open.jpeg" x="120" y="115" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+  </g>
+  <g id="elevator_car_2" display="none">
+    <rect x="112" y="287" width="176" height="166" rx="14" fill="#0f172a" opacity="0.16"/>
+    <rect x="120" y="295" width="160" height="150" rx="10" fill="#111827" stroke="#475569" stroke-width="3"/>
+    <image id="elevator_closed_2" href="elevator_closed.png" x="120" y="295" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+    <image id="elevator_open_2" href="elevator_open.jpeg" x="120" y="295" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+  </g>
+  <g id="elevator_car_1" display="none">
+    <rect x="112" y="467" width="176" height="166" rx="14" fill="#0f172a" opacity="0.16"/>
+    <rect x="120" y="475" width="160" height="150" rx="10" fill="#111827" stroke="#475569" stroke-width="3"/>
+    <image id="elevator_closed_1" href="elevator_closed.png" x="120" y="475" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+    <image id="elevator_open_1" href="elevator_open.jpeg" x="120" y="475" width="160" height="150" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+  </g>
+  <rect x="380" y="130" width="120" height="120" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+  <text x="440" y="154" text-anchor="middle" font-size="12" font-weight="700" class="label">FLOOR 3</text>
+    <g id="call_down_3" style="cursor:pointer">
+      <circle id="call_down_3_ring" cx="440" cy="207" r="24" fill="#f8fafc" stroke="#334155" stroke-width="3" filter="url(#softShadow)"/>
+      <circle id="call_down_3_led" cx="440" cy="207" r="15" fill="#94a3b8"/>
+      <text x="440" y="214" text-anchor="middle" font-size="21" fill="#ffffff" pointer-events="none">▼</text>
+      <text x="440" y="254" text-anchor="middle" font-size="11" class="muted">DOWN</text>
+    </g>
+  <rect x="380" y="310" width="120" height="130" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+  <text x="440" y="334" text-anchor="middle" font-size="12" font-weight="700" class="label">FLOOR 2</text>
+    <g id="call_up_2" style="cursor:pointer">
+      <circle id="call_up_2_ring" cx="440" cy="377" r="24" fill="#f8fafc" stroke="#334155" stroke-width="3" filter="url(#softShadow)"/>
+      <circle id="call_up_2_led" cx="440" cy="377" r="15" fill="#94a3b8"/>
+      <text x="440" y="384" text-anchor="middle" font-size="21" fill="#ffffff" pointer-events="none">▲</text>
+      <text x="440" y="424" text-anchor="middle" font-size="11" class="muted">UP</text>
+    </g>
+    <g id="call_down_2" style="cursor:pointer">
+      <circle id="call_down_2_ring" cx="440" cy="427" r="24" fill="#f8fafc" stroke="#334155" stroke-width="3" filter="url(#softShadow)"/>
+      <circle id="call_down_2_led" cx="440" cy="427" r="15" fill="#94a3b8"/>
+      <text x="440" y="434" text-anchor="middle" font-size="21" fill="#ffffff" pointer-events="none">▼</text>
+      <text x="440" y="474" text-anchor="middle" font-size="11" class="muted">DOWN</text>
+    </g>
+  <rect x="380" y="490" width="120" height="120" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+  <text x="440" y="514" text-anchor="middle" font-size="12" font-weight="700" class="label">FLOOR 1</text>
+    <g id="call_up_1" style="cursor:pointer">
+      <circle id="call_up_1_ring" cx="440" cy="567" r="24" fill="#f8fafc" stroke="#334155" stroke-width="3" filter="url(#softShadow)"/>
+      <circle id="call_up_1_led" cx="440" cy="567" r="15" fill="#94a3b8"/>
+      <text x="440" y="574" text-anchor="middle" font-size="21" fill="#ffffff" pointer-events="none">▲</text>
+      <text x="440" y="614" text-anchor="middle" font-size="11" class="muted">UP</text>
+    </g>
+  <g id="display_panel_3">
+    <rect x="530" y="130" width="220" height="120" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+    <text x="548" y="155" font-size="12" font-weight="700" fill="#94a3b8" class="panelText">FLOOR 3 · CAR DISPLAY</text>
+    <text x="548" y="180" font-size="10" fill="#64748b" class="panelText">CURRENT FLOOR</text>
+    <text x="548" y="231" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_3_floor_1" visibility="hidden">1</text>
+    <text x="548" y="231" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_3_floor_2" visibility="hidden">2</text>
+    <text x="548" y="231" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_3_floor_3" visibility="hidden">3</text>
+    <text x="678" y="182" font-size="10" fill="#64748b" class="panelText">DIRECTION</text>
+    <text x="695" y="226" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_3_dir_up" visibility="hidden">▲</text>
+    <text x="695" y="226" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_3_dir_down" visibility="hidden">▼</text>
+    <text x="695" y="223" text-anchor="middle" font-size="36" font-weight="700" fill="#94a3b8" class="panelText" id="panel_3_dir_inactive" visibility="hidden">—</text>
+    <text x="695" y="223" text-anchor="middle" font-size="38" font-weight="700" fill="#f87171" class="panelText" id="panel_3_dir_broken" visibility="hidden">!</text>
+  </g>
+  <g id="display_panel_2">
+    <rect x="530" y="310" width="220" height="120" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+    <text x="548" y="335" font-size="12" font-weight="700" fill="#94a3b8" class="panelText">FLOOR 2 · CAR DISPLAY</text>
+    <text x="548" y="360" font-size="10" fill="#64748b" class="panelText">CURRENT FLOOR</text>
+    <text x="548" y="411" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_2_floor_1" visibility="hidden">1</text>
+    <text x="548" y="411" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_2_floor_2" visibility="hidden">2</text>
+    <text x="548" y="411" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_2_floor_3" visibility="hidden">3</text>
+    <text x="678" y="362" font-size="10" fill="#64748b" class="panelText">DIRECTION</text>
+    <text x="695" y="406" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_2_dir_up" visibility="hidden">▲</text>
+    <text x="695" y="406" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_2_dir_down" visibility="hidden">▼</text>
+    <text x="695" y="403" text-anchor="middle" font-size="36" font-weight="700" fill="#94a3b8" class="panelText" id="panel_2_dir_inactive" visibility="hidden">—</text>
+    <text x="695" y="403" text-anchor="middle" font-size="38" font-weight="700" fill="#f87171" class="panelText" id="panel_2_dir_broken" visibility="hidden">!</text>
+  </g>
+  <g id="display_panel_1">
+    <rect x="530" y="490" width="220" height="120" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+    <text x="548" y="515" font-size="12" font-weight="700" fill="#94a3b8" class="panelText">FLOOR 1 · CAR DISPLAY</text>
+    <text x="548" y="540" font-size="10" fill="#64748b" class="panelText">CURRENT FLOOR</text>
+    <text x="548" y="591" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_1_floor_1" visibility="hidden">1</text>
+    <text x="548" y="591" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_1_floor_2" visibility="hidden">2</text>
+    <text x="548" y="591" font-size="48" font-weight="700" fill="#f8fafc" class="panelText" id="panel_1_floor_3" visibility="hidden">3</text>
+    <text x="678" y="542" font-size="10" fill="#64748b" class="panelText">DIRECTION</text>
+    <text x="695" y="586" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_1_dir_up" visibility="hidden">▲</text>
+    <text x="695" y="586" text-anchor="middle" font-size="42" font-weight="700" fill="#38bdf8" class="panelText" id="panel_1_dir_down" visibility="hidden">▼</text>
+    <text x="695" y="583" text-anchor="middle" font-size="36" font-weight="700" fill="#94a3b8" class="panelText" id="panel_1_dir_inactive" visibility="hidden">—</text>
+    <text x="695" y="583" text-anchor="middle" font-size="38" font-weight="700" fill="#f87171" class="panelText" id="panel_1_dir_broken" visibility="hidden">!</text>
+  </g>
+  <g id="legend">
+    <rect x="780" y="100" width="170" height="238" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="796" y="126" font-size="13" font-weight="700" class="label">LEGEND</text>
+    <circle cx="806" cy="155" r="11" fill="#22c55e"/>
+    <text x="828" y="159" font-size="11" class="muted">call request active</text>
+    <circle cx="806" cy="185" r="11" fill="#94a3b8" stroke="#f59e0b" stroke-width="3"/>
+    <text x="828" y="189" font-size="11" class="muted">button pressed</text>
+    <rect x="795" y="208" width="22" height="16" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="828" y="220" font-size="11" class="muted">current floor</text>
+    <rect x="795" y="243" width="22" height="16" rx="4" fill="#0f172a"/>
+    <text x="828" y="255" font-size="11" class="muted">car / display</text>
+    <text x="796" y="287" font-size="10" class="muted">Open/closed image follows</text>
+    <text x="796" y="302" font-size="10" class="muted">door_state. Maintenance and</text>
+    <text x="796" y="317" font-size="10" class="muted">blinking are not visualised.</text>
+  </g>
+  <g id="cabin_panel">
+    <rect x="780" y="380" width="170" height="240" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="796" y="406" font-size="13" font-weight="700" class="label">CABIN PANEL</text>
+    <text x="796" y="430" font-size="10" class="muted">FLOOR REQUESTS</text>
+
+    <g id="cabin_floor_1" style="cursor:pointer">
+      <circle id="cabin_floor_1_ring" cx="810" cy="462" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+      <circle id="cabin_floor_1_led" cx="810" cy="462" r="12" fill="#94a3b8"/>
+      <text x="810" y="468" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff" pointer-events="none">1</text>
+    </g>
+    <g id="cabin_floor_2" style="cursor:pointer">
+      <circle id="cabin_floor_2_ring" cx="850" cy="462" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+      <circle id="cabin_floor_2_led" cx="850" cy="462" r="12" fill="#94a3b8"/>
+      <text x="850" y="468" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff" pointer-events="none">2</text>
+    </g>
+    <g id="cabin_floor_3" style="cursor:pointer">
+      <circle id="cabin_floor_3_ring" cx="890" cy="462" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+      <circle id="cabin_floor_3_led" cx="890" cy="462" r="12" fill="#94a3b8"/>
+      <text x="890" y="468" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff" pointer-events="none">3</text>
+    </g>
+
+    <text x="796" y="508" font-size="10" class="muted">DOOR BUTTONS</text>
+    <g id="cabin_door_open" style="cursor:pointer">
+      <circle id="cabin_door_open_ring" cx="825" cy="540" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+      <circle id="cabin_door_open_led" cx="825" cy="540" r="12" fill="#94a3b8"/>
+      <text x="825" y="546" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff" pointer-events="none">◀▶</text>
+    </g>
+    <g id="cabin_door_close" style="cursor:pointer">
+      <circle id="cabin_door_close_ring" cx="875" cy="540" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+      <circle id="cabin_door_close_led" cx="875" cy="540" r="12" fill="#94a3b8"/>
+      <text x="875" y="546" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff" pointer-events="none">▶◀</text>
+    </g>
+
+    <text x="796" y="590" font-size="10" class="muted">Green = registered request</text>
+    <text x="796" y="605" font-size="10" class="muted">Amber ring = pressed</text>
+  </g>
+
+  <rect x="50" y="670" width="900" height="70" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#softShadow)"/>
+  <text x="68" y="692" font-size="12" font-weight="700" class="label">CONTROL</text>
+  <g>
+    <rect id="ctrl_advance" x="68" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="118" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">TIME</text>
+  </g>
+  <g>
+    <rect id="ctrl_dispatch" x="178" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="228" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">DISPATCH</text>
+  </g>
+  <g>
+    <rect id="ctrl_start" x="288" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="338" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">START</text>
+  </g>
+  <g>
+    <rect id="ctrl_move" x="398" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="448" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">MOVE</text>
+  </g>
+  <g>
+    <rect id="ctrl_stop" x="508" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="558" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">STOP</text>
+  </g>
+  <g>
+    <rect id="ctrl_serve" x="618" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="668" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">SERVE</text>
+  </g>
+  <g>
+    <rect id="ctrl_open" x="728" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="778" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">OPEN</text>
+  </g>
+  <g>
+    <rect id="ctrl_close" x="838" y="702" width="100" height="28" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="888" y="720" text-anchor="middle" font-size="10" font-weight="700" class="label" pointer-events="none">CLOSE</text>
+  </g>
+</svg>

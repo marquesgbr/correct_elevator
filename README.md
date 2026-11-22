@@ -29,3 +29,15 @@ Os arquivos das máquinas abstratas estão em
 - **RequestService.mch** — deve representar a estratégia de seleção e
   atendimento dos pedidos, garantindo justiça e minimização do deslocamento
   acumulado da cabine.
+
+## Visualização (VisB)
+
+A visualização do `ElevatorControl` está em [visb](./visb):
+
+- `visb/elevator.json` — definições de itens e eventos VisB;
+- `visb/elevator.svg` — desenho do poço, botões de chamada e painéis por andar;
+- `visb/elevator_closed.png` e `visb/elevator_open.jpeg` — imagens da cabine
+  com a porta fechada e aberta.
+
+Abra `visb/elevator.json` na visão VisB do ProB2-UI com a máquina
+`ElevatorControl` carregada. Mais detalhes em [visb/README.md](./visb/README.md).
