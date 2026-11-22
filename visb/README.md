@@ -42,13 +42,20 @@ The bottom control strip binds these operations to clicks:
 `stop_at_target`, `serve_target`, `open_door_automatically`,
 `close_door_automatically`.
 
+Each control button is only shown while its operation precondition is true. For
+example, `select_request` is hidden until a request exists, and `start_travel`
+is hidden until a target is selected and the door is closed.
+
 Clicking an external call button executes `press_up` / `press_down`.
 Clicking a cabin floor button executes `press_internal`; clicking a cabin door
 button executes `press_door`. The button then shows its amber pressed ring.
 
-The model still uses the two-phase `press_*` / `register_*` / `release_*`
-protocol, so registration and release must be performed from ProB's Events
-pane. Once registered, the corresponding green LED turns on.
+After pressing a button, a green `REG` action appears whenever the
+corresponding `register_internal`, `register_up`, or `register_down` operation
+is enabled. Clicking `REG` registers the request; the action then disappears and
+the green request LED turns on.
+
+Release still uses the model's `release_*` operations from ProB's Events pane.
 
 ## Command-line export
 

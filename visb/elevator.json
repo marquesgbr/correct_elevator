@@ -260,35 +260,99 @@
   "events": [
     {
       "id": "ctrl_advance",
-      "event": "advance_time"
+      "event": "advance_time",
+      "items": [
+        {
+          "id": "ctrl_advance_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_dispatch",
-      "event": "select_request"
+      "event": "select_request",
+      "items": [
+        {
+          "id": "ctrl_dispatch_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_start",
-      "event": "start_travel"
+      "event": "start_travel",
+      "items": [
+        {
+          "id": "ctrl_start_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_move",
-      "event": "move_travel"
+      "event": "move_travel",
+      "items": [
+        {
+          "id": "ctrl_move_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_stop",
-      "event": "stop_at_target"
+      "event": "stop_at_target",
+      "items": [
+        {
+          "id": "ctrl_stop_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_serve",
-      "event": "serve_target"
+      "event": "serve_target",
+      "items": [
+        {
+          "id": "ctrl_serve_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_open",
-      "event": "open_door_automatically"
+      "event": "open_door_automatically",
+      "items": [
+        {
+          "id": "ctrl_open_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "ctrl_close",
-      "event": "close_door_automatically"
+      "event": "close_door_automatically",
+      "items": [
+        {
+          "id": "ctrl_close_group",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     },
     {
       "id": "call_up_1",
@@ -351,6 +415,111 @@
       "event": "press_door",
       "predicates": [
         "dbutton=button_door_close"
+      ]
+    },
+    {
+      "id": "reg_up_1",
+      "event": "register_up",
+      "predicates": [
+        "ffloor=1"
+      ],
+      "items": [
+        {
+          "id": "reg_up_1",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_up_2",
+      "event": "register_up",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "reg_up_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_down_2",
+      "event": "register_down",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "reg_down_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_down_3",
+      "event": "register_down",
+      "predicates": [
+        "ffloor=3"
+      ],
+      "items": [
+        {
+          "id": "reg_down_3",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_cabin_1",
+      "event": "register_internal",
+      "predicates": [
+        "ffloor=1"
+      ],
+      "items": [
+        {
+          "id": "reg_cabin_1",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_cabin_2",
+      "event": "register_internal",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "reg_cabin_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "reg_cabin_3",
+      "event": "register_internal",
+      "predicates": [
+        "ffloor=3"
+      ],
+      "items": [
+        {
+          "id": "reg_cabin_3",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
       ]
     }
   ]
