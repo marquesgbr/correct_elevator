@@ -55,7 +55,9 @@ corresponding `register_internal`, `register_up`, or `register_down` operation
 is enabled. Clicking `REG` registers the request; the action then disappears and
 the green request LED turns on.
 
-Release still uses the model's `release_*` operations from ProB's Events pane.
+Once a button can be released, a grey `REL` action appears in the same position
+and calls the corresponding `release_*` operation. Door buttons only have the
+`REL` action once pressed, since they do not register floor requests.
 
 ## Command-line export
 

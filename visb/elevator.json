@@ -521,6 +521,141 @@
           "disabled": "\"none\""
         }
       ]
+    },
+    {
+      "id": "rel_up_1",
+      "event": "release_up",
+      "predicates": [
+        "ffloor=1"
+      ],
+      "items": [
+        {
+          "id": "rel_up_1",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_up_2",
+      "event": "release_up",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "rel_up_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_down_2",
+      "event": "release_down",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "rel_down_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_down_3",
+      "event": "release_down",
+      "predicates": [
+        "ffloor=3"
+      ],
+      "items": [
+        {
+          "id": "rel_down_3",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_cabin_1",
+      "event": "release_internal",
+      "predicates": [
+        "ffloor=1"
+      ],
+      "items": [
+        {
+          "id": "rel_cabin_1",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_cabin_2",
+      "event": "release_internal",
+      "predicates": [
+        "ffloor=2"
+      ],
+      "items": [
+        {
+          "id": "rel_cabin_2",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_cabin_3",
+      "event": "release_internal",
+      "predicates": [
+        "ffloor=3"
+      ],
+      "items": [
+        {
+          "id": "rel_cabin_3",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_door_open",
+      "event": "release_door",
+      "predicates": [
+        "dbutton=button_door_open"
+      ],
+      "items": [
+        {
+          "id": "rel_door_open",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
+    },
+    {
+      "id": "rel_door_close",
+      "event": "release_door",
+      "predicates": [
+        "dbutton=button_door_close"
+      ],
+      "items": [
+        {
+          "id": "rel_door_close",
+          "attr": "display",
+          "enabled": "\"inline\"",
+          "disabled": "\"none\""
+        }
+      ]
     }
   ]
 }
