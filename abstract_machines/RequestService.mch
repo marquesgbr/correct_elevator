@@ -26,8 +26,9 @@ PROMOTES
 
     update_panel_display,
     show_panel_broken,
-    complete_floor_led_blink_and_keep_on,
-	complete_floor_blink_on_and_show_broken,
+    step_floor_blink_on,
+    step_floor_blink_on_and_show_broken,
+    release_floor_and_dir_buttons,
     press_floor_button,
     release_floor_button,
     press_dir_button,
@@ -202,6 +203,16 @@ OPERATIONS
         THEN
             remove_weight(ww) ||
             change_excess_weight(bool(curr_weight - ww > MAX_CAPACITY))
+        END;
+
+    zero_cabin_weight =
+        PRE
+            curr_weight > 0 &
+            curr_state = rest &
+            door_state = door_open
+        THEN
+            reset_weight ||
+            change_excess_weight(FALSE)
         END;
 
     /* HLR-008: maintenance cycle. Entering maintenance is only possible while

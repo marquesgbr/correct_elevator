@@ -54,27 +54,27 @@
   <line x1="222" y1="133" x2="422" y2="133" stroke="#e2e8f0" stroke-width="1"/>
   <g id="ext_btn_down_3" cursor="pointer">
     <title>Floor 3: press_down(3) - Down</title>
-    <rect id="ext_btn_down_3_bg" x="222" y="154" width="52" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <polygon points="248,182 239,168 257,168" fill="#0f172a" pointer-events="none"/>
-    <circle id="ext_led_down_3" cx="248" cy="199" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
+    <rect id="ext_btn_down_3_bg" x="219" y="154" width="48" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <polygon points="243,182 234,168 252,168" fill="#0f172a" pointer-events="none"/>
+    <circle id="ext_led_down_3" cx="243" cy="199" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="ext_status_down_3" x="282" y="169" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Off</text>
-  <text id="ext_unproc_down_3" x="282" y="188" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
-  <text id="ext_timer_down_3" x="282" y="206" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
+  <text id="ext_status_down_3" x="273" y="169" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Off</text>
+  <text id="ext_unproc_down_3" x="273" y="188" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
+  <text id="ext_timer_down_3" x="273" y="206" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
   <g id="ext_reg_down_3" cursor="pointer">
     <title>register_down(3)</title>
-    <rect id="ext_reg_down_3_bg" x="358" y="152" width="64" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="390.0" y="165.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
+    <rect id="ext_reg_down_3_bg" x="362" y="152" width="62" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="393.0" y="165.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
   </g>
   <g id="ext_rel_down_3" cursor="pointer">
     <title>release_down(3)</title>
-    <rect id="ext_rel_down_3_bg" x="358" y="175" width="64" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="390.0" y="188.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
+    <rect id="ext_rel_down_3_bg" x="362" y="175" width="62" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="393.0" y="188.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
   </g>
   <g id="ext_canc_down_3" cursor="pointer">
     <title>cancel_down_by_time(3)</title>
-    <rect id="ext_canc_down_3_bg" x="358" y="198" width="64" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="390.0" y="211.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
+    <rect id="ext_canc_down_3_bg" x="362" y="198" width="62" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="393.0" y="211.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
   </g>
 
   <!-- EXTERNAL PANEL: FLOOR 2 -->
@@ -86,52 +86,52 @@
   <line x1="222" y1="291" x2="422" y2="291" stroke="#e2e8f0" stroke-width="1"/>
   <g id="ext_btn_up_2" cursor="pointer">
     <title>Floor 2: press_up(2) - Up</title>
-    <rect id="ext_btn_up_2_bg" x="222" y="306" width="52" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <polygon points="248,320 239,334 257,334" fill="#0f172a" pointer-events="none"/>
-    <circle id="ext_led_up_2" cx="248" cy="351" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
+    <rect id="ext_btn_up_2_bg" x="219" y="306" width="48" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <polygon points="243,320 234,334 252,334" fill="#0f172a" pointer-events="none"/>
+    <circle id="ext_led_up_2" cx="243" cy="351" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="ext_status_up_2" x="282" y="321" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Off</text>
-  <text id="ext_unproc_up_2" x="282" y="340" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
-  <text id="ext_timer_up_2" x="282" y="358" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
+  <text id="ext_status_up_2" x="273" y="321" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Off</text>
+  <text id="ext_unproc_up_2" x="273" y="340" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
+  <text id="ext_timer_up_2" x="273" y="358" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
   <g id="ext_reg_up_2" cursor="pointer">
     <title>register_up(2)</title>
-    <rect id="ext_reg_up_2_bg" x="358" y="304" width="64" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="390.0" y="317.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
+    <rect id="ext_reg_up_2_bg" x="362" y="304" width="62" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="393.0" y="317.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
   </g>
   <g id="ext_rel_up_2" cursor="pointer">
     <title>release_up(2)</title>
-    <rect id="ext_rel_up_2_bg" x="358" y="327" width="64" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="390.0" y="340.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
+    <rect id="ext_rel_up_2_bg" x="362" y="327" width="62" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="393.0" y="340.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
   </g>
   <g id="ext_canc_up_2" cursor="pointer">
     <title>cancel_up_by_time(2)</title>
-    <rect id="ext_canc_up_2_bg" x="358" y="350" width="64" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="390.0" y="363.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
+    <rect id="ext_canc_up_2_bg" x="362" y="350" width="62" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="393.0" y="363.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
   </g>
   <line x1="222" y1="386" x2="422" y2="386" stroke="#e2e8f0" stroke-width="1"/>
   <g id="ext_btn_down_2" cursor="pointer">
     <title>Floor 2: press_down(2) - Down</title>
-    <rect id="ext_btn_down_2_bg" x="222" y="402" width="52" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <polygon points="248,430 239,416 257,416" fill="#0f172a" pointer-events="none"/>
-    <circle id="ext_led_down_2" cx="248" cy="447" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
+    <rect id="ext_btn_down_2_bg" x="219" y="402" width="48" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <polygon points="243,430 234,416 252,416" fill="#0f172a" pointer-events="none"/>
+    <circle id="ext_led_down_2" cx="243" cy="447" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="ext_status_down_2" x="282" y="417" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Off</text>
-  <text id="ext_unproc_down_2" x="282" y="436" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
-  <text id="ext_timer_down_2" x="282" y="454" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
+  <text id="ext_status_down_2" x="273" y="417" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Off</text>
+  <text id="ext_unproc_down_2" x="273" y="436" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
+  <text id="ext_timer_down_2" x="273" y="454" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
   <g id="ext_reg_down_2" cursor="pointer">
     <title>register_down(2)</title>
-    <rect id="ext_reg_down_2_bg" x="358" y="400" width="64" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="390.0" y="413.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
+    <rect id="ext_reg_down_2_bg" x="362" y="400" width="62" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="393.0" y="413.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
   </g>
   <g id="ext_rel_down_2" cursor="pointer">
     <title>release_down(2)</title>
-    <rect id="ext_rel_down_2_bg" x="358" y="423" width="64" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="390.0" y="436.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
+    <rect id="ext_rel_down_2_bg" x="362" y="423" width="62" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="393.0" y="436.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
   </g>
   <g id="ext_canc_down_2" cursor="pointer">
     <title>cancel_down_by_time(2)</title>
-    <rect id="ext_canc_down_2_bg" x="358" y="446" width="64" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="390.0" y="459.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
+    <rect id="ext_canc_down_2_bg" x="362" y="446" width="62" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="393.0" y="459.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
   </g>
 
   <!-- EXTERNAL PANEL: FLOOR 1 -->
@@ -143,27 +143,27 @@
   <line x1="222" y1="533" x2="422" y2="533" stroke="#e2e8f0" stroke-width="1"/>
   <g id="ext_btn_up_1" cursor="pointer">
     <title>Floor 1: press_up(1) - Up</title>
-    <rect id="ext_btn_up_1_bg" x="222" y="554" width="52" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <polygon points="248,568 239,582 257,582" fill="#0f172a" pointer-events="none"/>
-    <circle id="ext_led_up_1" cx="248" cy="599" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
+    <rect id="ext_btn_up_1_bg" x="219" y="554" width="48" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <polygon points="243,568 234,582 252,582" fill="#0f172a" pointer-events="none"/>
+    <circle id="ext_led_up_1" cx="243" cy="599" r="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="ext_status_up_1" x="282" y="569" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Off</text>
-  <text id="ext_unproc_up_1" x="282" y="588" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
-  <text id="ext_timer_up_1" x="282" y="606" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
+  <text id="ext_status_up_1" x="273" y="569" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Off</text>
+  <text id="ext_unproc_up_1" x="273" y="588" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
+  <text id="ext_timer_up_1" x="273" y="606" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
   <g id="ext_reg_up_1" cursor="pointer">
     <title>register_up(1)</title>
-    <rect id="ext_reg_up_1_bg" x="358" y="552" width="64" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="390.0" y="565.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
+    <rect id="ext_reg_up_1_bg" x="362" y="552" width="62" height="20" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="393.0" y="565.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Register</text>
   </g>
   <g id="ext_rel_up_1" cursor="pointer">
     <title>release_up(1)</title>
-    <rect id="ext_rel_up_1_bg" x="358" y="575" width="64" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="390.0" y="588.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
+    <rect id="ext_rel_up_1_bg" x="362" y="575" width="62" height="20" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="393.0" y="588.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#0f172a" pointer-events="none">Release</text>
   </g>
   <g id="ext_canc_up_1" cursor="pointer">
     <title>cancel_up_by_time(1)</title>
-    <rect id="ext_canc_up_1_bg" x="358" y="598" width="64" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="390.0" y="611.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
+    <rect id="ext_canc_up_1_bg" x="362" y="598" width="62" height="20" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="393.0" y="611.3" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#7f1d1d" pointer-events="none">Cancel</text>
   </g>
 
   <!-- LEGEND CARD -->
@@ -213,7 +213,7 @@
     <text x="508" y="245" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a" pointer-events="none">3</text>
     <circle id="int_led_floor_3" cx="508" cy="260" r="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="int_status_3" x="546" y="231" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Inactive</text>
+  <text id="int_status_3" x="546" y="231" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Inactive</text>
   <text id="int_press_3" x="546" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Button: Released</text>
   <text id="int_unproc_3" x="546" y="260" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
   <text id="int_timer_3" x="546" y="273" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
@@ -244,7 +244,7 @@
     <text x="508" y="319" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a" pointer-events="none">2</text>
     <circle id="int_led_floor_2" cx="508" cy="334" r="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="int_status_2" x="546" y="305" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Inactive</text>
+  <text id="int_status_2" x="546" y="305" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Inactive</text>
   <text id="int_press_2" x="546" y="320" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Button: Released</text>
   <text id="int_unproc_2" x="546" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
   <text id="int_timer_2" x="546" y="347" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
@@ -275,7 +275,7 @@
     <text x="508" y="393" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a" pointer-events="none">1</text>
     <circle id="int_led_floor_1" cx="508" cy="408" r="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" pointer-events="none"/>
   </g>
-  <text id="int_status_1" x="546" y="379" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700" fill="#475569">LED: Inactive</text>
+  <text id="int_status_1" x="546" y="379" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" font-weight="700" fill="#475569">LED: Inactive</text>
   <text id="int_press_1" x="546" y="394" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Button: Released</text>
   <text id="int_unproc_1" x="546" y="408" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#64748b">Pending: No</text>
   <text id="int_timer_1" x="546" y="421" font-family="Consolas, monospace" font-size="9.5" fill="#475569">Hold: 0/3</text>
@@ -390,7 +390,7 @@
     <text x="728.0" y="757.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#7f1d1d" pointer-events="none">-200 kg</text>
   </g>
   <g id="btn_clear_weight" cursor="pointer">
-    <title>remove_passenger_weight(curr_weight)</title>
+    <title>zero_weight</title>
     <rect id="btn_clear_weight_bg" x="768" y="736" width="68" height="36" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
     <text x="802.0" y="757.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#0f172a" pointer-events="none">Clear</text>
   </g>
@@ -440,13 +440,18 @@
   <rect id="door_timer_bar" x="880" y="252" width="0" height="10" rx="5" fill="#2563eb"/>
   <g id="btn_tick_timer" cursor="pointer">
     <title>advance_time</title>
-    <rect id="btn_tick_timer_bg" x="880" y="270" width="180" height="34" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="970.0" y="290.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#1e3a8a" pointer-events="none">Advance Time</text>
+    <rect id="btn_tick_timer_bg" x="880" y="270" width="118" height="34" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="939.0" y="290.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#1e3a8a" pointer-events="none">Advance Time</text>
   </g>
   <g id="btn_maint_tick" cursor="pointer">
     <title>advance_maintenance_time</title>
-    <rect id="btn_maint_tick_bg" x="1068" y="270" width="180" height="34" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-    <text x="1158.0" y="290.7" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#78350f" pointer-events="none">Maintenance Tick</text>
+    <rect id="btn_maint_tick_bg" x="1005" y="270" width="118" height="34" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="1064.0" y="290.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#78350f" pointer-events="none">Maintenance Tick</text>
+  </g>
+  <g id="btn_broken_tick" cursor="pointer">
+    <title>advance_broken_time</title>
+    <rect id="btn_broken_tick_bg" x="1130" y="270" width="118" height="34" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="1189.0" y="290.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#7f1d1d" pointer-events="none">Broken Tick</text>
   </g>
   <text id="txt_tick_hint" x="880" y="319" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Advance Time enabled (updates hold and door timers).</text>
   <line x1="880" y1="331" x2="1248" y2="331" stroke="#e2e8f0" stroke-width="1"/>

@@ -44,12 +44,12 @@
     {
       "id": "cabin_body",
       "attr": "stroke",
-      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSIF maintenance_mode = TRUE THEN \"#d97706\" ELSIF exceeds_capacity = TRUE THEN \"#ea580c\" ELSIF curr_state /= rest THEN \"#16a34a\" ELSE \"#2563eb\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#d97706\" ELSIF cabin_broken = TRUE THEN \"#dc2626\" ELSIF exceeds_capacity = TRUE THEN \"#ea580c\" ELSIF curr_state /= rest THEN \"#16a34a\" ELSE \"#2563eb\" END"
     },
     {
       "id": "cabin_body",
       "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#fee2e2\" ELSIF maintenance_mode = TRUE THEN \"#fef3c7\" ELSE \"#ffffff\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#fef3c7\" ELSIF cabin_broken = TRUE THEN \"#fee2e2\" ELSE \"#ffffff\" END"
     },
     {
       "id": "cabin_floor_text",
@@ -59,12 +59,12 @@
     {
       "id": "cabin_dir_text",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"BROKEN\" ELSIF curr_state = moving_up THEN \"UP\" ELSIF curr_state = moving_down THEN \"DOWN\" ELSE \"IDLE\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"MAINT\" ELSIF cabin_broken = TRUE THEN \"BROKEN\" ELSIF curr_state = moving_up THEN \"UP\" ELSIF curr_state = moving_down THEN \"DOWN\" ELSE \"IDLE\" END"
     },
     {
       "id": "cabin_dir_text",
       "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#fca5a5\" ELSIF curr_state /= rest THEN \"#4ade80\" ELSE \"#cbd5e1\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#fbbf24\" ELSIF cabin_broken = TRUE THEN \"#fca5a5\" ELSIF curr_state /= rest THEN \"#4ade80\" ELSE \"#cbd5e1\" END"
     },
     {
       "id": "cabin_door_badge",
@@ -119,7 +119,7 @@
     {
       "id": "cabin_tooltip",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"Cabin out of service (door open >= 120 ticks)\" ELSIF maintenance_mode = TRUE THEN \"Cabin parked in maintenance mode\" ELSIF exceeds_capacity = TRUE THEN \"Cabin blocked due to overload (> 450 kg)\" ELSIF curr_state /= rest THEN \"Cabin in motion\" ELSE \"Cabin idle\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"Cabin parked in maintenance mode\" ELSIF cabin_broken = TRUE THEN \"Cabin out of service (door open >= 120 ticks)\" ELSIF exceeds_capacity = TRUE THEN \"Cabin blocked due to overload (> 450 kg)\" ELSIF curr_state /= rest THEN \"Cabin in motion\" ELSE \"Cabin idle\" END"
     },
     {
       "id": "ext_disp_fl_3",
@@ -129,17 +129,17 @@
     {
       "id": "ext_disp_dir_3",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_3",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_3",
       "attr": "stroke",
-      "value": "IF curr_floor = 3 THEN \"#2563eb\" ELSE \"#334155\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 3 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_down_3",
@@ -169,7 +169,7 @@
     {
       "id": "ext_status_down_3",
       "attr": "text",
-      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+      "value": "IF (3 |-> button_dir_down) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (3 |-> button_dir_down) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(3, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_down_3",
@@ -204,17 +204,17 @@
     {
       "id": "ext_disp_dir_2",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_2",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_2",
       "attr": "stroke",
-      "value": "IF curr_floor = 2 THEN \"#2563eb\" ELSE \"#334155\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 2 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_up_2",
@@ -244,7 +244,7 @@
     {
       "id": "ext_status_up_2",
       "attr": "text",
-      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+      "value": "IF (2 |-> button_dir_up) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (2 |-> button_dir_up) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(2, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_up_2",
@@ -299,7 +299,7 @@
     {
       "id": "ext_status_down_2",
       "attr": "text",
-      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+      "value": "IF (2 |-> button_dir_down) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (2 |-> button_dir_down) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(2, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_down_2",
@@ -334,17 +334,17 @@
     {
       "id": "ext_disp_dir_1",
       "attr": "text",
-      "value": "IF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
     },
     {
       "id": "ext_disp_dir_1",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
     },
     {
       "id": "ext_display_1",
       "attr": "stroke",
-      "value": "IF curr_floor = 1 THEN \"#2563eb\" ELSE \"#334155\" END"
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 1 THEN \"#2563eb\" ELSE \"#334155\" END"
     },
     {
       "id": "ext_led_up_1",
@@ -374,7 +374,7 @@
     {
       "id": "ext_status_up_1",
       "attr": "text",
-      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+      "value": "IF (1 |-> button_dir_up) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (1 |-> button_dir_up) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(1, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
     },
     {
       "id": "ext_status_up_1",
@@ -409,7 +409,7 @@
     {
       "id": "panel_floor_digit",
       "attr": "fill",
-      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF maintenance_mode = TRUE THEN \"#fbbf24\" ELSE \"#38bdf8\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSE \"#38bdf8\" END"
     },
     {
       "id": "oled_cabin_floor_sub",
@@ -509,7 +509,7 @@
     {
       "id": "int_status_3",
       "attr": "text",
-      "value": "IF 3 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 3 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(3) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(3) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+      "value": "IF 3 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 3 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 3 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 3 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(3) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(3) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_3",
@@ -574,7 +574,7 @@
     {
       "id": "int_status_2",
       "attr": "text",
-      "value": "IF 2 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 2 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(2) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(2) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+      "value": "IF 2 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 2 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 2 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 2 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(2) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(2) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_2",
@@ -639,7 +639,7 @@
     {
       "id": "int_status_1",
       "attr": "text",
-      "value": "IF 1 : pending_floor_blink_on THEN \"LED: Blink -> On\" ELSIF 1 : pending_floor_blink_off THEN \"LED: Blink -> Off\" ELSIF button_floor_led(1) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(1) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+      "value": "IF 1 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 1 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 1 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 1 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(1) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(1) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
     },
     {
       "id": "int_status_1",
@@ -729,12 +729,12 @@
     {
       "id": "txt_door_btn_open_state",
       "attr": "text",
-      "value": "IF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_active THEN \"Open: Pressed | LED On\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_blinking THEN \"Open: Pressed | Blinking\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_inactive THEN \"Open: Pressed | LED Off\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"Open: Released | Blinking\" ELSE \"Open: Released | LED Off\" END"
+      "value": "IF button_door_press(button_door_open) = button_press & button_door_open : door_blink_off_first THEN \"Open: Pressed | Blink (1/2)\" ELSIF button_door_press(button_door_open) = button_press & button_door_open : pending_door_blink_off THEN \"Open: Pressed | Blink (2/2)\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_active THEN \"Open: Pressed | LED On\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_blinking THEN \"Open: Pressed | Blinking\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_inactive THEN \"Open: Pressed | LED Off\" ELSIF button_door_open : door_blink_off_first THEN \"Open: Released | Blink (1/2)\" ELSIF button_door_open : pending_door_blink_off THEN \"Open: Released | Blink (2/2)\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"Open: Released | Blinking\" ELSE \"Open: Released | LED Off\" END"
     },
     {
       "id": "txt_door_btn_close_state",
       "attr": "text",
-      "value": "IF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_active THEN \"Close: Pressed | LED On\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_blinking THEN \"Close: Pressed | Blinking\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_inactive THEN \"Close: Pressed | LED Off\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"Close: Released | Blinking\" ELSE \"Close: Released | LED Off\" END"
+      "value": "IF button_door_press(button_door_close) = button_press & button_door_close : door_blink_off_first THEN \"Close: Pressed | Blink (1/2)\" ELSIF button_door_press(button_door_close) = button_press & button_door_close : pending_door_blink_off THEN \"Close: Pressed | Blink (2/2)\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_active THEN \"Close: Pressed | LED On\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_blinking THEN \"Close: Pressed | Blinking\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_inactive THEN \"Close: Pressed | LED Off\" ELSIF button_door_close : door_blink_off_first THEN \"Close: Released | Blink (1/2)\" ELSIF button_door_close : pending_door_blink_off THEN \"Close: Released | Blink (2/2)\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"Close: Released | Blinking\" ELSE \"Close: Released | LED Off\" END"
     },
     {
       "id": "txt_weight",
@@ -779,12 +779,12 @@
     {
       "id": "txt_tick_hint",
       "attr": "text",
-      "value": "IF cabin_broken = TRUE THEN \"Blocked: elevator out of service (close the door).\" ELSIF maintenance_mode = TRUE THEN \"Maintenance mode: use Maintenance Tick for blinking LEDs.\" ELSIF BUTTON_HOLD_LIMIT : button_floor_timer[floor_button_unprocessed] or BUTTON_HOLD_LIMIT : button_dir_timer[dir_button_unprocessed] THEN \"Hold limit reached: click Cancel or Reject on the pending button.\" ELSIF floor_button_unprocessed /= {} & exceeds_capacity = TRUE THEN \"Overweight: remove load before registering the internal button.\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"Click Register on the pending button.\" ELSE \"Advance Time enabled (updates hold and door timers).\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"Maintenance mode: use Maintenance Tick for blinking LEDs.\" ELSIF cabin_broken = TRUE & (button_press : ran(button_floor_press) or button_press : ran(button_dir_press)) THEN \"Broken: click Broken Tick to clear pressed buttons.\" ELSIF cabin_broken = TRUE THEN \"Blocked: elevator out of service (close the door).\" ELSIF BUTTON_HOLD_LIMIT : button_floor_timer[floor_button_unprocessed] or BUTTON_HOLD_LIMIT : button_dir_timer[dir_button_unprocessed] THEN \"Hold limit reached: click Cancel or Reject on the pending button.\" ELSIF floor_button_unprocessed /= {} & exceeds_capacity = TRUE THEN \"Overweight: remove load before registering the internal button.\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"Click Register on the pending button.\" ELSE \"Advance Time enabled (updates hold and door timers).\" END"
     },
     {
       "id": "txt_tick_hint",
       "attr": "fill",
-      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"#b45309\" ELSE \"#475569\" END"
+      "value": "IF maintenance_mode = TRUE THEN \"#b45309\" ELSIF cabin_broken = TRUE THEN \"#dc2626\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"#b45309\" ELSE \"#475569\" END"
     },
     {
       "id": "diag_curr_floor",
@@ -2187,6 +2187,30 @@
       ]
     },
     {
+      "id": "btn_broken_tick",
+      "event": "advance_broken_time",
+      "hovers": [
+        {
+          "id": "btn_broken_tick_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
       "id": "btn_add_weight",
       "event": "add_passenger_weight",
       "hovers": [
@@ -2296,7 +2320,7 @@
     },
     {
       "id": "btn_clear_weight",
-      "event": "remove_passenger_weight",
+      "event": "zero_weight",
       "hovers": [
         {
           "id": "btn_clear_weight_bg",
@@ -2304,10 +2328,6 @@
           "enter": "3",
           "leave": "1.5"
         }
-      ],
-      "predicates": [
-        "ww = curr_weight",
-        "curr_weight > 0"
       ],
       "items": [
         {
