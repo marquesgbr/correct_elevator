@@ -89,6 +89,7 @@ INVARIANT
 
     /* HLR-008: maintenance state, request cancellation and warning display. */
     (maintenance_mode = TRUE => curr_state = rest) &
+    (maintenance_mode = TRUE => door_state = door_open) &
     (maintenance_mode = TRUE => internal_requests = {}) &
     (maintenance_mode = TRUE => up_requests = {}) &
     (maintenance_mode = TRUE => down_requests = {}) &
@@ -373,6 +374,7 @@ OPERATIONS
             door_state = door_open
         THEN
             enter_maintenance_mode ||
+            reset_all_button_timers ||
             floor_button_unprocessed := {} ||
             dir_button_unprocessed := {}
         END;
@@ -614,6 +616,7 @@ OPERATIONS
     open_door_automatically =
         PRE
             curr_state = rest &
+            maintenance_mode = FALSE &
             door_state = door_closed &
             door_state_changed = FALSE
         THEN
@@ -623,6 +626,7 @@ OPERATIONS
 
     close_door_automatically =
         PRE
+            maintenance_mode = FALSE &
             door_state = door_open &
             door_state_changed = FALSE
         THEN

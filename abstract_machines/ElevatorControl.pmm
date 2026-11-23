@@ -3,6 +3,7 @@ THEORY User_Pass IS
 END &
 THEORY ControlBack IS
     /* 1. Start travel / advance_to_cancellation_stop bounds */
+    binhyp(curr_active_request : FLOORS) & binhyp(1 + curr_floor <= curr_active_request) => (curr_floor + 1 <= MAX_FLOOR);
     binhyp(curr_active_request : FLOORS) & binhyp(not(curr_active_request = curr_floor)) & binhyp(not(1 + curr_floor <= curr_active_request)) => (MIN_FLOOR + 1 <= curr_floor);
     binhyp(curr_state = moving_up) & binhyp(curr_floor = 3 => not(curr_state = moving_up)) & binhyp(curr_floor <= 3) => (curr_floor + 1 <= MAX_FLOOR);
     binhyp(curr_state = moving_down) & binhyp(curr_floor = 1 => not(curr_state = moving_down)) & binhyp(1 <= curr_floor) => (MIN_FLOOR + 1 <= curr_floor);
@@ -11,9 +12,10 @@ THEORY ControlBack IS
     binhyp(not(v = w)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
     binhyp(not(w = v)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
 
-    /* 3. Comprehension override %x.(x : d | v) where v /= w and not(r(b) = w) */
+    /* 3. Comprehension override %x.(x : d | v) where v /= w or d <: s & b /: s */
     binhyp(not(v = w)) & binhyp(not(r(b) = w)) => not((r <+ %x.(x : d | v))(b) = w);
     binhyp(not(w = v)) & binhyp(not(r(b) = w)) => not((r <+ %x.(x : d | v))(b) = w);
+    binhyp(not(b : s)) & binhyp(d : POW(s)) & binhyp(not(b : s) => not(r(b) = w)) => not((r <+ %x.(x : d | v))(b) = w);
 
     /* 4. Singleton override {a |-> v} where a /= b and not(r(b) = w) */
     binhyp(not(b = a)) & binhyp(not(r(b) = w)) => not((r <+ {a |-> v})(b) = w);
@@ -52,5 +54,9 @@ THEORY ControlBack IS
     binhyp(not(r(d) = button_led_active)) &
     binhyp(not((p <+ {d |-> button_released})(b) = button_press)) &
     binhyp(not(p(b) = button_press) => not(r(b) = button_led_active)) =>
-        not(r(b) = button_led_active)
+        not(r(b) = button_led_active);
+
+    /* 10. Well-definedness of button_dir_led domain */
+    binhyp(dom(r) = BUTTONS_IN_FLOORS) & binhyp(1 <= a) & binhyp(a <= 2) => ((a |-> button_dir_up) : dom(r));
+    binhyp(dom(r) = BUTTONS_IN_FLOORS) & binhyp(2 <= a) & binhyp(a <= 3) => ((a |-> button_dir_down) : dom(r))
 END
