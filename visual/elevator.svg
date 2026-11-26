@@ -353,9 +353,6 @@
     <text x="747.0" y="560.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600" fill="#1e3a8a" pointer-events="none">Close Automatically</text>
   </g>
 
-  <text id="txt_door_btn_open_state" x="472" y="588" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Open: Released | LED Off</text>
-  <text id="txt_door_btn_close_state" x="658" y="588" font-family="Segoe UI, Arial, sans-serif" font-size="9.5" fill="#475569">Close: Released | LED Off</text>
-
   <!-- CABIN LOAD CARD -->
   <rect x="456" y="624" width="396" height="164" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
   <text x="472" y="646" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a">Cabin Load</text>

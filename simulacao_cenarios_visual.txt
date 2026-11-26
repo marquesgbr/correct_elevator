@@ -1,0 +1,257 @@
+================================================================================
+Guia de Execução e Simulação Visual de Cenários - Correct Elevator
+================================================================================
+
+1. Visão Geral da Interface Visual (VisB)
+--------------------------------------------------------------------------------
+A visualização interativa do projeto (`visual/elevator.svg` + `visual/elevator_visb.json`)
+está conectada diretamente à máquina de topo `abstract_machines/ElevatorControl.mch`
+por meio do mecanismo VisB do ProB2-UI.
+
+A tela é organizada em 3 colunas principais:
+- Coluna 1 — `Elevator Shaft and Floor Panels`: poço animado com a cabine, barra
+  lateral de alvo, os 3 painéis externos (`Floor 3`, `Floor 2`, `Floor 1`) com
+  displays de andar/direção/manutenção, e o card `Labels of LEDs and Buttons`.
+- Coluna 2 — `Cabin Panel` e `Cabin Load`: display OLED interno da cabine, botões
+  internos (`3`, `2`, `1`) com ações (`Register`, `Release`, `Cancel`, `Reject`),
+  `Door Controls` (comandos manuais e automáticos de porta) e `Cabin Load`
+  (barra de carga e botões `+75 kg`, `+200 kg`, `-75 kg`, `-200 kg`, `Clear`).
+- Coluna 3 — `Request Service`, `Timers and Maintenance` e `State Variables Overview`:
+  botões de atendimento/deslocamento, barra de `Door Open Timer` (0..120 ticks),
+  controles de tempo (`Advance Time`, `Maintenance Tick`, `Broken Tick`), chave e
+  manutenção (`Insert Key`, `Start Maintenance`, `Stop Maintenance`, `Refresh Display`)
+  e diagnóstico de estado em tempo real.
+
+Observação importante sobre botões habilitados/desabilitados:
+- Botões esmaecidos (opacidade reduzida) indicam que a pré-condição da operação
+  correspondente em `ElevatorControl.mch` não está satisfeita no estado atual.
+- Sempre que houver uma pendência de clique ou bloqueio, consulte a dica dinâmica
+  logo abaixo dos botões `Advance Time` / `Maintenance Tick` / `Broken Tick`.
+
+Estado inicial após `INITIALISATION`:
+- Cabine parada (`IDLE`) no `Floor 1`
+- Porta aberta (`Door Open`), `Door Changed: No`
+- Carga = `0 / 450 kg` (`Capacity OK`)
+- `Door Open Timer`: `0 / 120 ticks`
+- Sem chamadas ativas, `Maintenance: Off`, sem pane (`Out of Service: No`)
+
+
+2. Como Carregar e Abrir a Visualização no ProB2-UI
+--------------------------------------------------------------------------------
+1. Abra o **ProB2-UI**.
+2. Carregue a máquina principal:
+   `abstract_machines/ElevatorControl.mch`
+3. Abra a aba/janela **VisB** (a definição `VISB_JSON_FILE == "../visual/elevator_visb.json"`
+   já está configurada na própria máquina, carregando automaticamente o painel).
+4. Execute `Setup Constants` (se exibido) e `INITIALISATION` no ProB2-UI.
+5. A partir daí, toda a simulação pode ser feita clicando diretamente nos botões
+   da interface visual, acompanhando as animações, LEDs, displays e dicas de estado.
+
+
+================================================================================
+3. Roteiro de Simulação Visual de Cenários
+================================================================================
+
+--------------------------------------------------------------------------------
+Cenário 1: Viagem Normal Completa (Andar 1 -> Andar 2 -> Andar 3)
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar o ciclo completo de chamada externa, fechamento de porta,
+deslocamento animado no poço, embarque de passageiro, chamada interna e desembarque.
+
+Passo a passo na interface (partindo de `INITIALISATION`):
+1. Chamar o elevador no 2º andar (`Elevator Shaft and Floor Panels -> Floor 2`):
+   - Clique no botão de subida (`▲`) do `Floor 2`.
+   - Clique em `Register` e depois em `Release`.
+   -> Feedback visual: o LED do botão sobe acende em laranja (`Active LED`,
+      `LED: Active`, `Pending: No`).
+
+2. Fechar a porta antes de iniciar viagem (`Cabin Panel -> Door Controls`):
+   - Clique em `Close Automatically`.
+   -> Feedback visual: as folhas da porta da cabine se fecham (`Door Closed`),
+      `Door Changed: Yes` e `Door Open Timer` permanece em `0 / 120 ticks`.
+
+3. Deslocar a cabine até o 2º andar (`Request Service`):
+   - Clique em `Select Request` -> `Start Travel` -> `Move One Floor` ->
+     `Stop at Target` -> `Serve Target`.
+   -> Feedback visual: a barra lateral verde destaca `Floor 2`; a cabine sobe pelo
+      poço até `Floor 2`; o display OLED e os displays externos atualizam para `F2`
+      com indicação de subida durante o movimento; ao clicar em `Serve Target`, o
+      LED externo do `Floor 2` apaga.
+
+4. Abrir a porta e embarcar passageiro:
+   - Em `Timers and Maintenance`: clique em `Advance Time` (libera `Door Changed: No`).
+   - Em `Door Controls`: clique em `Open Automatically`.
+   - Em `Cabin Load`: clique em `+75 kg`.
+   -> Feedback visual: portas abrem (`Door Open`), barra de carga avança em verde
+      (`75 / 450 kg`, `Capacity OK`) e a cabine exibe `75 kg`.
+
+5. Registrar destino interno para o 3º andar (`Cabin Panel`):
+   - Clique no botão circular `3` -> `Register` -> `Release`.
+   -> Feedback visual: LED interno do botão `3` acende em laranja (`LED: Active`).
+
+6. Fechar a porta e viajar até o 3º andar:
+   - Em `Timers and Maintenance`: clique em `Advance Time`.
+   - Em `Door Controls`: clique em `Close Automatically`.
+   - Em `Request Service`: clique em `Select Request` -> `Start Travel` ->
+     `Move One Floor` -> `Stop at Target` -> `Serve Target`.
+   -> Feedback visual: cabine sobe até `Floor 3`, todos os displays exibem `F3` e
+      o LED do botão interno `3` apaga.
+
+7. Desembarcar passageiro e encerrar o ciclo:
+   - Em `Timers and Maintenance`: clique em `Advance Time`.
+   - Em `Door Controls`: clique em `Open Automatically`.
+   - Em `Cabin Load`: clique em `Clear` (ou `-75 kg`).
+   - Em `Timers and Maintenance`: clique em `Advance Time`.
+   - Em `Door Controls`: clique em `Close Automatically`.
+   -> Feedback visual: carga zera (`0 / 450 kg`), porta fecha e elevador volta ao
+      estado ocioso (`IDLE`) no `Floor 3`.
+
+
+--------------------------------------------------------------------------------
+Cenário 2: Excesso de Peso e Uso do Botão Clear
+--------------------------------------------------------------------------------
+Objetivo: Mostrar o alerta visual de sobrecarga (`> 450 kg`), o bloqueio automático
+do registro de chamadas/movimento e o esvaziamento imediato da cabine via `Clear`.
+
+Passo a passo na interface (partindo de `INITIALISATION`, com porta aberta):
+1. Simular sobrecarga (`Cabin Load`):
+   - Clique em `+200 kg`, depois `+200 kg`, depois `+75 kg` (total: `475 / 450 kg`).
+   -> Feedback visual: a barra de carga fica vermelha, o status muda para alerta
+      de excesso de peso, a borda da cabine muda de cor e o display OLED exibe
+      `Overweight: Yes`.
+
+2. Tentar registrar chamada interna com sobrecarga (`Cabin Panel`):
+   - Clique no botão circular `2`.
+   -> Feedback visual: `Button: Pressed` e `Pending: Yes`, porém o botão `Register`
+      do andar 2 (assim como `Select Request` e `Start Travel`) permanece
+      desabilitado/esmaecido. A dica abaixo dos timers orienta a remover peso antes
+      de registrar o botão interno.
+
+3. Normalizar o peso (`Cabin Load`):
+   - Opção A: clique em `-75 kg` (volta para `400 / 450 kg`, `Capacity OK`).
+   - Opção B: clique em `Clear` para esvaziar instantaneamente para `0 / 450 kg`
+     (operação direta `zero_weight`, sem travar o solver do ProB).
+   -> Feedback visual: `Overweight: No`, barra volta para verde e o botão `Register`
+      do andar 2 é reabilitado.
+
+4. Concluir chamada e iniciar viagem:
+   - Em `Cabin Panel` (andar 2): clique em `Register` -> `Release`.
+   - Em `Door Controls`: clique em `Close Automatically`.
+   - Em `Request Service`: clique em `Select Request` -> `Start Travel`.
+
+
+--------------------------------------------------------------------------------
+Cenário 3: Cancelamento por Hold e Pisca em 2 Ticks da Última Chamada Interna
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar o cancelamento ao segurar um botão por 3 ticks (`Hold: 3/3`)
+quando há mais de uma chamada interna, e a rejeição com pisca em 2 estágios
+(`(1/2)` -> `(2/2)`) ao tentar cancelar a última chamada interna restante.
+
+Passo a passo na interface (partindo de `INITIALISATION`, com `Capacity OK`):
+1. Registrar duas chamadas internas (`Cabin Panel`):
+   - Botão `2` -> `Register` -> `Release`.
+   - Botão `3` -> `Register` -> `Release`.
+   -> Feedback visual: ambos os LEDs internos (`2` e `3`) ficam acesos em laranja.
+
+2. Cancelar a chamada do andar 3 segurando o botão:
+   - Clique no botão `3` e depois em `Register` (mantendo `Button: Pressed`).
+   - Em `Timers and Maintenance`: clique em `Advance Time` 4 vezes
+     (nos 3 primeiros cliques, `Hold` avança `1/3 -> 2/3 -> 3/3`; no 4º clique,
+     `Pending` passa para `Yes` e a dica orienta a clicar em `Cancel`/`Reject`).
+   - Na linha do andar 3 (`Cabin Panel`): clique em `Cancel` -> `Release`.
+   -> Feedback visual: a chamada do andar 3 é cancelada e seu LED apaga, mantendo
+      apenas o andar 2 ativo.
+
+3. Tentar cancelar a última chamada interna restante (andar 2):
+   - Clique no botão `2` -> `Register` (mantendo `Button: Pressed`).
+   - Em `Timers and Maintenance`: clique em `Advance Time` 4 vezes
+     (`Hold: 3/3` e `Pending: Yes`).
+   - Na linha do andar 2 (`Cabin Panel`): observe que `Cancel` está desabilitado e
+     clique em `Reject` -> `Release`.
+   -> Feedback visual: o LED do botão `2` fica azul tracejado (`Blinking LED`)
+      indicando o 1º estágio do pisca `(1/2)`.
+
+4. Acompanhar o ciclo completo de 2 ticks do pisca (`Timers and Maintenance`):
+   - Clique em `Advance Time` (1º tick): o LED continua piscando no estágio `(2/2)`.
+   - Clique em `Advance Time` (2º tick): o LED volta a ficar aceso fixo em laranja
+     (`Active LED`), confirmando que a última chamada interna foi preservada.
+
+
+--------------------------------------------------------------------------------
+Cenário 4: Modo de Manutenção Seguro e Pisca de Botões em 2 Estágios
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar que o modo de manutenção exige porta aberta (impedindo
+passageiros presos), exibe `MAINT` em todos os displays externos e interno, e faz
+qualquer botão pressionado piscar por 2 ticks via `Maintenance Tick`.
+
+Passo a passo na interface:
+1. Verificar a trava de porta fechada (opcional):
+   - Partindo de `INITIALISATION`, clique em `Close Automatically` (`Door Controls`)
+     e em `Insert Key` (`Timers and Maintenance`).
+   -> Feedback visual: mesmo com a chave inserida e o elevador parado, o botão
+      `Start Maintenance` permanece desabilitado enquanto `Door Closed`.
+   - Clique em `Advance Time` e depois em `Open Automatically` para reabrir a porta.
+
+2. Entrar no modo de manutenção (`Timers and Maintenance`):
+   - (Opcional) Adicione `+75 kg` em `Cabin Load` e registre alguma chamada antes,
+     para observar o cancelamento automático de chamadas e a segurança de desembarque.
+   - Clique em `Insert Key` (se ainda não inseriu) e depois em `Start Maintenance`.
+   -> Feedback visual: todas as chamadas ativas são canceladas, todos os LEDs
+      apagam, a cabine fica destacada em âmbar (`MAINT`), o OLED mostra
+      `Maintenance: On` e todos os 3 painéis externos (`Floor 1`, `Floor 2`,
+      `Floor 3`) exibem `MAINT`.
+
+3. Verificar a garantia de porta sempre aberta:
+   - Em `Door Controls`: observe que `Close Automatically` e `Close Immediately`
+     ficam desabilitados enquanto o elevador estiver em manutenção.
+   - Em `Cabin Load`: se houver carga na cabine, `-75 kg` e `Clear` continuam
+     habilitados para saída segura dos passageiros.
+
+4. Testar clique em botões durante manutenção (pisca de 2 ticks):
+   - Clique em qualquer botão de andar ou porta (por exemplo, botão `2` em
+     `Cabin Panel`, `▲` em `Floor 1` ou `Open Door` em `Door Controls`).
+   -> Feedback visual: nenhuma chamada é registrada e o LED do botão pressionado
+      passa a piscar em azul no estágio `(1/2)`.
+   - Em `Timers and Maintenance`: clique em `Maintenance Tick` 1 vez (estágio `(2/2)`)
+     e clique em `Maintenance Tick` novamente (o LED apaga por completo).
+   - Clique em `Release` no botão pressionado.
+
+5. Sair do modo de manutenção (`Timers and Maintenance`):
+   - Clique em `Stop Maintenance`.
+   -> Feedback visual: aviso `MAINT` desaparece da cabine e dos displays externos,
+      retornando ao modo normal de operação.
+
+
+--------------------------------------------------------------------------------
+Cenário 5: Estado Quebrado por Porta Aberta e Uso do Broken Tick
+--------------------------------------------------------------------------------
+Objetivo: Demonstrar a entrada automática no estado quebrado ao atingir 120 ticks
+com a porta aberta, o bloqueio de registro de chamadas nesse estado, a limpeza via
+`Broken Tick` e a recuperação ao fechar a porta.
+
+Passo a passo na interface (partindo de `INITIALISATION`, com porta aberta):
+1. Atingir o limite de porta aberta (`Timers and Maintenance`):
+   - Avance `Advance Time` até `Door Open Timer` chegar a `120 / 120 ticks`.
+   -> Feedback visual: a barra `Door Open Timer` chega a 120/120 em vermelho, a
+      cabine ganha destaque vermelho (`BROKEN`), o ícone vermelho `!` acende no
+      display OLED e todos os painéis externos exibem o aviso de pane.
+
+2. Testar o comportamento de botões com o elevador quebrado:
+   - Clique em um botão interno (ex.: botão `2` em `Cabin Panel`) e/ou externo
+     (ex.: `▲` em `Floor 2`).
+   -> Feedback visual: o estado físico muda para `Button: Pressed`, mas `Pending`
+      permanece `No` e as ações `Register`, `Release`, `Cancel`, `Reject` e
+      `Select Request` ficam bloqueadas.
+
+3. Limpar os botões pressionados (`Timers and Maintenance`):
+   - Observe que `Broken Tick` fica habilitado e a dica de estado orienta seu uso.
+   - Clique em `Broken Tick`.
+   -> Feedback visual: todos os botões de andar e direção pressionados são
+      liberados automaticamente e seus timers de hold são zerados.
+
+4. Recuperar o elevador fechando a porta (`Cabin Panel -> Door Controls`):
+   - Clique em `Close Automatically` (ou clique em `Close Door` -> `Close Immediately`
+     -> `Release`).
+   -> Feedback visual: a porta se fecha, `Door Open Timer` zera para `0 / 120 ticks`,
+      o estado `BROKEN` / `!` é limpo e a operação normal é restabelecida.
+================================================================================
