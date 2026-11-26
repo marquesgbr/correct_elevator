@@ -113,6 +113,12 @@ OPERATIONS
         button_floor_timer(ffloor) := 0
     END;
 
+    reset_all_button_timers =
+    BEGIN
+        button_dir_timer := BUTTONS_IN_FLOORS * {0} ||
+        button_floor_timer := FLOORS * {0}
+    END;
+
     /* Used when closing the door: reset the open timer and clear the broken
        latch atomically, even if the old door state is still open. */
     reset_open_door_timer_and_clear_broken =

@@ -44,6 +44,14 @@ OPERATIONS
             END
         END;
 
+    reset_weight =
+        PRE
+            curr_weight > 0
+        THEN
+            curr_weight := 0 ||
+            exceeds_capacity := FALSE
+        END;
+
     /* ---------------------------------------------------------
        Query Operations (Consultas)
        --------------------------------------------------------- */

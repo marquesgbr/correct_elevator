@@ -1,0 +1,2494 @@
+{
+  "svg": "elevator.svg",
+  "items": [
+    {
+      "id": "floor_3_target_bar",
+      "attr": "fill",
+      "value": "IF curr_active_request = 3 THEN \"#16a34a\" ELSIF curr_floor = 3 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "floor_3_label",
+      "attr": "fill",
+      "value": "IF curr_floor = 3 THEN \"#1d4ed8\" ELSIF curr_active_request = 3 THEN \"#15803d\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "floor_2_target_bar",
+      "attr": "fill",
+      "value": "IF curr_active_request = 2 THEN \"#16a34a\" ELSIF curr_floor = 2 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "floor_2_label",
+      "attr": "fill",
+      "value": "IF curr_floor = 2 THEN \"#1d4ed8\" ELSIF curr_active_request = 2 THEN \"#15803d\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "floor_1_target_bar",
+      "attr": "fill",
+      "value": "IF curr_active_request = 1 THEN \"#16a34a\" ELSIF curr_floor = 1 THEN \"#2563eb\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "floor_1_label",
+      "attr": "fill",
+      "value": "IF curr_floor = 1 THEN \"#1d4ed8\" ELSIF curr_active_request = 1 THEN \"#15803d\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "cabin_group",
+      "attr": "y",
+      "value": "662 - (curr_floor * 180)"
+    },
+    {
+      "id": "shaft_cable",
+      "attr": "y2",
+      "value": "662 - (curr_floor * 180)"
+    },
+    {
+      "id": "cabin_body",
+      "attr": "stroke",
+      "value": "IF maintenance_mode = TRUE THEN \"#d97706\" ELSIF cabin_broken = TRUE THEN \"#dc2626\" ELSIF exceeds_capacity = TRUE THEN \"#ea580c\" ELSIF curr_state /= rest THEN \"#16a34a\" ELSE \"#2563eb\" END"
+    },
+    {
+      "id": "cabin_body",
+      "attr": "fill",
+      "value": "IF maintenance_mode = TRUE THEN \"#fef3c7\" ELSIF cabin_broken = TRUE THEN \"#fee2e2\" ELSE \"#ffffff\" END"
+    },
+    {
+      "id": "cabin_floor_text",
+      "attr": "text",
+      "value": "IF curr_floor = 1 THEN \"F1\" ELSIF curr_floor = 2 THEN \"F2\" ELSE \"F3\" END"
+    },
+    {
+      "id": "cabin_dir_text",
+      "attr": "text",
+      "value": "IF maintenance_mode = TRUE THEN \"MAINT\" ELSIF cabin_broken = TRUE THEN \"BROKEN\" ELSIF curr_state = moving_up THEN \"UP\" ELSIF curr_state = moving_down THEN \"DOWN\" ELSE \"IDLE\" END"
+    },
+    {
+      "id": "cabin_dir_text",
+      "attr": "fill",
+      "value": "IF maintenance_mode = TRUE THEN \"#fbbf24\" ELSIF cabin_broken = TRUE THEN \"#fca5a5\" ELSIF curr_state /= rest THEN \"#4ade80\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "cabin_door_badge",
+      "attr": "text",
+      "value": "IF door_state = door_open THEN \"Door Open\" ELSE \"Door Closed\" END"
+    },
+    {
+      "id": "cabin_door_badge",
+      "attr": "fill",
+      "value": "IF door_state = door_open THEN \"#15803d\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "cabin_weight_txt",
+      "attr": "text",
+      "value": "curr_weight"
+    },
+    {
+      "id": "cabin_load_bar",
+      "attr": "width",
+      "value": "IF curr_weight >= MAX_CAPACITY THEN 100 ELSE (curr_weight * 100) / MAX_CAPACITY END"
+    },
+    {
+      "id": "cabin_load_bar",
+      "attr": "fill",
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSIF curr_weight >= 350 THEN \"#d97706\" ELSE \"#16a34a\" END"
+    },
+    {
+      "id": "cabin_door_left",
+      "attr": "width",
+      "value": "IF door_state = door_open THEN 11 ELSE 57 END"
+    },
+    {
+      "id": "cabin_door_right",
+      "attr": "x",
+      "value": "IF door_state = door_open THEN 118 ELSE 72 END"
+    },
+    {
+      "id": "cabin_door_right",
+      "attr": "width",
+      "value": "IF door_state = door_open THEN 11 ELSE 57 END"
+    },
+    {
+      "id": "cabin_door_left",
+      "attr": "fill",
+      "value": "IF door_state = door_open THEN \"#64748b\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_door_right",
+      "attr": "fill",
+      "value": "IF door_state = door_open THEN \"#64748b\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "cabin_tooltip",
+      "attr": "text",
+      "value": "IF maintenance_mode = TRUE THEN \"Cabin parked in maintenance mode\" ELSIF cabin_broken = TRUE THEN \"Cabin out of service (door open >= 120 ticks)\" ELSIF exceeds_capacity = TRUE THEN \"Cabin blocked due to overload (> 450 kg)\" ELSIF curr_state /= rest THEN \"Cabin in motion\" ELSE \"Cabin idle\" END"
+    },
+    {
+      "id": "ext_disp_fl_3",
+      "attr": "text",
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
+    },
+    {
+      "id": "ext_disp_dir_3",
+      "attr": "text",
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+    },
+    {
+      "id": "ext_disp_dir_3",
+      "attr": "fill",
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_display_3",
+      "attr": "stroke",
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 3 THEN \"#2563eb\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "ext_led_down_3",
+      "attr": "fill",
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "ext_led_down_3",
+      "attr": "stroke",
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_led_down_3",
+      "attr": "stroke-dasharray",
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "ext_btn_down_3_bg",
+      "attr": "fill",
+      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "ext_btn_down_3_bg",
+      "attr": "stroke",
+      "value": "IF button_dir_press(3, button_dir_down) = button_press THEN \"#2563eb\" ELSIF button_dir_led(3, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "ext_status_down_3",
+      "attr": "text",
+      "value": "IF (3 |-> button_dir_down) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (3 |-> button_dir_down) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(3, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+    },
+    {
+      "id": "ext_status_down_3",
+      "attr": "fill",
+      "value": "IF button_dir_led(3, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(3, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_unproc_down_3",
+      "attr": "text",
+      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "ext_unproc_down_3",
+      "attr": "fill",
+      "value": "IF (3 |-> button_dir_down) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "ext_timer_down_3",
+      "attr": "text",
+      "value": "IF button_dir_timer(3, button_dir_down) = 0 THEN \"Hold: 0/3\" ELSIF button_dir_timer(3, button_dir_down) = 1 THEN \"Hold: 1/3\" ELSIF button_dir_timer(3, button_dir_down) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "ext_timer_down_3",
+      "attr": "fill",
+      "value": "IF button_dir_timer(3, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_disp_fl_2",
+      "attr": "text",
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
+    },
+    {
+      "id": "ext_disp_dir_2",
+      "attr": "text",
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+    },
+    {
+      "id": "ext_disp_dir_2",
+      "attr": "fill",
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_display_2",
+      "attr": "stroke",
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 2 THEN \"#2563eb\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "ext_led_up_2",
+      "attr": "fill",
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "ext_led_up_2",
+      "attr": "stroke",
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_led_up_2",
+      "attr": "stroke-dasharray",
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "ext_btn_up_2_bg",
+      "attr": "fill",
+      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "ext_btn_up_2_bg",
+      "attr": "stroke",
+      "value": "IF button_dir_press(2, button_dir_up) = button_press THEN \"#2563eb\" ELSIF button_dir_led(2, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "ext_status_up_2",
+      "attr": "text",
+      "value": "IF (2 |-> button_dir_up) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (2 |-> button_dir_up) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(2, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+    },
+    {
+      "id": "ext_status_up_2",
+      "attr": "fill",
+      "value": "IF button_dir_led(2, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_unproc_up_2",
+      "attr": "text",
+      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "ext_unproc_up_2",
+      "attr": "fill",
+      "value": "IF (2 |-> button_dir_up) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "ext_timer_up_2",
+      "attr": "text",
+      "value": "IF button_dir_timer(2, button_dir_up) = 0 THEN \"Hold: 0/3\" ELSIF button_dir_timer(2, button_dir_up) = 1 THEN \"Hold: 1/3\" ELSIF button_dir_timer(2, button_dir_up) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "ext_timer_up_2",
+      "attr": "fill",
+      "value": "IF button_dir_timer(2, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_led_down_2",
+      "attr": "fill",
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "ext_led_down_2",
+      "attr": "stroke",
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_led_down_2",
+      "attr": "stroke-dasharray",
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "ext_btn_down_2_bg",
+      "attr": "fill",
+      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "ext_btn_down_2_bg",
+      "attr": "stroke",
+      "value": "IF button_dir_press(2, button_dir_down) = button_press THEN \"#2563eb\" ELSIF button_dir_led(2, button_dir_down) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "ext_status_down_2",
+      "attr": "text",
+      "value": "IF (2 |-> button_dir_down) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (2 |-> button_dir_down) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(2, button_dir_down) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+    },
+    {
+      "id": "ext_status_down_2",
+      "attr": "fill",
+      "value": "IF button_dir_led(2, button_dir_down) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(2, button_dir_down) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_unproc_down_2",
+      "attr": "text",
+      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "ext_unproc_down_2",
+      "attr": "fill",
+      "value": "IF (2 |-> button_dir_down) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "ext_timer_down_2",
+      "attr": "text",
+      "value": "IF button_dir_timer(2, button_dir_down) = 0 THEN \"Hold: 0/3\" ELSIF button_dir_timer(2, button_dir_down) = 1 THEN \"Hold: 1/3\" ELSIF button_dir_timer(2, button_dir_down) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "ext_timer_down_2",
+      "attr": "fill",
+      "value": "IF button_dir_timer(2, button_dir_down) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_disp_fl_1",
+      "attr": "text",
+      "value": "IF panel_curr_floor = 1 THEN \"F1\" ELSIF panel_curr_floor = 2 THEN \"F2\" ELSIF panel_curr_floor = 3 THEN \"F3\" ELSE \"--\" END"
+    },
+    {
+      "id": "ext_disp_dir_1",
+      "attr": "text",
+      "value": "IF maintenance_indicator = TRUE THEN \"MAINT\" ELSIF panel_curr_direction = panel_dir_up THEN \"UP\" ELSIF panel_curr_direction = panel_dir_down THEN \"DOWN\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"BROKEN\" ELSE \"IDLE\" END"
+    },
+    {
+      "id": "ext_disp_dir_1",
+      "attr": "fill",
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSIF panel_curr_direction /= panel_dir_inactive THEN \"#4ade80\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_display_1",
+      "attr": "stroke",
+      "value": "IF maintenance_indicator = TRUE THEN \"#d97706\" ELSIF curr_floor = 1 THEN \"#2563eb\" ELSE \"#334155\" END"
+    },
+    {
+      "id": "ext_led_up_1",
+      "attr": "fill",
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "ext_led_up_1",
+      "attr": "stroke",
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "ext_led_up_1",
+      "attr": "stroke-dasharray",
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "ext_btn_up_1_bg",
+      "attr": "fill",
+      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "ext_btn_up_1_bg",
+      "attr": "stroke",
+      "value": "IF button_dir_press(1, button_dir_up) = button_press THEN \"#2563eb\" ELSIF button_dir_led(1, button_dir_up) = button_led_active THEN \"#f59e0b\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "ext_status_up_1",
+      "attr": "text",
+      "value": "IF (1 |-> button_dir_up) : dir_blink_off_first THEN \"LED: Blink (1/2)\" ELSIF (1 |-> button_dir_up) : pending_dir_blink_off THEN \"LED: Blink (2/2)\" ELSIF button_dir_led(1, button_dir_up) = button_led_active THEN \"LED: On\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Off\" END"
+    },
+    {
+      "id": "ext_status_up_1",
+      "attr": "fill",
+      "value": "IF button_dir_led(1, button_dir_up) = button_led_active THEN \"#b45309\" ELSIF button_dir_led(1, button_dir_up) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "ext_unproc_up_1",
+      "attr": "text",
+      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "ext_unproc_up_1",
+      "attr": "fill",
+      "value": "IF (1 |-> button_dir_up) : dir_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "ext_timer_up_1",
+      "attr": "text",
+      "value": "IF button_dir_timer(1, button_dir_up) = 0 THEN \"Hold: 0/3\" ELSIF button_dir_timer(1, button_dir_up) = 1 THEN \"Hold: 1/3\" ELSIF button_dir_timer(1, button_dir_up) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "ext_timer_up_1",
+      "attr": "fill",
+      "value": "IF button_dir_timer(1, button_dir_up) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "panel_floor_digit",
+      "attr": "text",
+      "value": "IF panel_curr_floor = 1 THEN \"1\" ELSIF panel_curr_floor = 2 THEN \"2\" ELSIF panel_curr_floor = 3 THEN \"3\" ELSE \"--\" END"
+    },
+    {
+      "id": "panel_floor_digit",
+      "attr": "fill",
+      "value": "IF maintenance_mode = TRUE THEN \"#fbbf24\" ELSIF panel_curr_direction = panel_dir_broken_elevator THEN \"#f87171\" ELSE \"#38bdf8\" END"
+    },
+    {
+      "id": "oled_cabin_floor_sub",
+      "attr": "text",
+      "value": "IF curr_floor = 1 THEN \"Cabin Position: 1\" ELSIF curr_floor = 2 THEN \"Cabin Position: 2\" ELSE \"Cabin Position: 3\" END"
+    },
+    {
+      "id": "ind_direction_up",
+      "attr": "fill",
+      "value": "IF panel_curr_direction = panel_dir_up THEN \"#22c55e\" ELSE \"#1e293b\" END"
+    },
+    {
+      "id": "ind_direction_down",
+      "attr": "fill",
+      "value": "IF panel_curr_direction = panel_dir_down THEN \"#22c55e\" ELSE \"#1e293b\" END"
+    },
+    {
+      "id": "ind_direction_idle",
+      "attr": "fill",
+      "value": "IF panel_curr_direction = panel_dir_inactive THEN \"#38bdf8\" ELSE \"#1e293b\" END"
+    },
+    {
+      "id": "ind_direction_broken",
+      "attr": "visibility",
+      "value": "IF panel_curr_direction = panel_dir_broken_elevator THEN \"visible\" ELSE \"hidden\" END"
+    },
+    {
+      "id": "oled_motion_txt",
+      "attr": "text",
+      "value": "IF curr_state = moving_up THEN \"State: Moving Up\" ELSIF curr_state = moving_down THEN \"State: Moving Down\" ELSE \"State: Idle\" END"
+    },
+    {
+      "id": "oled_door_txt",
+      "attr": "text",
+      "value": "IF door_state = door_open THEN \"Door: Open\" ELSE \"Door: Closed\" END"
+    },
+    {
+      "id": "oled_door_txt",
+      "attr": "fill",
+      "value": "IF door_state = door_open THEN \"#4ade80\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "oled_target_txt",
+      "attr": "text",
+      "value": "IF curr_active_request = 1 THEN \"Target: Floor 1\" ELSIF curr_active_request = 2 THEN \"Target: Floor 2\" ELSIF curr_active_request = 3 THEN \"Target: Floor 3\" ELSIF stop_at_next_floor_requested = TRUE THEN \"Target: Next Floor\" ELSE \"Target: None\" END"
+    },
+    {
+      "id": "oled_target_txt",
+      "attr": "fill",
+      "value": "IF curr_active_request /= NO_REQUEST THEN \"#fbbf24\" ELSIF stop_at_next_floor_requested = TRUE THEN \"#fb7185\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "oled_overweight_flag",
+      "attr": "text",
+      "value": "IF excess_weight_indicator = TRUE THEN \"Overweight: Yes\" ELSE \"Overweight: No\" END"
+    },
+    {
+      "id": "oled_overweight_flag",
+      "attr": "fill",
+      "value": "IF excess_weight_indicator = TRUE THEN \"#f87171\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "oled_maint_flag",
+      "attr": "text",
+      "value": "IF maintenance_indicator = TRUE THEN \"Maintenance: On\" ELSE \"Maintenance: Off\" END"
+    },
+    {
+      "id": "oled_maint_flag",
+      "attr": "fill",
+      "value": "IF maintenance_indicator = TRUE THEN \"#fbbf24\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "int_led_floor_3",
+      "attr": "fill",
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "int_led_floor_3",
+      "attr": "stroke",
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "int_led_floor_3",
+      "attr": "stroke-dasharray",
+      "value": "IF button_floor_led(3) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "int_btn_floor_3_bg",
+      "attr": "fill",
+      "value": "IF button_floor_press(3) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
+    },
+    {
+      "id": "int_btn_floor_3_bg",
+      "attr": "stroke",
+      "value": "IF button_floor_press(3) = button_press THEN \"#2563eb\" ELSIF button_floor_led(3) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "int_status_3",
+      "attr": "text",
+      "value": "IF 3 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 3 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 3 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 3 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(3) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(3) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+    },
+    {
+      "id": "int_status_3",
+      "attr": "fill",
+      "value": "IF button_floor_led(3) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(3) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_press_3",
+      "attr": "text",
+      "value": "IF button_floor_press(3) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
+    },
+    {
+      "id": "int_press_3",
+      "attr": "fill",
+      "value": "IF button_floor_press(3) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_unproc_3",
+      "attr": "text",
+      "value": "IF 3 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "int_unproc_3",
+      "attr": "fill",
+      "value": "IF 3 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "int_timer_3",
+      "attr": "text",
+      "value": "IF button_floor_timer(3) = 0 THEN \"Hold: 0/3\" ELSIF button_floor_timer(3) = 1 THEN \"Hold: 1/3\" ELSIF button_floor_timer(3) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "int_timer_3",
+      "attr": "fill",
+      "value": "IF button_floor_timer(3) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_led_floor_2",
+      "attr": "fill",
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "int_led_floor_2",
+      "attr": "stroke",
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "int_led_floor_2",
+      "attr": "stroke-dasharray",
+      "value": "IF button_floor_led(2) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "int_btn_floor_2_bg",
+      "attr": "fill",
+      "value": "IF button_floor_press(2) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
+    },
+    {
+      "id": "int_btn_floor_2_bg",
+      "attr": "stroke",
+      "value": "IF button_floor_press(2) = button_press THEN \"#2563eb\" ELSIF button_floor_led(2) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "int_status_2",
+      "attr": "text",
+      "value": "IF 2 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 2 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 2 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 2 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(2) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(2) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+    },
+    {
+      "id": "int_status_2",
+      "attr": "fill",
+      "value": "IF button_floor_led(2) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(2) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_press_2",
+      "attr": "text",
+      "value": "IF button_floor_press(2) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
+    },
+    {
+      "id": "int_press_2",
+      "attr": "fill",
+      "value": "IF button_floor_press(2) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_unproc_2",
+      "attr": "text",
+      "value": "IF 2 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "int_unproc_2",
+      "attr": "fill",
+      "value": "IF 2 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "int_timer_2",
+      "attr": "text",
+      "value": "IF button_floor_timer(2) = 0 THEN \"Hold: 0/3\" ELSIF button_floor_timer(2) = 1 THEN \"Hold: 1/3\" ELSIF button_floor_timer(2) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "int_timer_2",
+      "attr": "fill",
+      "value": "IF button_floor_timer(2) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_led_floor_1",
+      "attr": "fill",
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "int_led_floor_1",
+      "attr": "stroke",
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "int_led_floor_1",
+      "attr": "stroke-dasharray",
+      "value": "IF button_floor_led(1) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "int_btn_floor_1_bg",
+      "attr": "fill",
+      "value": "IF button_floor_press(1) = button_press THEN \"#dbeafe\" ELSE \"#ffffff\" END"
+    },
+    {
+      "id": "int_btn_floor_1_bg",
+      "attr": "stroke",
+      "value": "IF button_floor_press(1) = button_press THEN \"#2563eb\" ELSIF button_floor_led(1) = button_led_active THEN \"#f59e0b\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0284c7\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "int_status_1",
+      "attr": "text",
+      "value": "IF 1 : floor_blink_on_first THEN \"LED: Blink (1/2) -> On\" ELSIF 1 : pending_floor_blink_on THEN \"LED: Blink (2/2) -> On\" ELSIF 1 : floor_blink_off_first THEN \"LED: Blink (1/2) -> Off\" ELSIF 1 : pending_floor_blink_off THEN \"LED: Blink (2/2) -> Off\" ELSIF button_floor_led(1) = button_led_active THEN \"LED: Active\" ELSIF button_floor_led(1) = button_led_blinking THEN \"LED: Blinking\" ELSE \"LED: Inactive\" END"
+    },
+    {
+      "id": "int_status_1",
+      "attr": "fill",
+      "value": "IF button_floor_led(1) = button_led_active THEN \"#b45309\" ELSIF button_floor_led(1) = button_led_blinking THEN \"#0369a1\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_press_1",
+      "attr": "text",
+      "value": "IF button_floor_press(1) = button_press THEN \"Button: Pressed\" ELSE \"Button: Released\" END"
+    },
+    {
+      "id": "int_press_1",
+      "attr": "fill",
+      "value": "IF button_floor_press(1) = button_press THEN \"#1d4ed8\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "int_unproc_1",
+      "attr": "text",
+      "value": "IF 1 : floor_button_unprocessed THEN \"Pending: Yes\" ELSE \"Pending: No\" END"
+    },
+    {
+      "id": "int_unproc_1",
+      "attr": "fill",
+      "value": "IF 1 : floor_button_unprocessed THEN \"#b45309\" ELSE \"#64748b\" END"
+    },
+    {
+      "id": "int_timer_1",
+      "attr": "text",
+      "value": "IF button_floor_timer(1) = 0 THEN \"Hold: 0/3\" ELSIF button_floor_timer(1) = 1 THEN \"Hold: 1/3\" ELSIF button_floor_timer(1) = 2 THEN \"Hold: 2/3\" ELSE \"Hold: 3/3\" END"
+    },
+    {
+      "id": "int_timer_1",
+      "attr": "fill",
+      "value": "IF button_floor_timer(1) >= BUTTON_HOLD_LIMIT THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "txt_door_changed",
+      "attr": "text",
+      "value": "IF door_state_changed = TRUE THEN \"Door Changed: Yes\" ELSE \"Door Changed: No\" END"
+    },
+    {
+      "id": "txt_door_changed",
+      "attr": "fill",
+      "value": "IF door_state_changed = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "led_door_open",
+      "attr": "fill",
+      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "led_door_open",
+      "attr": "stroke",
+      "value": "IF button_door_led(button_door_open) = button_led_active THEN \"#b45309\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "led_door_open",
+      "attr": "stroke-dasharray",
+      "value": "IF button_door_led(button_door_open) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "led_door_close",
+      "attr": "fill",
+      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#f59e0b\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#0284c7\" ELSE \"#e2e8f0\" END"
+    },
+    {
+      "id": "led_door_close",
+      "attr": "stroke",
+      "value": "IF button_door_led(button_door_close) = button_led_active THEN \"#b45309\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"#0369a1\" ELSE \"#94a3b8\" END"
+    },
+    {
+      "id": "led_door_close",
+      "attr": "stroke-dasharray",
+      "value": "IF button_door_led(button_door_close) = button_led_blinking THEN \"3 2\" ELSE \"none\" END"
+    },
+    {
+      "id": "btn_door_open_bg",
+      "attr": "fill",
+      "value": "IF button_door_press(button_door_open) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "btn_door_close_bg",
+      "attr": "fill",
+      "value": "IF button_door_press(button_door_close) = button_press THEN \"#dbeafe\" ELSE \"#f8fafc\" END"
+    },
+    {
+      "id": "txt_door_btn_open_state",
+      "attr": "text",
+      "value": "IF button_door_press(button_door_open) = button_press & button_door_open : door_blink_off_first THEN \"Open: Pressed | Blink (1/2)\" ELSIF button_door_press(button_door_open) = button_press & button_door_open : pending_door_blink_off THEN \"Open: Pressed | Blink (2/2)\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_active THEN \"Open: Pressed | LED On\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_blinking THEN \"Open: Pressed | Blinking\" ELSIF button_door_press(button_door_open) = button_press & button_door_led(button_door_open) = button_led_inactive THEN \"Open: Pressed | LED Off\" ELSIF button_door_open : door_blink_off_first THEN \"Open: Released | Blink (1/2)\" ELSIF button_door_open : pending_door_blink_off THEN \"Open: Released | Blink (2/2)\" ELSIF button_door_led(button_door_open) = button_led_blinking THEN \"Open: Released | Blinking\" ELSE \"Open: Released | LED Off\" END"
+    },
+    {
+      "id": "txt_door_btn_close_state",
+      "attr": "text",
+      "value": "IF button_door_press(button_door_close) = button_press & button_door_close : door_blink_off_first THEN \"Close: Pressed | Blink (1/2)\" ELSIF button_door_press(button_door_close) = button_press & button_door_close : pending_door_blink_off THEN \"Close: Pressed | Blink (2/2)\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_active THEN \"Close: Pressed | LED On\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_blinking THEN \"Close: Pressed | Blinking\" ELSIF button_door_press(button_door_close) = button_press & button_door_led(button_door_close) = button_led_inactive THEN \"Close: Pressed | LED Off\" ELSIF button_door_close : door_blink_off_first THEN \"Close: Released | Blink (1/2)\" ELSIF button_door_close : pending_door_blink_off THEN \"Close: Released | Blink (2/2)\" ELSIF button_door_led(button_door_close) = button_led_blinking THEN \"Close: Released | Blinking\" ELSE \"Close: Released | LED Off\" END"
+    },
+    {
+      "id": "txt_weight",
+      "attr": "text",
+      "value": "curr_weight"
+    },
+    {
+      "id": "txt_weight_state",
+      "attr": "text",
+      "value": "IF exceeds_capacity = TRUE THEN \"Overweight\" ELSE \"Capacity OK\" END"
+    },
+    {
+      "id": "txt_weight_state",
+      "attr": "fill",
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSE \"#15803d\" END"
+    },
+    {
+      "id": "weight_bar_fill",
+      "attr": "width",
+      "value": "IF curr_weight >= MAX_CAPACITY THEN 364 ELSE (curr_weight * 364) / MAX_CAPACITY END"
+    },
+    {
+      "id": "weight_bar_fill",
+      "attr": "fill",
+      "value": "IF exceeds_capacity = TRUE THEN \"#dc2626\" ELSIF curr_weight >= 350 THEN \"#d97706\" ELSE \"#16a34a\" END"
+    },
+    {
+      "id": "txt_timer",
+      "attr": "text",
+      "value": "door_open_timer"
+    },
+    {
+      "id": "door_timer_bar",
+      "attr": "width",
+      "value": "(door_open_timer * 368) / DOOR_OPEN_LIMIT"
+    },
+    {
+      "id": "door_timer_bar",
+      "attr": "fill",
+      "value": "IF door_open_timer >= DOOR_OPEN_LIMIT THEN \"#dc2626\" ELSIF door_open_timer >= 90 THEN \"#d97706\" ELSE \"#2563eb\" END"
+    },
+    {
+      "id": "txt_tick_hint",
+      "attr": "text",
+      "value": "IF maintenance_mode = TRUE THEN \"Maintenance mode: use Maintenance Tick for blinking LEDs.\" ELSIF cabin_broken = TRUE & (button_press : ran(button_floor_press) or button_press : ran(button_dir_press)) THEN \"Broken: click Broken Tick to clear pressed buttons.\" ELSIF cabin_broken = TRUE THEN \"Blocked: elevator out of service (close the door).\" ELSIF BUTTON_HOLD_LIMIT : button_floor_timer[floor_button_unprocessed] or BUTTON_HOLD_LIMIT : button_dir_timer[dir_button_unprocessed] THEN \"Hold limit reached: click Cancel or Reject on the pending button.\" ELSIF floor_button_unprocessed /= {} & exceeds_capacity = TRUE THEN \"Overweight: remove load before registering the internal button.\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"Click Register on the pending button.\" ELSE \"Advance Time enabled (updates hold and door timers).\" END"
+    },
+    {
+      "id": "txt_tick_hint",
+      "attr": "fill",
+      "value": "IF maintenance_mode = TRUE THEN \"#b45309\" ELSIF cabin_broken = TRUE THEN \"#dc2626\" ELSIF floor_button_unprocessed /= {} or dir_button_unprocessed /= {} THEN \"#b45309\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_curr_floor",
+      "attr": "text",
+      "value": "IF curr_floor = 1 THEN \"Floor: 1\" ELSIF curr_floor = 2 THEN \"Floor: 2\" ELSE \"Floor: 3\" END"
+    },
+    {
+      "id": "diag_panel_floor",
+      "attr": "text",
+      "value": "IF panel_curr_floor = 1 THEN \"Display: 1\" ELSIF panel_curr_floor = 2 THEN \"Display: 2\" ELSIF panel_curr_floor = 3 THEN \"Display: 3\" ELSE \"Display: -1\" END"
+    },
+    {
+      "id": "diag_curr_state",
+      "attr": "text",
+      "value": "IF curr_state = moving_up THEN \"Moving Up\" ELSIF curr_state = moving_down THEN \"Moving Down\" ELSE \"Idle\" END"
+    },
+    {
+      "id": "diag_curr_state",
+      "attr": "fill",
+      "value": "IF curr_state /= rest THEN \"#15803d\" ELSE \"#0f172a\" END"
+    },
+    {
+      "id": "diag_sweep_dir",
+      "attr": "text",
+      "value": "IF sweep_direction = up THEN \"Sweep: Up\" ELSE \"Sweep: Down\" END"
+    },
+    {
+      "id": "diag_active_req",
+      "attr": "text",
+      "value": "IF curr_active_request = 1 THEN \"Target: 1\" ELSIF curr_active_request = 2 THEN \"Target: 2\" ELSIF curr_active_request = 3 THEN \"Target: 3\" ELSE \"None\" END"
+    },
+    {
+      "id": "diag_active_req",
+      "attr": "fill",
+      "value": "IF curr_active_request /= NO_REQUEST THEN \"#b45309\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_stop_next",
+      "attr": "text",
+      "value": "IF stop_at_next_floor_requested = TRUE THEN \"Next Stop: Yes\" ELSE \"Next Stop: No\" END"
+    },
+    {
+      "id": "diag_stop_next",
+      "attr": "fill",
+      "value": "IF stop_at_next_floor_requested = TRUE THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_key",
+      "attr": "text",
+      "value": "IF key_inserted = TRUE THEN \"Key: In\" ELSE \"Key: Out\" END"
+    },
+    {
+      "id": "diag_key",
+      "attr": "fill",
+      "value": "IF key_inserted = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_maint",
+      "attr": "text",
+      "value": "IF maintenance_mode = TRUE THEN \"Maint: On\" ELSE \"Maint: Off\" END"
+    },
+    {
+      "id": "diag_maint",
+      "attr": "fill",
+      "value": "IF maintenance_mode = TRUE THEN \"#b45309\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_broken",
+      "attr": "text",
+      "value": "IF cabin_broken = TRUE THEN \"Broken: Yes\" ELSE \"Broken: No\" END"
+    },
+    {
+      "id": "diag_broken",
+      "attr": "fill",
+      "value": "IF cabin_broken = TRUE THEN \"#dc2626\" ELSE \"#475569\" END"
+    },
+    {
+      "id": "diag_unproc_int",
+      "attr": "text",
+      "value": "card(floor_button_unprocessed)"
+    },
+    {
+      "id": "diag_unproc_dir",
+      "attr": "text",
+      "value": "card(dir_button_unprocessed)"
+    },
+    {
+      "id": "diag_blink_on",
+      "attr": "text",
+      "value": "card(pending_floor_blink_on)"
+    },
+    {
+      "id": "diag_blink_off",
+      "attr": "text",
+      "value": "card(pending_floor_blink_off) + card(pending_dir_blink_off) + card(pending_door_blink_off)"
+    },
+    {
+      "id": "chip_int_1",
+      "attr": "fill",
+      "value": "IF 1 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_int_1",
+      "attr": "stroke",
+      "value": "IF 1 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_int_2",
+      "attr": "fill",
+      "value": "IF 2 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_int_2",
+      "attr": "stroke",
+      "value": "IF 2 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_int_3",
+      "attr": "fill",
+      "value": "IF 3 : internal_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_int_3",
+      "attr": "stroke",
+      "value": "IF 3 : internal_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_up_1",
+      "attr": "fill",
+      "value": "IF 1 : up_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_up_1",
+      "attr": "stroke",
+      "value": "IF 1 : up_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_up_2",
+      "attr": "fill",
+      "value": "IF 2 : up_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_up_2",
+      "attr": "stroke",
+      "value": "IF 2 : up_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_dn_2",
+      "attr": "fill",
+      "value": "IF 2 : down_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_dn_2",
+      "attr": "stroke",
+      "value": "IF 2 : down_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    },
+    {
+      "id": "chip_dn_3",
+      "attr": "fill",
+      "value": "IF 3 : down_requests THEN \"#fef3c7\" ELSE \"#f1f5f9\" END"
+    },
+    {
+      "id": "chip_dn_3",
+      "attr": "stroke",
+      "value": "IF 3 : down_requests THEN \"#f59e0b\" ELSE \"#cbd5e1\" END"
+    }
+  ],
+  "events": [
+    {
+      "id": "ext_btn_down_3",
+      "event": "press_down",
+      "hovers": [
+        {
+          "id": "ext_btn_down_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_reg_down_3",
+      "event": "register_down",
+      "hovers": [
+        {
+          "id": "ext_reg_down_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_rel_down_3",
+      "event": "release_down",
+      "hovers": [
+        {
+          "id": "ext_rel_down_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_canc_down_3",
+      "event": "cancel_down_by_time",
+      "hovers": [
+        {
+          "id": "ext_canc_down_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_btn_up_2",
+      "event": "press_up",
+      "hovers": [
+        {
+          "id": "ext_btn_up_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_reg_up_2",
+      "event": "register_up",
+      "hovers": [
+        {
+          "id": "ext_reg_up_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_rel_up_2",
+      "event": "release_up",
+      "hovers": [
+        {
+          "id": "ext_rel_up_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_canc_up_2",
+      "event": "cancel_up_by_time",
+      "hovers": [
+        {
+          "id": "ext_canc_up_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_btn_down_2",
+      "event": "press_down",
+      "hovers": [
+        {
+          "id": "ext_btn_down_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_reg_down_2",
+      "event": "register_down",
+      "hovers": [
+        {
+          "id": "ext_reg_down_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_rel_down_2",
+      "event": "release_down",
+      "hovers": [
+        {
+          "id": "ext_rel_down_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_canc_down_2",
+      "event": "cancel_down_by_time",
+      "hovers": [
+        {
+          "id": "ext_canc_down_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_btn_up_1",
+      "event": "press_up",
+      "hovers": [
+        {
+          "id": "ext_btn_up_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_reg_up_1",
+      "event": "register_up",
+      "hovers": [
+        {
+          "id": "ext_reg_up_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_rel_up_1",
+      "event": "release_up",
+      "hovers": [
+        {
+          "id": "ext_rel_up_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "ext_canc_up_1",
+      "event": "cancel_up_by_time",
+      "hovers": [
+        {
+          "id": "ext_canc_up_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "int_btn_floor_3",
+      "event": "press_internal",
+      "hovers": [
+        {
+          "id": "int_btn_floor_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reg_int_3",
+      "event": "register_internal",
+      "hovers": [
+        {
+          "id": "btn_reg_int_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_rel_int_3",
+      "event": "release_internal",
+      "hovers": [
+        {
+          "id": "btn_rel_int_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_cancel_3",
+      "event": "cancel_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_cancel_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reject_int_3",
+      "event": "reject_last_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_reject_int_3_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 3"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "int_btn_floor_2",
+      "event": "press_internal",
+      "hovers": [
+        {
+          "id": "int_btn_floor_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reg_int_2",
+      "event": "register_internal",
+      "hovers": [
+        {
+          "id": "btn_reg_int_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_rel_int_2",
+      "event": "release_internal",
+      "hovers": [
+        {
+          "id": "btn_rel_int_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_cancel_2",
+      "event": "cancel_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_cancel_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reject_int_2",
+      "event": "reject_last_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_reject_int_2_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 2"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "int_btn_floor_1",
+      "event": "press_internal",
+      "hovers": [
+        {
+          "id": "int_btn_floor_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reg_int_1",
+      "event": "register_internal",
+      "hovers": [
+        {
+          "id": "btn_reg_int_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_rel_int_1",
+      "event": "release_internal",
+      "hovers": [
+        {
+          "id": "btn_rel_int_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_cancel_1",
+      "event": "cancel_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_cancel_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_reject_int_1",
+      "event": "reject_last_internal_by_time",
+      "hovers": [
+        {
+          "id": "btn_reject_int_1_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ffloor = 1"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_door_open",
+      "event": "press_door",
+      "hovers": [
+        {
+          "id": "btn_door_open_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "dbutton = button_door_open"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_door_open_rel",
+      "event": "release_door",
+      "hovers": [
+        {
+          "id": "btn_door_open_rel_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "dbutton = button_door_open"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_open_imm",
+      "event": "open_door_immediately",
+      "hovers": [
+        {
+          "id": "btn_open_imm_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_open_auto",
+      "event": "open_door_automatically",
+      "hovers": [
+        {
+          "id": "btn_open_auto_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_door_close",
+      "event": "press_door",
+      "hovers": [
+        {
+          "id": "btn_door_close_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "dbutton = button_door_close"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_door_close_rel",
+      "event": "release_door",
+      "hovers": [
+        {
+          "id": "btn_door_close_rel_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "dbutton = button_door_close"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_close_imm",
+      "event": "close_door_immediately",
+      "hovers": [
+        {
+          "id": "btn_close_imm_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_close_auto",
+      "event": "close_door_automatically",
+      "hovers": [
+        {
+          "id": "btn_close_auto_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_select_request",
+      "event": "select_request",
+      "hovers": [
+        {
+          "id": "btn_select_request_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_start_travel",
+      "event": "start_travel",
+      "hovers": [
+        {
+          "id": "btn_start_travel_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_step_move",
+      "event": "move_travel",
+      "hovers": [
+        {
+          "id": "btn_step_move_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_stop_target",
+      "event": "stop_at_target",
+      "hovers": [
+        {
+          "id": "btn_stop_target_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_serve_target",
+      "event": "serve_target",
+      "hovers": [
+        {
+          "id": "btn_serve_target_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_cancel_stop",
+      "event": "advance_to_cancellation_stop",
+      "hovers": [
+        {
+          "id": "btn_cancel_stop_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_tick_timer",
+      "event": "advance_time",
+      "hovers": [
+        {
+          "id": "btn_tick_timer_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_maint_tick",
+      "event": "advance_maintenance_time",
+      "hovers": [
+        {
+          "id": "btn_maint_tick_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_broken_tick",
+      "event": "advance_broken_time",
+      "hovers": [
+        {
+          "id": "btn_broken_tick_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_add_weight",
+      "event": "add_passenger_weight",
+      "hovers": [
+        {
+          "id": "btn_add_weight_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ww = 75"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_add_weight_200",
+      "event": "add_passenger_weight",
+      "hovers": [
+        {
+          "id": "btn_add_weight_200_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ww = 200"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_remove_weight",
+      "event": "remove_passenger_weight",
+      "hovers": [
+        {
+          "id": "btn_remove_weight_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ww = 75"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_remove_weight_200",
+      "event": "remove_passenger_weight",
+      "hovers": [
+        {
+          "id": "btn_remove_weight_200_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "predicates": [
+        "ww = 200"
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_clear_weight",
+      "event": "zero_weight",
+      "hovers": [
+        {
+          "id": "btn_clear_weight_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_insert_key",
+      "event": "insert_key_event",
+      "hovers": [
+        {
+          "id": "btn_insert_key_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_toggle_maintenance",
+      "event": "start_maintenance",
+      "hovers": [
+        {
+          "id": "btn_toggle_maintenance_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_stop_maintenance",
+      "event": "stop_maintenance",
+      "hovers": [
+        {
+          "id": "btn_stop_maintenance_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "id": "btn_refresh_display",
+      "event": "refresh_display",
+      "hovers": [
+        {
+          "id": "btn_refresh_display_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "comment": "Unreachable operation due to ElevatorControl.mch invariant",
+      "ignore": true,
+      "id": "btn_mark_broken",
+      "event": "mark_broken",
+      "hovers": [
+        {
+          "id": "btn_mark_broken_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    },
+    {
+      "comment": "Unreachable operation due to ElevatorControl.mch invariant",
+      "ignore": true,
+      "id": "btn_clear_broken",
+      "event": "clear_broken",
+      "hovers": [
+        {
+          "id": "btn_clear_broken_bg",
+          "attr": "stroke-width",
+          "enter": "3",
+          "leave": "1.5"
+        }
+      ],
+      "items": [
+        {
+          "attr": "opacity",
+          "enabled": "\"1.0\"",
+          "disabled": "\"0.32\""
+        },
+        {
+          "attr": "cursor",
+          "enabled": "\"pointer\"",
+          "disabled": "\"not-allowed\""
+        }
+      ]
+    }
+  ]
+}

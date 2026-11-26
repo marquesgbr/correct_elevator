@@ -33,7 +33,11 @@ VARIABLES
     pending_floor_blink_off,
     pending_floor_blink_on,
     pending_dir_blink_off,
-    pending_door_blink_off
+    pending_door_blink_off,
+    floor_blink_off_first,
+    floor_blink_on_first,
+    dir_blink_off_first,
+    door_blink_off_first
 
 INVARIANT
     button_dir_led : BUTTONS_IN_FLOORS --> BUTTON_LED_STATES &
@@ -62,7 +66,15 @@ INVARIANT
     !(bb).(bb : pending_dir_blink_off =>
         button_dir_led(bb) = button_led_blinking) &
     !(dd).(dd : pending_door_blink_off =>
-        button_door_led(dd) = button_led_blinking)
+        button_door_led(dd) = button_led_blinking) &
+    floor_blink_off_first : FIN(FLOORS) &
+    floor_blink_off_first <: pending_floor_blink_off &
+    floor_blink_on_first : FIN(FLOORS) &
+    floor_blink_on_first <: pending_floor_blink_on &
+    dir_blink_off_first : FIN(BUTTONS_IN_FLOORS) &
+    dir_blink_off_first <: pending_dir_blink_off &
+    door_blink_off_first : FIN(BUTTON_DOOR_OPTIONS) &
+    door_blink_off_first <: pending_door_blink_off
 
 ASSERTIONS
     button_led_active /= button_led_inactive &
@@ -76,7 +88,13 @@ ASSERTIONS
     panel_dir_up /= panel_dir_down &
     panel_dir_up /= panel_dir_broken_elevator &
     panel_dir_down /= panel_dir_broken_elevator &
-    button_door_close /= button_door_open
+    button_door_close /= button_door_open &
+    floor_blink_off_first /\ (pending_floor_blink_off - floor_blink_off_first) = {} &
+    floor_blink_on_first /\ (pending_floor_blink_on - floor_blink_on_first) = {} &
+    dir_blink_off_first /\ (pending_dir_blink_off - dir_blink_off_first) = {} &
+    door_blink_off_first /\ (pending_door_blink_off - door_blink_off_first) = {} &
+    (pending_floor_blink_off - floor_blink_off_first) /\ pending_floor_blink_on = {} &
+    (pending_floor_blink_on - floor_blink_on_first) /\ pending_floor_blink_off = {}
 
 INITIALISATION
     /* All controls start released and all LEDs start inactive. */
@@ -97,7 +115,11 @@ INITIALISATION
     pending_floor_blink_off := {} ||
     pending_floor_blink_on := {} ||
     pending_dir_blink_off := {} ||
-    pending_door_blink_off := {}
+    pending_door_blink_off := {} ||
+    floor_blink_off_first := {} ||
+    floor_blink_on_first := {} ||
+    dir_blink_off_first := {} ||
+    door_blink_off_first := {}
 
 OPERATIONS
 
@@ -145,7 +167,8 @@ OPERATIONS
         THEN
             button_door_press(dbutton) := button_press ||
             button_door_led(dbutton) := button_led_active ||
-            pending_door_blink_off := pending_door_blink_off - {dbutton}
+            pending_door_blink_off := pending_door_blink_off - {dbutton} ||
+            door_blink_off_first := door_blink_off_first - {dbutton}
         END;
 
     release_door_button(dbutton) =
@@ -155,7 +178,8 @@ OPERATIONS
             button_door_press(dbutton) := button_released ||
             IF button_door_led(dbutton) = button_led_active THEN
                 button_door_led(dbutton) := button_led_inactive ||
-                pending_door_blink_off := pending_door_blink_off - {dbutton}
+                pending_door_blink_off := pending_door_blink_off - {dbutton} ||
+                door_blink_off_first := door_blink_off_first - {dbutton}
             END
         END;
 
@@ -168,7 +192,9 @@ OPERATIONS
             button_floor_press(ffloor) := button_press ||
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_off := pending_floor_blink_off \/ {ffloor} ||
-            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first \/ {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor}
         END;
 
     press_dir_button_and_blink_off(ffloor, ddir) =
@@ -181,7 +207,8 @@ OPERATIONS
         THEN
             button_dir_press(ffloor, ddir) := button_press ||
             button_dir_led(ffloor, ddir) := button_led_blinking ||
-            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir}
+            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir} ||
+            dir_blink_off_first := dir_blink_off_first \/ {ffloor |-> ddir}
         END;
 
     press_door_button_and_blink_off(dbutton) =
@@ -190,7 +217,8 @@ OPERATIONS
         THEN
             button_door_press(dbutton) := button_press ||
             button_door_led(dbutton) := button_led_blinking ||
-            pending_door_blink_off := pending_door_blink_off \/ {dbutton}
+            pending_door_blink_off := pending_door_blink_off \/ {dbutton} ||
+            door_blink_off_first := door_blink_off_first \/ {dbutton}
         END;
 
      /* LED control. ElevatorRequests uses these operations to keep panel
@@ -205,7 +233,8 @@ OPERATIONS
             lstate : BUTTON_LED_STATES
         THEN
             button_dir_led(ffloor, ddir) := lstate ||
-            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir} ||
+            dir_blink_off_first := dir_blink_off_first - {ffloor |-> ddir}
         END;
 
     set_floor_led(ffloor, lstate) =
@@ -215,7 +244,9 @@ OPERATIONS
         THEN
             button_floor_led(ffloor) := lstate ||
             pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
-            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor}
         END;
 
     set_door_led(dbutton, lstate) =
@@ -224,7 +255,8 @@ OPERATIONS
             lstate : BUTTON_LED_STATES
         THEN
             button_door_led(dbutton) := lstate ||
-            pending_door_blink_off := pending_door_blink_off - {dbutton}
+            pending_door_blink_off := pending_door_blink_off - {dbutton} ||
+            door_blink_off_first := door_blink_off_first - {dbutton}
         END;
 
     /* Clear a door-button LED and restore the shared display atomically. */
@@ -236,6 +268,7 @@ OPERATIONS
         THEN
             button_door_led(dbutton) := button_led_inactive ||
             pending_door_blink_off := pending_door_blink_off - {dbutton} ||
+            door_blink_off_first := door_blink_off_first - {dbutton} ||
             panel_curr_floor := ffloor ||
             panel_curr_direction := ddir
         END;
@@ -254,7 +287,11 @@ OPERATIONS
             pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
             pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
             pending_dir_blink_off :=
-                pending_dir_blink_off - (({ffloor} * BUTTON_DIR_OPTIONS) /\ BUTTONS_IN_FLOORS)
+                pending_dir_blink_off - (({ffloor} * BUTTON_DIR_OPTIONS) /\ BUTTONS_IN_FLOORS) ||
+            floor_blink_off_first := floor_blink_off_first - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor} ||
+            dir_blink_off_first :=
+                dir_blink_off_first - (({ffloor} * BUTTON_DIR_OPTIONS) /\ BUTTONS_IN_FLOORS)
         END;
 
     blink_dir_led(ffloor, ddir) =
@@ -266,7 +303,8 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_blinking ||
-            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir} ||
+            dir_blink_off_first := dir_blink_off_first - {ffloor |-> ddir}
         END;
 
     blink_floor_led(ffloor) =
@@ -275,7 +313,9 @@ OPERATIONS
         THEN
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
-            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor}
         END;
 
     blink_door_led(dbutton) =
@@ -295,7 +335,11 @@ OPERATIONS
             pending_floor_blink_off := {} ||
             pending_floor_blink_on := {} ||
             pending_dir_blink_off := {} ||
-            pending_door_blink_off := {}
+            pending_door_blink_off := {} ||
+            floor_blink_off_first := {} ||
+            floor_blink_on_first := {} ||
+            dir_blink_off_first := {} ||
+            door_blink_off_first := {}
         END;
 
     /* HLR-008: entering maintenance clears every panel LED and press state,
@@ -312,6 +356,10 @@ OPERATIONS
             pending_floor_blink_on := {} ||
             pending_dir_blink_off := {} ||
             pending_door_blink_off := {} ||
+            floor_blink_off_first := {} ||
+            floor_blink_on_first := {} ||
+            dir_blink_off_first := {} ||
+            door_blink_off_first := {} ||
             maintenance_indicator := TRUE
         END;
 
@@ -328,6 +376,10 @@ OPERATIONS
             pending_floor_blink_on := {} ||
             pending_dir_blink_off := {} ||
             pending_door_blink_off := {} ||
+            floor_blink_off_first := {} ||
+            floor_blink_on_first := {} ||
+            dir_blink_off_first := {} ||
+            door_blink_off_first := {} ||
             maintenance_indicator := FALSE
         END;
 
@@ -338,13 +390,21 @@ OPERATIONS
             button_door_press := BUTTON_DOOR_OPTIONS * {button_released}
         END;
 
+    release_floor_and_dir_buttons =
+        BEGIN
+            button_dir_press := BUTTONS_IN_FLOORS * {button_released} ||
+            button_floor_press := FLOORS * {button_released}
+        END;
+
     blink_floor_led_twice_and_switch_off(ffloor) =
         PRE
             ffloor : FLOORS
         THEN
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_off := pending_floor_blink_off \/ {ffloor} ||
-            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first \/ {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor}
         END;
 
     blink_floor_led_twice_and_keep_on(ffloor) =
@@ -353,7 +413,9 @@ OPERATIONS
         THEN
             button_floor_led(ffloor) := button_led_blinking ||
             pending_floor_blink_on := pending_floor_blink_on \/ {ffloor} ||
-            pending_floor_blink_off := pending_floor_blink_off - {ffloor}
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first \/ {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first - {ffloor}
         END;
 
     complete_floor_led_blink(ffloor) =
@@ -362,7 +424,8 @@ OPERATIONS
             ffloor : pending_floor_blink_off
         THEN
             button_floor_led(ffloor) := button_led_inactive ||
-            pending_floor_blink_off := pending_floor_blink_off - {ffloor}
+            pending_floor_blink_off := pending_floor_blink_off - {ffloor} ||
+            floor_blink_off_first := floor_blink_off_first - {ffloor}
         END;
 
     complete_floor_led_blink_and_keep_on(ffloor) =
@@ -371,7 +434,8 @@ OPERATIONS
             ffloor : pending_floor_blink_on
         THEN
             button_floor_led(ffloor) := button_led_active ||
-            pending_floor_blink_on := pending_floor_blink_on - {ffloor}
+            pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor}
         END;
 
     complete_floor_blink_on_and_show_broken(ffloor) =
@@ -380,6 +444,7 @@ OPERATIONS
         THEN
             button_floor_led(ffloor) := button_led_active ||
             pending_floor_blink_on := pending_floor_blink_on - {ffloor} ||
+            floor_blink_on_first := floor_blink_on_first - {ffloor} ||
             panel_curr_direction := panel_dir_broken_elevator
         END;
 
@@ -392,7 +457,8 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_blinking ||
-            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir}
+            pending_dir_blink_off := pending_dir_blink_off \/ {ffloor |-> ddir} ||
+            dir_blink_off_first := dir_blink_off_first \/ {ffloor |-> ddir}
         END;
 
     complete_dir_led_blink(ffloor, ddir) =
@@ -405,25 +471,51 @@ OPERATIONS
             (ddir = button_dir_down => ffloor > MIN_FLOOR)
         THEN
             button_dir_led(ffloor, ddir) := button_led_inactive ||
-            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir}
+            pending_dir_blink_off := pending_dir_blink_off - {ffloor |-> ddir} ||
+            dir_blink_off_first := dir_blink_off_first - {ffloor |-> ddir}
         END;
 
-    /* Complete all pending blink-off indications in one maintenance time
-       step. */
+    /* Complete all pending blink-off indications in 2 stages (2 ticks). */
     complete_pending_off =
         BEGIN
             button_floor_led :=
                 button_floor_led <+
-                %ff.(ff : pending_floor_blink_off | button_led_inactive) ||
-            pending_floor_blink_off := {} ||
+                %ff.(ff : (pending_floor_blink_off - floor_blink_off_first) | button_led_inactive) ||
+            pending_floor_blink_off := floor_blink_off_first ||
+            floor_blink_off_first := {} ||
             button_dir_led :=
                 button_dir_led <+
-                %bb.(bb : pending_dir_blink_off | button_led_inactive) ||
-            pending_dir_blink_off := {} ||
+                %bb.(bb : (pending_dir_blink_off - dir_blink_off_first) | button_led_inactive) ||
+            pending_dir_blink_off := dir_blink_off_first ||
+            dir_blink_off_first := {} ||
             button_door_led :=
                 button_door_led <+
-                %dd.(dd : pending_door_blink_off | button_led_inactive) ||
-            pending_door_blink_off := {}
+                %dd.(dd : (pending_door_blink_off - door_blink_off_first) | button_led_inactive) ||
+            pending_door_blink_off := door_blink_off_first ||
+            door_blink_off_first := {}
+        END;
+
+    step_floor_blink_on =
+        PRE
+            pending_floor_blink_on /= {}
+        THEN
+            button_floor_led :=
+                button_floor_led <+
+                %ff.(ff : (pending_floor_blink_on - floor_blink_on_first) | button_led_active) ||
+            pending_floor_blink_on := floor_blink_on_first ||
+            floor_blink_on_first := {}
+        END;
+
+    step_floor_blink_on_and_show_broken =
+        PRE
+            pending_floor_blink_on /= {}
+        THEN
+            button_floor_led :=
+                button_floor_led <+
+                %ff.(ff : (pending_floor_blink_on - floor_blink_on_first) | button_led_active) ||
+            pending_floor_blink_on := floor_blink_on_first ||
+            floor_blink_on_first := {} ||
+            panel_curr_direction := panel_dir_broken_elevator
         END;
 
      /* Display state. ElevatorControl uses these to mirror the cabin

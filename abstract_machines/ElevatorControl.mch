@@ -89,6 +89,7 @@ INVARIANT
 
     /* HLR-008: maintenance state, request cancellation and warning display. */
     (maintenance_mode = TRUE => curr_state = rest) &
+    (maintenance_mode = TRUE => door_state = door_open) &
     (maintenance_mode = TRUE => internal_requests = {}) &
     (maintenance_mode = TRUE => up_requests = {}) &
     (maintenance_mode = TRUE => down_requests = {}) &
@@ -118,8 +119,8 @@ ASSERTIONS
     (dir_button_unprocessed \/
         {bb | bb : BUTTONS_IN_FLOORS &
               button_dir_timer(bb) >= BUTTON_HOLD_LIMIT}) : FIN(BUTTONS_IN_FLOORS) &
-    (pending_floor_blink_on /= {} =>
-        min(pending_floor_blink_on) : internal_requests) &
+    (pending_floor_blink_on - floor_blink_on_first) <: internal_requests &
+    floor_blink_on_first <: internal_requests &
     pending_floor_blink_on - {curr_active_request} <:
         internal_requests - {curr_active_request} &
     !(cs).(cs : CABIN_STATES =>
@@ -130,6 +131,9 @@ ASSERTIONS
     (curr_active_request /= NO_REQUEST => curr_active_request : FLOORS) &
     (curr_active_request /= NO_REQUEST & curr_active_request <= curr_floor & curr_active_request /= curr_floor =>
         curr_floor > MIN_FLOOR)
+
+DEFINITIONS
+    VISB_JSON_FILE == "../visual/elevator_visb.json"
 
 INITIALISATION
     door_state_changed := FALSE ||
@@ -147,6 +151,7 @@ OPERATIONS
         END;
 
     /* HLR-007: show the broken symbol and latch the broken state together. */
+    /* 
     mark_broken =
         PRE
             cabin_broken = FALSE &
@@ -155,8 +160,9 @@ OPERATIONS
             set_cabin_broken ||
             show_panel_broken
         END;
-
+    */
     /* HLR-007: clear the broken state and restore the normal display. */
+    /*
     clear_broken =
         PRE
             cabin_broken = TRUE &
@@ -165,7 +171,7 @@ OPERATIONS
             unset_cabin_broken ||
             update_panel_display(curr_floor, panel_direction_of(curr_state))
         END;
-
+    */
     /* Time step. Control reads which buttons are pressed and passes the
        active button sets to the timer machine. */
     advance_time =
@@ -205,14 +211,29 @@ OPERATIONS
                door_state = door_open &
                door_open_timer < DOOR_OPEN_LIMIT &
                door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
-                complete_floor_blink_on_and_show_broken(min(pending_floor_blink_on))
+                step_floor_blink_on_and_show_broken
             ELSIF pending_floor_blink_on /= {} THEN
-                complete_floor_led_blink_and_keep_on(min(pending_floor_blink_on))
+                step_floor_blink_on
             ELSIF door_state = door_open &
                   door_open_timer < DOOR_OPEN_LIMIT &
                   door_open_timer + 1 >= DOOR_OPEN_LIMIT THEN
                 show_panel_broken
             END
+        END;
+
+    /* Clear all pressed floor/dir buttons and hold timers while broken
+       (and not in maintenance). */
+    advance_broken_time =
+        PRE
+            cabin_broken = TRUE &
+            maintenance_mode = FALSE &
+            (
+                button_press : ran(button_floor_press) or
+                button_press : ran(button_dir_press)
+            )
+        THEN
+            release_floor_and_dir_buttons ||
+            reset_all_button_timers
         END;
         
     
@@ -228,6 +249,7 @@ OPERATIONS
             stop_at_next_floor_requested = FALSE &
             (internal_requests \/ up_requests \/ down_requests) /= {} &
             curr_state = rest &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             exceeds_capacity = FALSE
         THEN
@@ -326,6 +348,15 @@ OPERATIONS
             remove_cabin_weight(ww)
         END;
 
+    zero_weight =
+        PRE
+            curr_weight > 0 &
+            curr_state = rest &
+            door_state = door_open
+        THEN
+            zero_cabin_weight
+        END;
+
     /* HLR-008: maintenance cycle. The key can be inserted at any time; the
        cabin must be stopped before maintenance mode is entered. */
     insert_key_event =
@@ -339,9 +370,11 @@ OPERATIONS
         PRE
             key_inserted = TRUE &
             maintenance_mode = FALSE &
-            curr_state = rest
+            curr_state = rest &
+            door_state = door_open
         THEN
             enter_maintenance_mode ||
+            reset_all_button_timers ||
             floor_button_unprocessed := {} ||
             dir_button_unprocessed := {}
         END;
@@ -363,6 +396,8 @@ OPERATIONS
         THEN
             IF maintenance_mode = TRUE THEN
                 press_floor_button_and_blink_off(ffloor)
+            ELSIF cabin_broken = TRUE THEN
+                press_floor_button(ffloor)
             ELSE
                 press_floor_button(ffloor) ||
                 floor_button_unprocessed := floor_button_unprocessed \/ {ffloor}
@@ -375,6 +410,7 @@ OPERATIONS
             ffloor : FLOORS &
             button_floor_press(ffloor) = button_press &
             button_floor_timer(ffloor) /= BUTTON_HOLD_LIMIT &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             ffloor : floor_button_unprocessed &
 			exceeds_capacity = FALSE
@@ -387,7 +423,8 @@ OPERATIONS
         PRE
             ffloor : FLOORS &
             ffloor /: floor_button_unprocessed &
-            button_floor_press(ffloor) = button_press 
+            button_floor_press(ffloor) = button_press &
+            (cabin_broken = FALSE or maintenance_mode = TRUE)
             
         THEN
             release_floor_button(ffloor) ||
@@ -402,6 +439,8 @@ OPERATIONS
         THEN
             IF maintenance_mode = TRUE THEN
                 press_dir_button_and_blink_off(ffloor, button_dir_up)
+            ELSIF cabin_broken = TRUE THEN
+                press_dir_button(ffloor, button_dir_up)
             ELSE
                 press_dir_button(ffloor, button_dir_up) ||
                 dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_up)}
@@ -413,6 +452,7 @@ OPERATIONS
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
             button_dir_press(ffloor, button_dir_up) = button_press &
             button_dir_timer(ffloor, button_dir_up) /= BUTTON_HOLD_LIMIT &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             (ffloor |-> button_dir_up) : dir_button_unprocessed
         THEN
@@ -424,7 +464,8 @@ OPERATIONS
         PRE
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
             (ffloor |-> button_dir_up) /: dir_button_unprocessed &
-            button_dir_press(ffloor, button_dir_up) = button_press
+            button_dir_press(ffloor, button_dir_up) = button_press &
+            (cabin_broken = FALSE or maintenance_mode = TRUE)
         THEN
             release_dir_button(ffloor, button_dir_up) ||
             reset_button_dir_timer(ffloor, button_dir_up)
@@ -438,6 +479,8 @@ OPERATIONS
         THEN
             IF maintenance_mode = TRUE THEN
                 press_dir_button_and_blink_off(ffloor, button_dir_down)
+            ELSIF cabin_broken = TRUE THEN
+                press_dir_button(ffloor, button_dir_down)
             ELSE
                 press_dir_button(ffloor, button_dir_down) ||
                 dir_button_unprocessed := dir_button_unprocessed \/ {(ffloor |-> button_dir_down)}
@@ -449,6 +492,7 @@ OPERATIONS
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
             button_dir_press(ffloor, button_dir_down) = button_press &
             button_dir_timer(ffloor, button_dir_down) /= BUTTON_HOLD_LIMIT &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             (ffloor |-> button_dir_down) : dir_button_unprocessed
         THEN
@@ -460,7 +504,8 @@ OPERATIONS
         PRE
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
             (ffloor |-> button_dir_down) /: dir_button_unprocessed &
-            button_dir_press(ffloor, button_dir_down) = button_press
+            button_dir_press(ffloor, button_dir_down) = button_press &
+            (cabin_broken = FALSE or maintenance_mode = TRUE)
         THEN
             release_dir_button(ffloor, button_dir_down) ||
             reset_button_dir_timer(ffloor, button_dir_down)
@@ -472,6 +517,7 @@ OPERATIONS
             ffloor : FLOORS &
             button_floor_timer(ffloor) = BUTTON_HOLD_LIMIT &
             button_floor_press(ffloor) = button_press &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             ffloor : internal_requests &
             card(internal_requests) > 1 &
@@ -487,6 +533,7 @@ OPERATIONS
         PRE
             ffloor : FLOORS &
             button_floor_timer(ffloor) = BUTTON_HOLD_LIMIT &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             ffloor : internal_requests &
             card(internal_requests) = 1 &
@@ -504,6 +551,7 @@ OPERATIONS
             ffloor : MIN_FLOOR..(MAX_FLOOR - 1) &
             button_dir_timer(ffloor, button_dir_up) = BUTTON_HOLD_LIMIT &
             button_dir_press(ffloor, button_dir_up) = button_press &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             ffloor : up_requests &
             (ffloor |-> button_dir_up) : dir_button_unprocessed
@@ -519,6 +567,7 @@ OPERATIONS
             ffloor : (MIN_FLOOR + 1)..MAX_FLOOR &
             button_dir_timer(ffloor, button_dir_down) = BUTTON_HOLD_LIMIT &
             button_dir_press(ffloor, button_dir_down) = button_press &
+            cabin_broken = FALSE &
             maintenance_mode = FALSE &
             ffloor : down_requests &
             (ffloor |-> button_dir_down) : dir_button_unprocessed
@@ -567,6 +616,7 @@ OPERATIONS
     open_door_automatically =
         PRE
             curr_state = rest &
+            maintenance_mode = FALSE &
             door_state = door_closed &
             door_state_changed = FALSE
         THEN
@@ -576,6 +626,7 @@ OPERATIONS
 
     close_door_automatically =
         PRE
+            maintenance_mode = FALSE &
             door_state = door_open &
             door_state_changed = FALSE
         THEN

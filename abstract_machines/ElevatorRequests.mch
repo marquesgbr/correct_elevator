@@ -44,10 +44,13 @@ PROMOTES
 	complete_floor_led_blink,
 	complete_floor_led_blink_and_keep_on,
 	complete_floor_blink_on_and_show_broken,
+	step_floor_blink_on,
+	step_floor_blink_on_and_show_broken,
 	complete_dir_led_blink,
 
 	all_leds_off,
 	clear_all_buttons,
+	release_floor_and_dir_buttons,
 
 	set_panel_floor,
 	set_panel_direction,

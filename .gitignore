@@ -5,8 +5,13 @@ abstract_machines/.project
 abstract_machines/.lib
 abstract_machines/.usedby_*
 abstract_machines/AtelierB
-abstract_machines/bdp/
-abstract_machines/lang/
 
 *bdp/
 *lang/
+*AtelierB
+*.usedby_*
+*.lib
+*.project
+*.prob
+*.prob2project
+
